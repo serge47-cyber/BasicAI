@@ -1,162 +1,116 @@
-const lessons = [
-  {
-    id: "start",
-    level: 1,
-    icon: "1",
-    title: "Що таке штучний інтелект",
-    summary:
-      "Пояснюємо ШІ як помічника, який знаходить закономірності, пише тексти, аналізує зображення та допомагає з ідеями.",
-    task: "Складіть одне просте питання до ШІ про побутову справу.",
-    quiz: {
-      question: "Що найкраще описує сучасний ШІ?",
-      options: [
-        "Інструмент, який допомагає створювати й аналізувати інформацію",
-        "Людина всередині комп'ютера",
-        "Програма, якій можна без перевірки довіряти все"
-      ],
-      answer: 0
-    }
-  },
-  {
-    id: "prompt",
-    level: 2,
-    icon: "2",
-    title: "Як ставити добрі запитання",
-    summary:
-      "Вчимося писати запити: роль, завдання, контекст, формат відповіді та обмеження.",
-    task: "Попросіть ШІ пояснити складну тему простими словами для дитини.",
-    quiz: {
-      question: "Який запит зазвичай корисніший?",
-      options: [
-        "Напиши щось про здоров'я",
-        "Поясни, як підготуватися до візиту лікаря: коротко, списком, без діагнозів",
-        "Зроби правильно"
-      ],
-      answer: 1
-    }
-  },
-  {
-    id: "safety",
-    level: 3,
-    icon: "3",
-    title: "Безпека та перевірка фактів",
-    summary:
-      "Розбираємо, коли треба перевіряти відповідь, чому не варто вводити приватні дані та як помічати помилки.",
-    task: "Знайдіть у відповіді ШІ факт, який потрібно перевірити в надійному джерелі.",
-    quiz: {
-      question: "Що робити з важливою медичною або фінансовою порадою від ШІ?",
-      options: [
-        "Одразу виконати",
-        "Попросити ще красивішу відповідь",
-        "Перевірити в фахівця або офіційному джерелі"
-      ],
-      answer: 2
-    }
-  },
-  {
-    id: "models",
-    level: 4,
-    icon: "4",
-    title: "Які бувають універсальні моделі",
-    summary:
-      "Оглядаємо популярні сімейства: GPT, Claude, Gemini, Llama, Mistral, Copilot та інші інструменти.",
-    task: "Оберіть модель для написання листа, пошуку ідей або пояснення зображення.",
-    quiz: {
-      question: "Чому корисно знати кілька AI-сервісів?",
-      options: [
-        "Різні моделі мають різні сильні сторони та доступність",
-        "Одна назва завжди означає найкращу відповідь",
-        "Щоб ніколи не перевіряти результат"
-      ],
-      answer: 0
-    }
-  }
-];
+const storageKey = "basicai-progress-v2";
+const promptKey = "basicai-prompt-count";
 
-const modelFamilies = [
-  {
-    name: "OpenAI GPT",
-    note: "Сильні універсальні моделі для тексту, коду, аналізу, зображень і голосових сценаріїв.",
-    use: "Добре підходить для пояснень, чернеток, навчання, планування та роботи з документами."
-  },
-  {
-    name: "Anthropic Claude",
-    note: "Універсальні моделі з акцентом на уважну роботу з довгими текстами та безпечні відповіді.",
-    use: "Зручно для читання великих матеріалів, редагування, порівняння та спокійних пояснень."
-  },
-  {
-    name: "Google Gemini",
-    note: "Моделі для тексту, зображень, відео, коду та інтеграції з екосистемою Google.",
-    use: "Корисно для мультимодальних завдань, пошуку ідей, навчання та роботи з візуальним контентом."
-  },
-  {
-    name: "Meta Llama",
-    note: "Відкрите сімейство моделей, яке часто використовують розробники та освітні проєкти.",
-    use: "Підходить для локальних експериментів, досліджень і рішень, де важливий контроль над системою."
-  },
-  {
-    name: "Mistral AI",
-    note: "Європейські універсальні та спеціалізовані моделі для тексту, коду й агентних завдань.",
-    use: "Цікавий вибір для бізнес-процесів, багатомовних задач і розробницьких сценаріїв."
-  },
-  {
-    name: "Microsoft Copilot",
-    note: "AI-помічник у продуктах Microsoft, який поєднує моделі з роботою в офісних інструментах.",
-    use: "Допомагає з листами, презентаціями, таблицями, нотатками та робочими підсумками."
-  }
-];
-
-const scenarios = [
-  {
-    title: "Лист до установи",
-    text: "Учень просить ШІ скласти ввічливий лист до школи або сервісного центру, а потім разом із дорослим перевіряє факти, імена та дати."
-  },
-  {
-    title: "Пояснення для онука",
-    text: "Бабуся питає: 'Поясни, що таке хмарне сховище, як для 10-річної дитини, з прикладом про фото'."
-  },
-  {
-    title: "План без перевантаження",
-    text: "Користувач просить ШІ скласти м'який план вивчення смартфона на 7 днів, по 15 хвилин щодня."
-  },
-  {
-    title: "Творча історія",
-    text: "Дитина вигадує героя, а ШІ допомагає створити коротку казку, де герой вчиться перевіряти інформацію."
-  }
-];
-
-const storageKey = "basicai-progress";
-let currentLesson = getProgress();
-let scenarioIndex = 0;
+const state = {
+  content: null,
+  currentLesson: getStoredNumber(storageKey, 1),
+  promptCount: getStoredNumber(promptKey, 0),
+  activeLesson: null,
+  activeQuiz: null,
+  scenarioIndex: 0
+};
 
 const lessonList = document.querySelector("#lesson-list");
 const modelGrid = document.querySelector("#model-grid");
+const mistakeList = document.querySelector("#mistake-list");
 const quizTitle = document.querySelector("#quiz-title");
 const quizBody = document.querySelector("#quiz-body");
 const quizFeedback = document.querySelector("#quiz-feedback");
 const progressText = document.querySelector("#progress-text");
+const badgeList = document.querySelector("#badge-list");
 const continueLink = document.querySelector("#continue-link");
 const scenarioTitle = document.querySelector("#scenario-title");
 const scenarioText = document.querySelector("#scenario-text");
+const promptOutput = document.querySelector("#prompt-output");
 
-function getProgress() {
-  const stored = Number(localStorage.getItem(storageKey));
-  return Number.isInteger(stored) && stored > 0 ? stored : 1;
+init();
+
+async function init() {
+  try {
+    const response = await fetch("data/content.json");
+    state.content = await response.json();
+  } catch (error) {
+    showLoadError(error);
+    return;
+  }
+
+  state.currentLesson = clamp(state.currentLesson, 1, state.content.lessons.length);
+  state.activeLesson = state.content.lessons[Math.max(0, state.currentLesson - 1)];
+
+  renderLessons();
+  renderModels();
+  renderMistakes();
+  renderQuiz(state.activeLesson);
+  renderProgress();
+  renderScenario();
+  renderPrompt();
+  bindEvents();
+  registerServiceWorker();
 }
 
-function saveProgress(level) {
-  currentLesson = Math.max(currentLesson, level);
-  localStorage.setItem(storageKey, String(currentLesson));
-  renderProgress();
-  renderLessons();
+function getStoredNumber(key, fallback) {
+  const value = Number(localStorage.getItem(key));
+  return Number.isInteger(value) && value > 0 ? value : fallback;
+}
+
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function showLoadError(error) {
+  lessonList.innerHTML = `
+    <article class="lesson-card">
+      <h3>Не вдалося завантажити контент</h3>
+      <p>Запустіть сайт через локальний сервер або GitHub Pages, щоб браузер міг прочитати data/content.json.</p>
+      <p class="small-note">${error.message}</p>
+    </article>
+  `;
+}
+
+function bindEvents() {
+  document.querySelector("#next-scenario").addEventListener("click", () => {
+    state.scenarioIndex = (state.scenarioIndex + 1) % state.content.scenarios.length;
+    renderScenario();
+  });
+
+  document.querySelector("#reset-progress").addEventListener("click", () => {
+    localStorage.removeItem(storageKey);
+    localStorage.removeItem(promptKey);
+    state.currentLesson = 1;
+    state.promptCount = 0;
+    state.activeLesson = state.content.lessons[0];
+    renderLessons();
+    renderQuiz(state.activeLesson);
+    renderProgress();
+    renderPrompt();
+  });
+
+  document.querySelector("#prompt-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    state.promptCount += 1;
+    localStorage.setItem(promptKey, String(state.promptCount));
+    renderPrompt();
+    renderProgress();
+  });
+
+  document.querySelector("#improve-prompt").addEventListener("click", () => {
+    const goal = document.querySelector("#goal-input");
+    goal.value = `${goal.value}; додай приклад, попередження про ризики і короткий тест`;
+    state.promptCount += 1;
+    localStorage.setItem(promptKey, String(state.promptCount));
+    renderPrompt();
+    renderProgress();
+  });
+
+  document.querySelector("#copy-prompt").addEventListener("click", copyPrompt);
 }
 
 function renderLessons() {
   lessonList.innerHTML = "";
 
-  lessons.forEach((lesson) => {
-    const isUnlocked = lesson.level <= currentLesson;
-    const isDone = lesson.level < currentLesson;
+  state.content.lessons.forEach((lesson) => {
+    const isUnlocked = lesson.level <= state.currentLesson;
+    const isDone = lesson.level < state.currentLesson;
     const card = document.createElement("article");
     card.className = `lesson-card${isUnlocked ? "" : " locked"}`;
     card.id = `lesson-${lesson.id}`;
@@ -165,14 +119,17 @@ function renderLessons() {
       <div class="lesson-illustration" aria-hidden="true">${lesson.icon}</div>
       <span class="status-pill">${isDone ? "Пройдено" : isUnlocked ? "Доступно" : "Відкриється пізніше"}</span>
       <h3>${lesson.title}</h3>
+      <p><strong>Ціль:</strong> ${lesson.goal}</p>
       <p>${lesson.summary}</p>
-      <p><strong>Міні-дія:</strong> ${lesson.task}</p>
+      <div class="prompt-sample"><strong>Промпт:</strong> ${lesson.prompt}</div>
+      <p><strong>Практика:</strong> ${lesson.task}</p>
       <button class="button ${isUnlocked ? "primary" : "secondary"}" type="button" ${isUnlocked ? "" : "disabled"}>
-        ${isDone ? "Повторити" : "Відкрити рівень"}
+        ${isDone ? "Повторити рівень" : "Відкрити рівень"}
       </button>
     `;
 
     card.querySelector("button").addEventListener("click", () => {
+      state.activeLesson = lesson;
       renderQuiz(lesson);
       document.querySelector("#quiz-card").scrollIntoView({ behavior: "smooth", block: "start" });
     });
@@ -184,82 +141,151 @@ function renderLessons() {
 function renderModels() {
   modelGrid.innerHTML = "";
 
-  modelFamilies.forEach((model) => {
+  state.content.models.forEach((model) => {
     const card = document.createElement("article");
     card.className = "model-card";
     card.innerHTML = `
       <h3>${model.name}</h3>
-      <p>${model.note}</p>
-      <p><strong>Де пробувати:</strong> ${model.use}</p>
+      <p><strong>Сильні сторони:</strong> ${model.strengths}</p>
+      <p><strong>Де доречно:</strong> ${model.bestFor}</p>
+      <p><strong>Уважно:</strong> ${model.cautions}</p>
+      <div class="prompt-sample"><strong>Приклад промпта:</strong> ${model.prompt}</div>
+      <a class="text-link" href="${model.link}" target="_blank" rel="noreferrer">Офіційна сторінка</a>
     `;
     modelGrid.append(card);
   });
 }
 
-function renderQuiz(lesson = lessons[Math.max(0, currentLesson - 1)]) {
+function renderMistakes() {
+  mistakeList.innerHTML = "";
+
+  state.content.mistakes.forEach((item) => {
+    const card = document.createElement("article");
+    card.className = "mistake-card";
+    card.innerHTML = `
+      <h3>${item.title}</h3>
+      <p><strong>Кейс:</strong> ${item.case}</p>
+      <p><strong>Що вчимо:</strong> ${item.lesson}</p>
+    `;
+    mistakeList.append(card);
+  });
+}
+
+function renderQuiz(lesson) {
+  const quiz = pickRandom(lesson.quiz);
+  const options = shuffleOptions(quiz.options, quiz.answer);
+  state.activeQuiz = { lesson, quiz, options };
   quizFeedback.textContent = "";
   quizTitle.textContent = `Рівень ${lesson.level}: ${lesson.title}`;
   quizBody.innerHTML = `
-    <p>${lesson.quiz.question}</p>
+    <p>${quiz.question}</p>
     <div class="quiz-options"></div>
   `;
 
-  const options = quizBody.querySelector(".quiz-options");
-  lesson.quiz.options.forEach((option, index) => {
+  const optionBox = quizBody.querySelector(".quiz-options");
+  options.forEach((option) => {
     const button = document.createElement("button");
     button.type = "button";
-    button.textContent = option;
-    button.addEventListener("click", () => checkAnswer(button, index, lesson));
-    options.append(button);
+    button.textContent = option.text;
+    button.addEventListener("click", () => checkAnswer(button, option.isCorrect));
+    optionBox.append(button);
   });
 }
 
-function checkAnswer(button, selected, lesson) {
+function pickRandom(items) {
+  return items[Math.floor(Math.random() * items.length)];
+}
+
+function shuffleOptions(options, answerIndex) {
+  return options
+    .map((text, index) => ({ text, isCorrect: index === answerIndex }))
+    .sort(() => Math.random() - 0.5);
+}
+
+function checkAnswer(button, isCorrect) {
   const buttons = quizBody.querySelectorAll("button");
   buttons.forEach((item) => {
     item.disabled = true;
+    const option = state.activeQuiz.options.find((entry) => entry.text === item.textContent);
+    if (option?.isCorrect) {
+      item.classList.add("correct");
+    }
   });
 
-  if (selected === lesson.quiz.answer) {
+  if (isCorrect) {
     button.classList.add("correct");
-    quizFeedback.textContent = "Правильно. Рівень зараховано, можна рухатися далі.";
-    saveProgress(lesson.level + 1);
+    quizFeedback.textContent = "Правильно. Рівень зараховано, +10 балів.";
+    saveProgress(state.activeQuiz.lesson.level + 1);
   } else {
     button.classList.add("wrong");
-    buttons[lesson.quiz.answer].classList.add("correct");
-    quizFeedback.textContent = "Майже. Подивіться правильну відповідь і спробуйте рівень ще раз.";
+    quizFeedback.textContent = "Майже. Подивіться правильну відповідь і повторіть рівень.";
   }
 }
 
+function saveProgress(level) {
+  state.currentLesson = Math.min(Math.max(state.currentLesson, level), state.content.lessons.length);
+  localStorage.setItem(storageKey, String(state.currentLesson));
+  renderLessons();
+  renderProgress();
+}
+
 function renderProgress() {
-  const completed = Math.max(0, currentLesson - 1);
-  const cappedCompleted = Math.min(completed, lessons.length);
-  const nextLesson = lessons[Math.min(currentLesson - 1, lessons.length - 1)];
-  progressText.textContent = `Пройдено рівнів: ${cappedCompleted} з ${lessons.length}. Наступний крок: ${nextLesson.title}.`;
+  const completed = Math.min(Math.max(0, state.currentLesson - 1), state.content.lessons.length);
+  const score = completed * 10 + Math.min(state.promptCount, 10) * 2;
+  const nextLesson = state.content.lessons[Math.min(state.currentLesson - 1, state.content.lessons.length - 1)];
+  progressText.textContent = `Пройдено рівнів: ${completed} з ${state.content.lessons.length}. Балів: ${score}. Prompt-lab використано: ${state.promptCount}. Наступний крок: ${nextLesson.title}.`;
   continueLink.href = `#lesson-${nextLesson.id}`;
+  renderBadges(completed);
+}
+
+function renderBadges(completed) {
+  const earned = state.content.badges.filter((badge) => completed >= badge.minCompleted);
+  badgeList.innerHTML = "";
+
+  if (earned.length === 0) {
+    badgeList.innerHTML = '<span class="badge muted-badge">Бейджі відкриються після першого рівня</span>';
+    return;
+  }
+
+  earned.forEach((badge) => {
+    const item = document.createElement("span");
+    item.className = "badge";
+    item.textContent = badge.title;
+    badgeList.append(item);
+  });
 }
 
 function renderScenario() {
-  const scenario = scenarios[scenarioIndex];
+  const scenario = state.content.scenarios[state.scenarioIndex];
   scenarioTitle.textContent = scenario.title;
   scenarioText.textContent = scenario.text;
 }
 
-document.querySelector("#next-scenario").addEventListener("click", () => {
-  scenarioIndex = (scenarioIndex + 1) % scenarios.length;
-  renderScenario();
-});
+function renderPrompt() {
+  const audience = document.querySelector("#audience-select").value;
+  const goal = document.querySelector("#goal-input").value.trim();
+  const format = document.querySelector("#format-select").value;
+  const lessonHint = state.activeLesson?.title || "основи штучного інтелекту";
 
-document.querySelector("#reset-progress").addEventListener("click", () => {
-  localStorage.removeItem(storageKey);
-  currentLesson = 1;
-  renderProgress();
-  renderLessons();
-  renderQuiz(lessons[0]);
-});
+  promptOutput.textContent = `Ти терплячий AI-наставник. Допоможи ${audience} ${goal}. Пояснюй без поспіху, на прикладі з життя. Тема уроку: "${lessonHint}". Дай відповідь ${format}. Наприкінці додай: 1) що треба перевірити, 2) які приватні дані не вводити, 3) одне питання для самоперевірки.`;
+}
 
-renderLessons();
-renderModels();
-renderQuiz();
-renderProgress();
-renderScenario();
+async function copyPrompt() {
+  const text = promptOutput.textContent.trim();
+  if (!text) return;
+
+  try {
+    await navigator.clipboard.writeText(text);
+    quizFeedback.textContent = "Промпт скопійовано. Можна вставити його в AI-сервіс і перевірити відповідь.";
+  } catch {
+    quizFeedback.textContent = "Скопіюйте промпт вручну з блоку Prompt-lab.";
+  }
+}
+
+function registerServiceWorker() {
+  if (!("serviceWorker" in navigator)) return;
+
+  navigator.serviceWorker.register("sw.js").catch(() => {
+    // Offline mode is optional; the site still works as a normal static page.
+  });
+}

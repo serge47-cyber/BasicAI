@@ -8,7 +8,16 @@
       content="BasicAI - інтерактивний посібник з основ штучного інтелекту для дітей та людей старшого віку."
     />
     <meta name="theme-color" content="#196c75" />
+    <meta property="og:title" content="BasicAI - просте знайомство зі штучним інтелектом" />
+    <meta
+      property="og:description"
+      content="Уроки, майстер запитів, приклади помилок ШІ, тести, бали й прогрес для початківців."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="icons/icon.svg" />
+    <meta name="twitter:card" content="summary" />
     <title>BasicAI | Інтерактивний посібник</title>
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -24,7 +33,7 @@
 
       <nav class="top-nav" aria-label="Головна навігація">
         <a href="#lessons">Уроки</a>
-        <a href="#lab">Промпти</a>
+        <a href="#lab">Запити</a>
         <a href="#models">Моделі</a>
         <a href="#mistakes">Помилки</a>
         <a href="#progress">Прогрес</a>
@@ -38,12 +47,12 @@
           <h1>Опануйте ШІ через вправи, сценарії, промпти й перевірку розуміння.</h1>
           <p>
             BasicAI виріс із простого прототипу в навчальний маршрут: рівні
-            відкриваються послідовно, тести щоразу перемішуються, а prompt-lab
-            допомагає створити корисний запит без реального API-ключа.
+            відкриваються послідовно, тести щоразу перемішуються, а майстер
+            запитів допомагає створити корисне питання до ШІ без складних налаштувань.
           </p>
           <div class="hero-actions">
             <a class="button primary" href="#lessons">Почати навчання</a>
-            <a class="button secondary" href="#lab">Спробувати промпт</a>
+            <a class="button secondary" href="#lab">Скласти запит</a>
           </div>
         </div>
         <div class="hero-art" aria-label="Ілюстрація навчання з ШІ" role="img">
@@ -64,10 +73,35 @@
 
       <section class="quick-links" aria-label="Швидкі посилання">
         <a href="#lesson-list">Маршрут рівнів</a>
-        <a href="#prompt-builder">Prompt-lab</a>
+        <a href="#how-it-works">Як це працює</a>
+        <a href="#prompt-builder">Майстер запитів</a>
         <a href="#model-grid">Порівняння моделей</a>
         <a href="#mistake-list">Кейси помилок</a>
         <a href="#quiz-card">Перевірка знань</a>
+      </section>
+
+      <section id="how-it-works" class="onboarding-band">
+        <div class="section-heading">
+          <p class="eyebrow">Як це працює</p>
+          <h2>Три прості правила навчання</h2>
+        </div>
+        <div class="step-grid">
+          <article>
+            <span>1</span>
+            <h3>Читайте рівень</h3>
+            <p>У кожному рівні є пояснення, приклад запиту до ШІ та маленька практична дія.</p>
+          </article>
+          <article>
+            <span>2</span>
+            <h3>Проходьте тест</h3>
+            <p>Правильна відповідь відкриває наступний рівень. Якщо помилилися, можна повторити.</p>
+          </article>
+          <article>
+            <span>3</span>
+            <h3>Повертаєтесь пізніше</h3>
+            <p>Сайт запам'ятовує прогрес у цьому браузері. Якщо очистити дані браузера, прогрес зникне.</p>
+          </article>
+        </div>
       </section>
 
       <section id="lessons" class="content-band">
@@ -75,17 +109,22 @@
           <p class="eyebrow">Методика</p>
           <h2>Рівні з практикою, а не тільки з поясненням</h2>
           <p>
-            Кожен рівень має ціль, приклад промпта, hands-on завдання та тест.
-            Контент лежить у `data/content.json`, тому нові модулі додаються без
+            Кожен рівень має ціль, приклад запиту, практичне завдання та тест.
+            Навчальні матеріали лежать у файлі даних, тому нові модулі додаються без
             переробки інтерфейсу.
           </p>
         </div>
-        <div id="lesson-list" class="lesson-grid" aria-live="polite"></div>
+        <div id="lesson-list" class="lesson-grid" aria-live="polite">
+          <article class="lesson-card loading-card">
+            <h3>Завантажуємо уроки</h3>
+            <p>Якщо цей текст не зникає, відкрийте сайт через GitHub Pages або локальний сервер.</p>
+          </article>
+        </div>
       </section>
 
       <section id="lab" class="split-band lab-band">
         <article id="prompt-builder" class="practice-panel">
-          <p class="eyebrow">Prompt-lab</p>
+          <p class="eyebrow">Майстер запитів</p>
           <h2>Зберіть запит за 30 секунд</h2>
           <form id="prompt-form" class="prompt-form">
             <label>
@@ -108,21 +147,23 @@
                 <option value="простою історією і висновком">Історія</option>
               </select>
             </label>
-            <button class="button primary" type="submit">Згенерувати промпт</button>
+            <button class="button primary" type="submit">Скласти запит</button>
           </form>
         </article>
 
         <article class="practice-panel">
           <p class="eyebrow">Симулятор</p>
-          <h2>Готовий промпт</h2>
-          <div id="prompt-output" class="prompt-output" aria-live="polite"></div>
+          <h2>Готовий запит</h2>
+          <div id="prompt-output" class="prompt-output" aria-live="polite">
+            Після завантаження тут з'явиться готовий текст, який можна вставити у ШІ-сервіс.
+          </div>
           <div class="hero-actions">
             <button id="copy-prompt" class="button secondary" type="button">Скопіювати</button>
             <button id="improve-prompt" class="button secondary" type="button">Уточнити</button>
           </div>
           <p class="small-note">
             Це безпечна симуляція без надсилання даних у зовнішній AI-сервіс. Реальну
-            API-інтеграцію краще додавати через сервер, щоб не показувати ключ у браузері.
+            інтеграцію з ШІ краще додавати через сервер, щоб не показувати секретний ключ у браузері.
           </p>
         </article>
       </section>
@@ -136,7 +177,12 @@
             промптів та посилання на офіційні сторінки для оновлення матеріалу.
           </p>
         </div>
-        <div id="model-grid" class="model-grid"></div>
+        <div id="model-grid" class="model-grid">
+          <article class="model-card loading-card">
+            <h3>Завантажуємо картки моделей</h3>
+            <p>Тут будуть сильні сторони, ризики, приклади запитів і офіційні посилання.</p>
+          </article>
+        </div>
       </section>
 
       <section id="mistakes" class="content-band">
@@ -148,21 +194,28 @@
             дати, давати небезпечні поради або надто впевнено відповідати.
           </p>
         </div>
-        <div id="mistake-list" class="mistake-grid"></div>
+        <div id="mistake-list" class="mistake-grid">
+          <article class="mistake-card loading-card">
+            <h3>Завантажуємо кейси</h3>
+            <p>Тут з'являться приклади типових помилок ШІ та способи їх перевірки.</p>
+          </article>
+        </div>
       </section>
 
       <section id="practice" class="split-band">
         <article id="scenario-card" class="practice-panel">
           <p class="eyebrow">Сценарій</p>
           <h2 id="scenario-title">Сімейний помічник</h2>
-          <p id="scenario-text"></p>
+          <p id="scenario-text">Завантажуємо навчальний сценарій із файлу даних.</p>
           <button id="next-scenario" class="button secondary" type="button">Інший сценарій</button>
         </article>
 
         <article id="quiz-card" class="practice-panel">
-          <p class="eyebrow">Рандомізований тест</p>
+          <p class="eyebrow">Тест із перемішаними відповідями</p>
           <h2 id="quiz-title">Перевірка рівня</h2>
-          <div id="quiz-body"></div>
+          <div id="quiz-body">
+            <p>Після завантаження уроків тут буде питання для самоперевірки.</p>
+          </div>
           <p id="quiz-feedback" class="feedback" aria-live="polite"></p>
         </article>
       </section>
@@ -171,7 +224,11 @@
         <div>
           <p class="eyebrow">Облік досягнень</p>
           <h2>Ваш рівень, бали й бейджі</h2>
-          <p id="progress-text"></p>
+          <p id="progress-text">Прогрес завантажується з цього браузера.</p>
+          <p class="small-note">
+            Прогрес зберігається лише на цьому пристрої у цьому браузері. Якщо очистити
+            дані сайту або відкрити інший браузер, навчання почнеться спочатку.
+          </p>
           <div id="badge-list" class="badge-list" aria-live="polite"></div>
         </div>
         <div class="progress-tools">
@@ -185,13 +242,23 @@
       <nav aria-label="Дубльована навігація">
         <a href="#home">Початок</a>
         <a href="#lessons">Уроки</a>
-        <a href="#lab">Промпти</a>
+        <a href="#lab">Запити</a>
         <a href="#models">Моделі</a>
         <a href="#mistakes">Помилки</a>
         <a href="#progress">Прогрес</a>
       </nav>
-      <p>BasicAI можна розгортати на GitHub Pages як статичний PWA-сайт.</p>
+      <p>BasicAI можна розгортати на GitHub Pages і відкривати як простий навчальний сайт.</p>
     </footer>
+
+    <noscript>
+      <section class="noscript-note">
+        <h2>Потрібен JavaScript</h2>
+        <p>
+          Уроки, тести й прогрес завантажуються з файлу даних. Увімкніть JavaScript,
+          щоб користуватися інтерактивним посібником.
+        </p>
+      </section>
+    </noscript>
 
     <script src="script.js"></script>
   </body>

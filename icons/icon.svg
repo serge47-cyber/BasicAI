@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="BasicAI icon">
+  <rect width="512" height="512" rx="112" fill="#f6f2e8"/>
+  <circle cx="256" cy="256" r="178" fill="#196c75"/>
+  <path d="M166 326l54-146h48l54 146h-41l-9-27h-57l-9 27h-40zm59-59h37l-18-55h-1l-18 55zm114 59V180h39v146h-39z" fill="#ffffff"/>
+  <path d="M144 374h224" stroke="#c75b39" stroke-width="20" stroke-linecap="round"/>
+</svg>

@@ -34,7 +34,7 @@ async function init() {
     return;
   }
 
-  state.currentLesson = clamp(state.currentLesson, 1, state.content.lessons.length);
+  state.currentLesson = clamp(state.currentLesson, 1, state.content.lessons.length + 1);
   state.activeLesson = state.content.lessons[Math.max(0, state.currentLesson - 1)];
 
   renderLessons();
@@ -121,8 +121,9 @@ function renderLessons() {
       <h3>${lesson.title}</h3>
       <p><strong>Ціль:</strong> ${lesson.goal}</p>
       <p>${lesson.summary}</p>
-      <div class="prompt-sample"><strong>Промпт:</strong> ${lesson.prompt}</div>
+      <div class="prompt-sample"><strong>Приклад запиту:</strong> ${lesson.prompt}</div>
       <p><strong>Практика:</strong> ${lesson.task}</p>
+      ${isUnlocked ? "" : '<p class="small-note">Щоб відкрити цей рівень, пройдіть тест попереднього рівня.</p>'}
       <button class="button ${isUnlocked ? "primary" : "secondary"}" type="button" ${isUnlocked ? "" : "disabled"}>
         ${isDone ? "Повторити рівень" : "Відкрити рівень"}
       </button>
@@ -149,7 +150,7 @@ function renderModels() {
       <p><strong>Сильні сторони:</strong> ${model.strengths}</p>
       <p><strong>Де доречно:</strong> ${model.bestFor}</p>
       <p><strong>Уважно:</strong> ${model.cautions}</p>
-      <div class="prompt-sample"><strong>Приклад промпта:</strong> ${model.prompt}</div>
+      <div class="prompt-sample"><strong>Приклад запиту:</strong> ${model.prompt}</div>
       <a class="text-link" href="${model.link}" target="_blank" rel="noreferrer">Офіційна сторінка</a>
     `;
     modelGrid.append(card);
@@ -223,7 +224,7 @@ function checkAnswer(button, isCorrect) {
 }
 
 function saveProgress(level) {
-  state.currentLesson = Math.min(Math.max(state.currentLesson, level), state.content.lessons.length);
+  state.currentLesson = clamp(Math.max(state.currentLesson, level), 1, state.content.lessons.length + 1);
   localStorage.setItem(storageKey, String(state.currentLesson));
   renderLessons();
   renderProgress();
@@ -232,8 +233,12 @@ function saveProgress(level) {
 function renderProgress() {
   const completed = Math.min(Math.max(0, state.currentLesson - 1), state.content.lessons.length);
   const score = completed * 10 + Math.min(state.promptCount, 10) * 2;
+  const isFinished = completed >= state.content.lessons.length;
   const nextLesson = state.content.lessons[Math.min(state.currentLesson - 1, state.content.lessons.length - 1)];
-  progressText.textContent = `Пройдено рівнів: ${completed} з ${state.content.lessons.length}. Балів: ${score}. Prompt-lab використано: ${state.promptCount}. Наступний крок: ${nextLesson.title}.`;
+  const nextText = isFinished
+    ? "Маршрут завершено. Можна повторювати рівні або додавати нові."
+    : `Наступний крок: ${nextLesson.title}.`;
+  progressText.textContent = `Пройдено рівнів: ${completed} з ${state.content.lessons.length}. Балів: ${score}. Майстер запитів використано: ${state.promptCount}. ${nextText}`;
   continueLink.href = `#lesson-${nextLesson.id}`;
   renderBadges(completed);
 }
@@ -276,9 +281,9 @@ async function copyPrompt() {
 
   try {
     await navigator.clipboard.writeText(text);
-    quizFeedback.textContent = "Промпт скопійовано. Можна вставити його в AI-сервіс і перевірити відповідь.";
+    quizFeedback.textContent = "Запит скопійовано. Можна вставити його в AI-сервіс і перевірити відповідь.";
   } catch {
-    quizFeedback.textContent = "Скопіюйте промпт вручну з блоку Prompt-lab.";
+    quizFeedback.textContent = "Скопіюйте запит вручну з блоку майстра запитів.";
   }
 }
 

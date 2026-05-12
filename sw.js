@@ -1,11 +1,13 @@
-const cacheName = "basicai-v2";
+const cacheName = "basicai-v3";
 const assets = [
   "./",
   "./index.html",
   "./styles.css",
   "./script.js",
   "./data/content.json",
-  "./manifest.webmanifest"
+  "./manifest.webmanifest",
+  "./icons/icon.svg",
+  "./icons/maskable.svg"
 ];
 
 self.addEventListener("install", (event) => {
@@ -23,6 +25,12 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
+    fetch(event.request)
+      .then((response) => {
+        const copy = response.clone();
+        caches.open(cacheName).then((cache) => cache.put(event.request, copy));
+        return response;
+      })
+      .catch(() => caches.match(event.request))
   );
 });

@@ -286,12 +286,17 @@ a {
 
 .content-band,
 .split-band,
-.progress-band {
+.progress-band,
+.onboarding-band {
   padding: clamp(44px, 7vw, 84px) clamp(18px, 5vw, 72px);
 }
 
 .content-band.muted {
   background: #ece9dc;
+}
+
+.onboarding-band {
+  background: var(--soft-green);
 }
 
 .section-heading {
@@ -307,7 +312,8 @@ a {
 
 .lesson-grid,
 .model-grid,
-.mistake-grid {
+.mistake-grid,
+.step-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 18px;
@@ -316,6 +322,7 @@ a {
 .lesson-card,
 .model-card,
 .mistake-card,
+.step-grid article,
 .practice-panel {
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -325,10 +332,22 @@ a {
 
 .lesson-card,
 .model-card,
-.mistake-card {
+.mistake-card,
+.step-grid article {
   display: grid;
   gap: 14px;
   padding: 22px;
+}
+
+.step-grid span {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 900;
 }
 
 .lesson-card.locked {
@@ -357,7 +376,8 @@ a {
 
 .lesson-card h3,
 .model-card h3,
-.mistake-card h3 {
+.mistake-card h3,
+.step-grid h3 {
   margin: 0;
   font-size: 1.35rem;
   line-height: 1.25;
@@ -365,8 +385,14 @@ a {
 
 .lesson-card p,
 .model-card p,
-.mistake-card p {
+.mistake-card p,
+.step-grid p {
   margin: 0;
+}
+
+.loading-card {
+  border-style: dashed;
+  background: rgba(255, 255, 255, 0.62);
 }
 
 .status-pill {
@@ -440,6 +466,14 @@ a {
 .small-note {
   color: var(--muted);
   font-size: 0.92rem;
+}
+
+.noscript-note {
+  margin: 24px clamp(18px, 5vw, 72px);
+  padding: 22px;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  background: #fff;
 }
 
 .quiz-options {

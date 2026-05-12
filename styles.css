@@ -1,0 +1,514 @@
+:root {
+  color-scheme: light;
+  --bg: #f6f2e8;
+  --surface: #fffaf0;
+  --surface-strong: #ffffff;
+  --ink: #1f2a2e;
+  --muted: #59696e;
+  --line: #d7d1c2;
+  --primary: #196c75;
+  --primary-dark: #0d4e57;
+  --accent: #c75b39;
+  --soft-green: #dfeee6;
+  --soft-blue: #dcecf1;
+  --soft-yellow: #f5e7b8;
+  --shadow: 0 18px 48px rgba(50, 43, 31, 0.14);
+  --radius: 8px;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 19px;
+  line-height: 1.58;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 16px clamp(18px, 4vw, 56px);
+  border-bottom: 1px solid rgba(31, 42, 46, 0.12);
+  background: rgba(246, 242, 232, 0.94);
+  backdrop-filter: blur(12px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  font-weight: 800;
+}
+
+.brand strong,
+.brand small {
+  display: block;
+}
+
+.brand small {
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.top-nav,
+.app-footer nav,
+.quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.top-nav a,
+.app-footer a,
+.quick-links a {
+  min-height: 44px;
+  padding: 9px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(320px, 0.94fr);
+  gap: clamp(28px, 5vw, 70px);
+  align-items: center;
+  min-height: calc(100vh - 88px);
+  padding: clamp(42px, 7vw, 92px) clamp(18px, 5vw, 72px) 34px;
+}
+
+.hero h1,
+.section-heading h2,
+.practice-panel h2,
+.progress-band h2 {
+  margin: 0;
+  letter-spacing: 0;
+  line-height: 1.12;
+}
+
+.hero h1 {
+  max-width: 920px;
+  font-size: clamp(2.35rem, 6vw, 5.15rem);
+}
+
+.hero p {
+  max-width: 780px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 12px 18px;
+  border: 2px solid var(--primary);
+  border-radius: var(--radius);
+  font: inherit;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button.primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.button.secondary {
+  background: transparent;
+  color: var(--primary-dark);
+}
+
+.button:disabled,
+.quiz-options button:disabled {
+  cursor: not-allowed;
+}
+
+.hero-actions,
+.progress-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hero-art {
+  position: relative;
+  min-height: 520px;
+  border-radius: 28px;
+  background:
+    linear-gradient(135deg, rgba(25, 108, 117, 0.12), rgba(199, 91, 57, 0.12)),
+    var(--soft-blue);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.screen {
+  position: absolute;
+  top: 64px;
+  left: 50%;
+  width: min(74%, 390px);
+  min-height: 250px;
+  padding: 28px;
+  transform: translateX(-50%);
+  border: 8px solid #244349;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.screen span {
+  display: block;
+  height: 22px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: var(--soft-green);
+}
+
+.screen span:nth-child(2) {
+  width: 72%;
+  background: var(--soft-yellow);
+}
+
+.screen span:nth-child(3) {
+  width: 54%;
+  background: #f1c8ba;
+}
+
+.helper-card {
+  position: absolute;
+  top: 246px;
+  left: 38px;
+  display: flex;
+  gap: 10px;
+  width: 184px;
+  padding: 18px;
+  border: 2px solid rgba(31, 42, 46, 0.2);
+  border-radius: var(--radius);
+  background: var(--surface-strong);
+}
+
+.helper-card span {
+  width: 36px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--soft-green);
+}
+
+.helper-card span:nth-child(2) {
+  background: var(--soft-yellow);
+}
+
+.helper-card span:nth-child(3) {
+  background: #f1c8ba;
+}
+
+.person {
+  position: absolute;
+  bottom: 0;
+  width: 130px;
+  height: 190px;
+  border-radius: 70px 70px 0 0;
+}
+
+.person::before {
+  position: absolute;
+  top: -58px;
+  left: 34px;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background: #f0c7a7;
+  content: "";
+}
+
+.person.one {
+  left: 56px;
+  background: var(--primary);
+}
+
+.person.two {
+  right: 76px;
+  width: 112px;
+  height: 164px;
+  background: var(--accent);
+}
+
+.quick-links {
+  padding: 0 clamp(18px, 5vw, 72px) 38px;
+}
+
+.content-band,
+.split-band,
+.progress-band {
+  padding: clamp(44px, 7vw, 84px) clamp(18px, 5vw, 72px);
+}
+
+.content-band.muted {
+  background: #ece9dc;
+}
+
+.section-heading {
+  max-width: 850px;
+  margin-bottom: 28px;
+}
+
+.section-heading h2,
+.practice-panel h2,
+.progress-band h2 {
+  font-size: clamp(1.85rem, 4vw, 3.2rem);
+}
+
+.lesson-grid,
+.model-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.lesson-card,
+.model-card,
+.practice-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-strong);
+  box-shadow: 0 10px 24px rgba(50, 43, 31, 0.08);
+}
+
+.lesson-card,
+.model-card {
+  display: grid;
+  gap: 14px;
+  padding: 22px;
+}
+
+.lesson-card.locked {
+  opacity: 0.68;
+}
+
+.lesson-illustration {
+  display: grid;
+  width: 84px;
+  height: 84px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--soft-green);
+  color: var(--primary-dark);
+  font-size: 2.1rem;
+  font-weight: 900;
+}
+
+.lesson-card:nth-child(2n) .lesson-illustration {
+  background: var(--soft-blue);
+}
+
+.lesson-card:nth-child(3n) .lesson-illustration {
+  background: var(--soft-yellow);
+}
+
+.lesson-card h3,
+.model-card h3 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.25;
+}
+
+.lesson-card p,
+.model-card p {
+  margin: 0;
+}
+
+.status-pill {
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #edf5f2;
+  color: var(--primary-dark);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.split-band {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+}
+
+.practice-panel {
+  padding: clamp(22px, 4vw, 34px);
+}
+
+.quiz-options {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.quiz-options button {
+  min-height: 54px;
+  padding: 12px 14px;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.quiz-options button.correct {
+  border-color: #25805d;
+  background: #e5f4eb;
+}
+
+.quiz-options button.wrong {
+  border-color: #b84c36;
+  background: #f9e5df;
+}
+
+.feedback {
+  min-height: 34px;
+  color: var(--primary-dark);
+  font-weight: 800;
+}
+
+.progress-band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: var(--soft-green);
+}
+
+.progress-band > div:first-child {
+  max-width: 780px;
+}
+
+.app-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 30px clamp(18px, 5vw, 72px);
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.app-footer p {
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 4px solid rgba(199, 91, 57, 0.45);
+  outline-offset: 3px;
+}
+
+@media (max-width: 860px) {
+  body {
+    font-size: 18px;
+  }
+
+  .app-header,
+  .hero,
+  .split-band,
+  .progress-band {
+    display: block;
+  }
+
+  .top-nav {
+    margin-top: 14px;
+  }
+
+  .hero {
+    min-height: auto;
+  }
+
+  .hero-art {
+    min-height: 430px;
+    margin-top: 28px;
+  }
+
+  .split-band .practice-panel + .practice-panel,
+  .progress-tools {
+    margin-top: 18px;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .brand small {
+    display: none;
+  }
+
+  .top-nav a,
+  .quick-links a,
+  .app-footer a,
+  .button {
+    width: 100%;
+  }
+
+  .hero-art {
+    min-height: 360px;
+  }
+
+  .screen {
+    top: 38px;
+    width: 84%;
+    min-height: 190px;
+  }
+
+  .helper-card {
+    left: 14px;
+    top: 236px;
+    width: 160px;
+  }
+}

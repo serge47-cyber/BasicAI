@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="BasicAI - інтерактивний посібник з основ штучного інтелекту для дітей та людей старшого віку."
+    />
+    <title>BasicAI | Інтерактивний посібник</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="brand" href="#home" aria-label="BasicAI, перейти на початок">
+        <span class="brand-mark">AI</span>
+        <span>
+          <strong>BasicAI</strong>
+          <small>спокійне знайомство зі штучним інтелектом</small>
+        </span>
+      </a>
+
+      <nav class="top-nav" aria-label="Головна навігація">
+        <a href="#lessons">Уроки</a>
+        <a href="#models">Моделі</a>
+        <a href="#practice">Практика</a>
+        <a href="#progress">Прогрес</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Навчання без поспіху</p>
+          <h1>Опануйте ШІ через прості кроки, історії та перевірочні завдання.</h1>
+          <p>
+            Посібник створено для людей старшого віку, дітей і всіх, кому потрібне
+            людяне пояснення без технічного шуму. Сайт запам'ятовує останній
+            відкритий рівень та допомагає йти матеріалами у правильному порядку.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#lessons">Почати навчання</a>
+            <a class="button secondary" href="#progress">Мій прогрес</a>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Ілюстрація навчання з ШІ" role="img">
+          <div class="screen">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="helper-card" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="person one"></div>
+          <div class="person two"></div>
+        </div>
+      </section>
+
+      <section class="quick-links" aria-label="Швидкі посилання">
+        <a href="#lesson-list">Список уроків</a>
+        <a href="#model-grid">Огляд моделей</a>
+        <a href="#quiz-card">Перевірити себе</a>
+        <a href="#scenario-card">Сценарії використання</a>
+      </section>
+
+      <section id="lessons" class="content-band">
+        <div class="section-heading">
+          <p class="eyebrow">Маршрут</p>
+          <h2>Перші навчальні рівні</h2>
+          <p>
+            Кожен рівень має коротке пояснення, життєвий сценарій та перевірку.
+            Нові модулі додаються у файл даних без зміни розмітки.
+          </p>
+        </div>
+        <div id="lesson-list" class="lesson-grid" aria-live="polite"></div>
+      </section>
+
+      <section id="models" class="content-band muted">
+        <div class="section-heading">
+          <p class="eyebrow">Орієнтири</p>
+          <h2>Найпоширеніші універсальні AI-сімейства</h2>
+          <p>
+            Тут не треба запам'ятовувати всі назви. Важливо зрозуміти, для чого
+            використовують різні універсальні моделі та як безпечно з ними працювати.
+          </p>
+        </div>
+        <div id="model-grid" class="model-grid"></div>
+      </section>
+
+      <section id="practice" class="split-band">
+        <article id="scenario-card" class="practice-panel">
+          <p class="eyebrow">Сценарій</p>
+          <h2 id="scenario-title">Сімейний помічник</h2>
+          <p id="scenario-text"></p>
+          <button id="next-scenario" class="button secondary" type="button">Інший сценарій</button>
+        </article>
+
+        <article id="quiz-card" class="practice-panel">
+          <p class="eyebrow">Міні-тест</p>
+          <h2 id="quiz-title">Перевірка рівня</h2>
+          <div id="quiz-body"></div>
+          <p id="quiz-feedback" class="feedback" aria-live="polite"></p>
+        </article>
+      </section>
+
+      <section id="progress" class="progress-band">
+        <div>
+          <p class="eyebrow">Облік досягнень</p>
+          <h2>Ваш останній досягнутий рівень</h2>
+          <p id="progress-text"></p>
+        </div>
+        <div class="progress-tools">
+          <a id="continue-link" class="button primary" href="#lessons">Продовжити</a>
+          <button id="reset-progress" class="button secondary" type="button">Скинути прогрес</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <nav aria-label="Дубльована навігація">
+        <a href="#home">Початок</a>
+        <a href="#lessons">Уроки</a>
+        <a href="#models">Моделі</a>
+        <a href="#practice">Практика</a>
+        <a href="#progress">Прогрес</a>
+      </nav>
+      <p>BasicAI можна розгортати на GitHub Pages як статичний сайт.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

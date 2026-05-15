@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ШІ для всіх — інтерактивний посібник</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#F7F4EF;--bg2:#EDE9E2;--bg3:#E3DDD4;--ink:#1C1A17;--ink2:#4A4540;--ink3:#8C867D;--line:#D5CFC6;--line2:#C4BDB3;--accent:#2D6A4F;--accent-bg:#E8F5EE;--accent2:#B5451B;--accent2-bg:#FAECE7;--accent3:#1A5FA8;--accent3-bg:#E6F1FB;--gold:#C4872A;--radius:10px;--radius-sm:6px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;font-size:16px;line-height:1.7;min-height:100vh}
+.site-header{background:var(--ink);color:var(--bg);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:100}
+.site-logo{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;letter-spacing:.04em;color:var(--bg);opacity:.9}
+.site-logo span{color:#7EC8A0}
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 52px)}
+.sidebar{background:var(--bg2);border-right:1px solid var(--line);padding:2rem 1.25rem;position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto}
+.sidebar-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:1.25rem}
+.lesson-nav{display:flex;flex-direction:column;gap:4px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-sm);cursor:pointer;border:none;background:none;text-align:left;width:100%;transition:background .15s}
+.nav-item:hover{background:var(--bg3)}
+.nav-item.active{background:var(--ink)}
+.nav-item.done{background:var(--accent-bg)}
+.nav-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--ink3);min-width:18px}
+.nav-item.active .nav-num{color:#7EC8A0}
+.nav-item.done .nav-num{color:var(--accent)}
+.nav-title{font-size:13px;color:var(--ink2);line-height:1.4}
+.nav-item.active .nav-title{color:var(--bg)}
+.nav-item.done .nav-title{color:var(--accent)}
+.nav-check{margin-left:auto;font-size:12px;color:var(--accent);display:none}
+.nav-item.done .nav-check{display:block}
+.sidebar-divider{height:1px;background:var(--line);margin:1.25rem 0}
+.sidebar-note{font-size:12px;color:var(--ink3);line-height:1.6;font-style:italic}
+.main{padding:2.5rem 2rem 4rem}
+.lesson-panel{display:none;max-width:600px}
+.lesson-panel.active{display:block}
+.prog-wrap{margin-bottom:2rem}
+.prog-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.prog{display:flex;gap:4px}
+.pd{height:3px;flex:1;border-radius:2px;background:var(--line);transition:background .4s}
+.pd.on{background:var(--ink)}.pd.done{background:var(--ink3)}
+.step{display:none}.step.vis{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.step.vis,.lesson-panel.active{animation:fadeIn .25s ease}
+.hook{font-size:22px;font-weight:500;color:var(--ink);line-height:1.35;margin-bottom:.5rem}
+.hook-sub{font-size:15px;color:var(--ink2);line-height:1.7;margin-bottom:1.75rem}
+.s-title{font-size:18px;font-weight:500;color:var(--ink);line-height:1.35;margin-bottom:.5rem}
+.s-sub{font-size:14px;color:var(--ink2);line-height:1.7;margin-bottom:1.25rem}
+.q-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;background:var(--accent-bg);color:var(--accent);letter-spacing:.06em;text-transform:uppercase;margin-bottom:1rem;border:1px solid #B5DFC8}
+.who-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1.25rem}
+.who-tag.teen{background:#EEEDFE;color:#3C3489;border:1px solid #C5C2F5}
+.who-tag.adult{background:var(--accent-bg);color:var(--accent);border:1px solid #B5DFC8}
+.audience-pick{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.75rem}
+.aud-btn{background:var(--bg);border:1px solid var(--line2);border-radius:var(--radius);padding:1.5rem 1.25rem;cursor:pointer;text-align:left;transition:background .15s,border-color .15s,box-shadow .15s;width:100%}
+.aud-btn:hover{background:var(--bg2);border-color:var(--ink3);box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.aud-icon{font-size:26px;margin-bottom:10px;display:block}
+.aud-title{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:5px}
+.aud-sub{font-size:13px;color:var(--ink2);line-height:1.55}
+.choices{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem}
+.cb{background:var(--bg);border:1px solid var(--line2);border-radius:var(--radius-sm);padding:12px 16px;font-family:'Literata',serif;font-size:14px;color:var(--ink);text-align:left;cursor:pointer;line-height:1.55;transition:background .15s,border-color .15s;width:100%}
+.cb:hover{background:var(--bg2);border-color:var(--ink3)}
+.cb:disabled{cursor:default}
+.cb.correct{border-color:var(--accent);background:var(--accent-bg);color:#085041}
+.cb.wrong{border-color:var(--accent2);background:var(--accent2-bg);color:#4A1B0C}
+.cb.partial{border-color:var(--accent3);background:var(--accent3-bg);color:#042C53}
+.fb{border-radius:var(--radius-sm);padding:14px 18px;font-size:14px;line-height:1.7;margin-bottom:1.5rem;display:none;border-left:3px solid transparent}
+.fb.show{display:block}
+.fb.good{background:var(--accent-bg);color:#085041;border-left-color:var(--accent)}
+.fb.warn{background:var(--accent2-bg);color:#4A1B0C;border-left-color:var(--accent2)}
+.fb.info{background:var(--accent3-bg);color:#042C53;border-left-color:var(--accent3)}
+.ability-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
+.ability-card{border-radius:var(--radius-sm);padding:14px;border:1px solid var(--line)}
+.ability-card.can{background:var(--accent-bg);border-color:#B5DFC8}
+.ability-card.cant{background:var(--accent2-bg);border-color:#F0A090}
+.ability-card-title{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.ability-card.can .ability-card-title{color:var(--accent)}
+.ability-card.cant .ability-card-title{color:var(--accent2)}
+.ability-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.ability-list li{font-size:13px;line-height:1.5;padding-left:16px;position:relative}
+.ability-card.can .ability-list li{color:#085041}
+.ability-card.can .ability-list li::before{content:"✓";position:absolute;left:0;font-size:11px}
+.ability-card.cant .ability-list li{color:#4A1B0C}
+.ability-card.cant .ability-list li::before{content:"✗";position:absolute;left:0;font-size:11px}
+.rule{border-left:3px solid var(--line2);padding:12px 16px;margin-bottom:1.5rem;font-size:14px;line-height:1.7;color:var(--ink2);background:var(--bg2);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.rule strong{font-weight:500;display:block;margin-bottom:4px;font-size:15px;color:var(--ink)}
+.table-wrap{border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:1.5rem}
+.diff-table{width:100%;border-collapse:collapse;font-size:13px}
+.diff-table th{background:var(--bg2);padding:10px 14px;text-align:left;font-weight:500;color:var(--ink2);font-size:11px;letter-spacing:.05em;text-transform:uppercase;font-family:'JetBrains Mono',monospace}
+.diff-table td{padding:11px 14px;color:var(--ink);line-height:1.5;border-top:1px solid var(--line)}
+.diff-table tr td:first-child{color:var(--ink3);font-size:12px;width:30%;font-family:'JetBrains Mono',monospace}
+.scenario-list{display:flex;flex-direction:column;gap:10px;margin-bottom:1.5rem}
+.scenario-item{border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden}
+.scenario-q{padding:12px 16px;font-size:14px;color:var(--ink);line-height:1.55;background:var(--bg)}
+.scenario-opts{display:flex;border-top:1px solid var(--line)}
+.sc-btn{flex:1;padding:9px 10px;font-size:13px;font-family:'Literata',serif;cursor:pointer;background:var(--bg2);border:none;color:var(--ink2);transition:background .15s;line-height:1.4;text-align:center}
+.sc-btn:first-child{border-right:1px solid var(--line)}
+.sc-btn:hover:not(:disabled){background:var(--bg3)}
+.sc-btn:disabled{cursor:default}
+.sc-btn.good{background:var(--accent-bg);color:var(--accent);font-weight:500}
+.sc-btn.bad{background:var(--accent2-bg);color:var(--accent2)}
+.scenario-explain{padding:10px 16px;font-size:13px;line-height:1.6;display:none;border-top:1px solid var(--line)}
+.scenario-explain.show{display:block}
+.scenario-explain.good{background:var(--accent-bg);color:#085041}
+.scenario-explain.info{background:var(--accent3-bg);color:#042C53}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
+.cc{background:var(--bg);border:1px solid var(--line2);border-radius:var(--radius-sm);padding:14px;cursor:pointer;transition:background .15s,border-color .15s;user-select:none}
+.cc:hover{background:var(--bg2)}
+.cc.good{border-color:var(--accent);background:var(--accent-bg);cursor:default}
+.cc.bad{border-color:var(--accent2);background:var(--accent2-bg);cursor:default}
+.cc-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;color:var(--ink3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.cc-text{font-size:13px;color:var(--ink);line-height:1.55}
+.summary{background:var(--bg2);border-radius:var(--radius);padding:1.5rem;border:1px solid var(--line);margin-bottom:1.5rem}
+.sum-title{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:.75rem}
+.sum-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.sum-list li{font-size:14px;color:var(--ink2);padding-left:22px;position:relative;line-height:1.55}
+.sum-list li::before{content:"→";position:absolute;left:0;color:var(--ink3);font-family:'JetBrains Mono',monospace}
+.next-btn{background:var(--ink);color:var(--bg);border:none;border-radius:var(--radius-sm);padding:10px 22px;font-family:'Literata',serif;font-size:14px;cursor:pointer;transition:opacity .15s;display:none}
+.next-btn.show{display:inline-block}
+.next-btn:hover{opacity:.85}
+.next-lesson-btn{background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);padding:11px 24px;font-family:'Literata',serif;font-size:14px;cursor:pointer;transition:opacity .15s;margin-right:10px}
+.next-lesson-btn:hover{opacity:.88}
+.restart-btn{font-size:13px;color:var(--ink3);cursor:pointer;border:none;background:none;font-family:'Literata',serif;padding:0}
+.restart-btn:hover{color:var(--ink2);text-decoration:underline}
+.home-title{font-size:28px;font-weight:600;color:var(--ink);line-height:1.3;margin-bottom:.75rem}
+.home-sub{font-size:15px;color:var(--ink2);line-height:1.7;margin-bottom:2rem;max-width:480px}
+.module-list{display:flex;flex-direction:column;gap:10px;margin-bottom:2rem}
+.module-card{display:flex;align-items:flex-start;gap:14px;background:var(--bg);border:1px solid var(--line2);border-radius:var(--radius);padding:16px 18px;cursor:pointer;transition:background .15s,border-color .15s,box-shadow .15s;text-align:left;width:100%}
+.module-card:hover{background:var(--bg2);border-color:var(--ink3);box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.module-card.done-card{border-color:#B5DFC8;background:var(--accent-bg)}
+.mc-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--ink3);min-width:22px;padding-top:2px}
+.module-card.done-card .mc-num{color:var(--accent)}
+.mc-body{flex:1}
+.mc-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:3px}
+.mc-sub{font-size:13px;color:var(--ink3);line-height:1.5}
+.module-card.done-card .mc-title{color:var(--accent)}
+.mc-arrow{color:var(--ink3);font-size:14px;padding-top:2px}
+.home-footer{font-size:13px;color:var(--ink3);font-style:italic}
+.ai-bubble{border-left:3px solid var(--gold);padding:12px 16px;margin-bottom:1.5rem;font-size:14px;line-height:1.7;color:var(--ink2);background:#FDF6EC;border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.ai-bubble-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;display:block}
+@media(max-width:680px){.layout{grid-template-columns:1fr}.sidebar{display:none}.main{padding:1.5rem 1rem 3rem}.audience-pick,.ability-grid,.compare{grid-template-columns:1fr}.hook{font-size:19px}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-logo">ШІ для <span>всіх</span> — посібник</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7EC8A0;letter-spacing:.06em">BETA · 5 уроків</div>
+</header>
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-label">Зміст курсу</div>
+    <div class="lesson-nav">
+      <button class="nav-item active" id="nav-home"><span class="nav-num">◈</span><span class="nav-title">Головна</span></button>
+      <div class="sidebar-divider"></div>
+      <button class="nav-item" id="nav-l1"><span class="nav-num">01</span><span class="nav-title">ШІ і Google — в чому різниця?</span><span class="nav-check">✓</span></button>
+      <button class="nav-item" id="nav-l2"><span class="nav-num">02</span><span class="nav-title">Що ШІ вміє і чого не вміє</span><span class="nav-check">✓</span></button>
+      <button class="nav-item" id="nav-l3"><span class="nav-num">03</span><span class="nav-title">Чи можна довіряти відповіді ШІ?</span><span class="nav-check">✓</span></button>
+      <button class="nav-item" id="nav-l4"><span class="nav-num">04</span><span class="nav-title">Як писати хороші запити</span><span class="nav-check">✓</span></button>
+      <button class="nav-item" id="nav-l5"><span class="nav-num">05</span><span class="nav-title">ШІ у повсякденних справах</span><span class="nav-check">✓</span></button>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-note">Оберіть свою аудиторію на початку кожного уроку — і контент адаптується під вас.</div>
+  </nav>
+  <main class="main">
+    <div class="lesson-panel active" id="panel-home">
+      <h1 class="home-title">Посібник зі штучного інтелекту для тих, хто хоче розібратися</h1>
+      <p class="home-sub">Не технічний курс і не рекламний буклет. Чесні інтерактивні уроки — з прикладами з реального життя і без зайвого жаргону.</p>
+      <div class="module-list">
+        <button class="module-card" id="mc1"><span class="mc-num">01</span><div class="mc-body"><div class="mc-title">ШІ і Google — в чому різниця?</div><div class="mc-sub">Перший крок: зрозуміти, що таке ШІ і чим він відрізняється від звичного пошуку</div></div><span class="mc-arrow">→</span></button>
+        <button class="module-card" id="mc2"><span class="mc-num">02</span><div class="mc-body"><div class="mc-title">Що ШІ вміє і чого не вміє</div><div class="mc-sub">Чесна карта можливостей: де ШІ справді корисний, а де краще не ризикувати</div></div><span class="mc-arrow">→</span></button>
+        <button class="module-card" id="mc3"><span class="mc-num">03</span><div class="mc-body"><div class="mc-title">Чи можна довіряти відповіді ШІ?</div><div class="mc-sub">Впевнений голос — не гарантія правди. Як розпізнати, коли ШІ помиляється</div></div><span class="mc-arrow">→</span></button>
+        <button class="module-card" id="mc4"><span class="mc-num">04</span><div class="mc-body"><div class="mc-title">Як писати хороші запити</div><div class="mc-sub">Від запиту залежить усе. Навчіться формулювати так, щоб ШІ давав саме те, що потрібно</div></div><span class="mc-arrow">→</span></button>
+        <button class="module-card" id="mc5"><span class="mc-num">05</span><div class="mc-body"><div class="mc-title">ШІ у повсякденних справах</div><div class="mc-sub">Реальні сценарії — листи, плани, пояснення, підготовка до розмов</div></div><span class="mc-arrow">→</span></button>
+      </div>
+      <p class="home-footer">Кожен урок — 5–8 хвилин активного навчання.</p>
+    </div>
+    <div class="lesson-panel" id="panel-l1"></div>
+    <div class="lesson-panel" id="panel-l2"></div>
+    <div class="lesson-panel" id="panel-l3"></div>
+    <div class="lesson-panel" id="panel-l4"></div>
+    <div class="lesson-panel" id="panel-l5"></div>
+  </main>
+</div>
+<script>
+(function(){
+'use strict';
+
+/* ── NAV ── */
+var done={};
+function showHome(){
+  document.querySelectorAll('.lesson-panel').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('panel-home').classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
+  document.getElementById('nav-home').classList.add('active');
+}
+function showLesson(n){
+  var panel=document.getElementById('panel-l'+n);
+  if(!panel)return;
+  if(!panel.getAttribute('data-built'))buildLesson(n);
+  document.querySelectorAll('.lesson-panel').forEach(function(p){p.classList.remove('active');});
+  panel.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(function(ni){ni.classList.remove('active');});
+  var nb=document.getElementById('nav-l'+n);
+  if(nb)nb.classList.add('active');
+  window.scrollTo(0,0);
+}
+function markDone(n){
+  if(done[n])return;done[n]=true;
+  var nb=document.getElementById('nav-l'+n);if(nb)nb.classList.add('done');
+  var mc=document.getElementById('mc'+n);if(mc)mc.classList.add('done-card');
+}
+
+/* single delegated listener — catches ALL clicks */
+document.addEventListener('click',function(e){
+  var t=e.target;
+  if(t.id==='nav-home'||t.closest('#nav-home')){showHome();return;}
+  for(var n=1;n<=5;n++){
+    var nb=document.getElementById('nav-l'+n);
+    if(nb&&(t===nb||nb.contains(t))){showLesson(n);return;}
+    var mc=document.getElementById('mc'+n);
+    if(mc&&(t===mc||mc.contains(t))){showLesson(n);return;}
+  }
+  var nlb=t.closest('.next-lesson-btn');
+  if(nlb){var dest=nlb.getAttribute('data-dest');if(dest==='home')showHome();else if(dest)showLesson(parseInt(dest));return;}
+});
+
+/* ── HELPERS ── */
+function mk(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e;}
+function div(cls,txt){return mk('div',cls,txt);}
+function p(cls,txt){return mk('p',cls,txt);}
+function fbDiv(id){var f=div('fb');f.id=id;return f;}
+function badge(txt){return div('badge',txt);}
+function showFb(id,type,text){var fb=document.getElementById(id);if(!fb)return;fb.className='fb show '+type;fb.textContent=text;}
+function disableBtns(wrap){wrap.querySelectorAll('button').forEach(function(b){b.disabled=true;});}
+
+function progWrap(ln,total){
+  var w=div('prog-wrap');
+  var lbl=div('prog-label','Крок 1 з '+total);lbl.id='l'+ln+'-plbl';
+  var bar=div('prog');
+  for(var i=0;i<total;i++){var d=div(i===0?'pd on':'pd');d.id='l'+ln+'-d'+i;bar.appendChild(d);}
+  w.appendChild(lbl);w.appendChild(bar);return w;
+}
+function setProg(ln,n,labels){
+  var lbl=document.getElementById('l'+ln+'-plbl');
+  if(lbl&&labels)lbl.textContent=(labels[n]||'')+' — крок '+(n+1)+' з '+labels.length;
+  var total=labels?labels.length:6;
+  for(var i=0;i<total;i++){var d=document.getElementById('l'+ln+'-d'+i);if(d)d.className='pd'+(i<n?' done':i===n?' on':'');}
+}
+function mkStep(ln,n){var s=div(n===0?'step vis':'step');s.id='l'+ln+'-s'+n;return s;}
+
+function audPickBlock(ln,data){
+  var wrap=div('audience-pick');
+  ['teen','adult'].forEach(function(aud){
+    var c=data[aud];
+    var b=mk('button','aud-btn');
+    var ic=div('aud-icon');ic.textContent=c.icon;
+    b.appendChild(ic);b.appendChild(div('aud-title',c.title));b.appendChild(div('aud-sub',c.sub));
+    b.addEventListener('click',function(){window['l'+ln+'pick'](aud);});
+    wrap.appendChild(b);
+  });
+  return wrap;
+}
+function whoTag(ln,aud){var t=div('who-tag '+aud,aud==='teen'?'До 25':'40+');t.id='l'+ln+'-who';return t;}
+
+function nextBtn(ln,toStep,text,show){
+  var b=mk('button','next-btn'+(show?' show':''),text||'Далі →');
+  b.addEventListener('click',function(){window['l'+ln+'go'](toStep);});
+  return b;
+}
+function nextLessonBtn(text,dest){
+  var b=mk('button','next-lesson-btn',text);b.setAttribute('data-dest',dest);return b;
+}
+function restartBtn(ln){
+  var b=mk('button','restart-btn','Почати знову');
+  b.addEventListener('click',function(){window['l'+ln+'restart']();});
+  return b;
+}
+
+function choicesBlock(opts,onPick){
+  var wrap=div('choices');
+  opts.forEach(function(opt){
+    var b=mk('button','cb',opt.t);
+    b.addEventListener('click',function(){onPick(b,opt,wrap);});
+    wrap.appendChild(b);
+  });
+  return wrap;
+}
+
+function compareBlock(pairs,correct,onPick){
+  var wrap=div('compare');var locked=false;
+  pairs.forEach(function(pr){
+    var c=div('cc');c.innerHTML='<div class="cc-lbl">'+pr.lbl+'</div><div class="cc-text"></div>';
+    c.querySelector('.cc-text').textContent=pr.text;
+    c.addEventListener('click',function(){
+      if(locked)return;locked=true;
+      wrap.querySelectorAll('.cc').forEach(function(x){x.classList.add(x===c?(pr.ch===correct?'good':'bad'):(pr.ch!==correct?'good':'bad'));});
+      onPick(pr.ch);
+    });
+    wrap.appendChild(c);
+  });
+  return wrap;
+}
+
+function scenarioList(items,labels,onPick){
+  var wrap=div('scenario-list');
+  items.forEach(function(sc,i){
+    var item=div('scenario-item');
+    var q=div('scenario-q',sc.q);item.appendChild(q);
+    var opts=div('scenario-opts');
+    labels.forEach(function(lbl,j){
+      var b=mk('button','sc-btn',lbl);
+      b.addEventListener('click',function(){onPick(i,j,item,b,opts);});
+      opts.appendChild(b);
+    });
+    item.appendChild(opts);
+    var exp=div('scenario-explain');item.appendChild(exp);
+    wrap.appendChild(item);
+  });
+  return wrap;
+}
+
+function abilityGrid(can,cant){
+  var ag=div('ability-grid');
+  var canC=div('ability-card can');canC.appendChild(div('ability-card-title','✓ Вміє добре'));
+  var ul=mk('ul','ability-list');can.forEach(function(t){ul.appendChild(mk('li','',t));});canC.appendChild(ul);ag.appendChild(canC);
+  var cantC=div('ability-card cant');cantC.appendChild(div('ability-card-title','✗ Не вміє або ризиковано'));
+  var ul2=mk('ul','ability-list');cant.forEach(function(t){ul2.appendChild(mk('li','',t));});cantC.appendChild(ul2);ag.appendChild(cantC);
+  return ag;
+}
+
+function summaryBlock(items){
+  var s=div('summary');s.appendChild(p('sum-title','Що ви засвоїли на цьому уроці:'));
+  var ul=mk('ul','sum-list');items.forEach(function(txt){ul.appendChild(mk('li','',txt));});s.appendChild(ul);return s;
+}
+function ruleBlock(title,text){
+  var r=div('rule');var strong=mk('strong','',title);r.appendChild(strong);r.appendChild(document.createTextNode(' '+text));return r;
+}
+function tableWrap(headers,rows){
+  var tw=div('table-wrap');var tbl=mk('table','diff-table');
+  var hr=mk('tr');headers.forEach(function(h){hr.appendChild(mk('th','',h));});tbl.appendChild(hr);
+  rows.forEach(function(row){var tr=mk('tr');row.forEach(function(cell){tr.appendChild(mk('td','',cell));});tbl.appendChild(tr);});
+  tw.appendChild(tbl);return tw;
+}
+
+function buildLesson(n){var panel=document.getElementById('panel-l'+n);if(!panel)return;panel.setAttribute('data-built','1');window['buildL'+n](panel);}
+
+/* ══ L1 ══ */
+var l1aud='',l1cur=0;
+var L1={
+  teen:{icon:'🎧',title:'Мені до 25',sub:'Вже чував про ШІ, але хочу зрозуміти, як він насправді працює',
+    hook:'Ти вже гуглив сотні разів. А тепер уяви: замість посилань — хтось відповідає тобі своїми словами.',
+    hookSub:'Саме так працює ШІ. Але між Google і ШІ є принципова різниця, яку більшість людей не помічає.',
+    think:'Ти пишеш: «Як написати заяву?» — Google знайде зразки. А ШІ?',
+    ch1:[{t:'Теж знайде і покаже посилання',v:'wrong',fb:'Не зовсім. Google знаходить те, що є. ШІ — сам створює відповідь.'},{t:'Напише заяву сам, одразу під твій випадок',v:'correct',fb:'Саме так. ШІ не шукає — він генерує. Це інший принцип роботи.'},{t:'Відкриє редактор, щоб ти написав сам',v:'wrong',fb:'Ні. ШІ пише відповідь прямо у чаті, не відкриває програм.'}],
+    expTitle:'ШІ — це не розумний пошуковик',expSub:'Це інший інструмент. Google шукає. ШІ відповідає.',
+    ch3:[{t:'Знайти офіційний сайт університету — краще Google',v:'correct',fb:'Правильно. Конкретні адреси і сайти — надійніше через Google.'},{t:'Зрозуміти різницю між двома теоріями — краще ШІ',v:'correct',fb:'Так. Пояснити складне просто — сильна сторона ШІ.'},{t:'Дізнатися сьогоднішній курс долара — краще ШІ',v:'wrong',fb:'Ні. ШІ не підключений до інтернету в реальному часі.'}],
+    pTitle:'Який запит до ШІ дасть кориснішу відповідь?',pSub:'Ти хочеш розібратися в темі для есе.',
+    ccA:'«кліматичні зміни»',ccB:'«Поясни простими словами, що таке кліматичні зміни і чому вчені сперечаються про їхні наслідки»',
+    fb4c:'Варіант Б набагато кращий. ШІ не пошуковик — йому потрібні не ключові слова, а чітка задача.',
+    fb4w:'Варіант А — стиль для Google. ШІ краще відповідає на питання і прохання.'},
+  adult:{icon:'☕',title:'Мені 40+',sub:'Чую про ШІ звідусіль, але досі не розумію — що це і чи варто пробувати',
+    hook:'Уявіть, що ви телефонуєте не в довідкову, а до знайомого, який дуже багато читав.',
+    hookSub:'Він не дає список книг — він пояснює своїми словами. Приблизно так і працює ШІ.',
+    think:'Ви запитуєте: «Як написати скаргу до ЖКГ?» — Google покаже сайти. А ШІ?',
+    ch1:[{t:'Теж покаже список корисних сайтів',v:'wrong',fb:'Не зовсім. ШІ не показує посилання — він пише відповідь своїми словами.'},{t:'Напише скаргу сам — під вашу ситуацію',v:'correct',fb:'Правильно. ШІ не шукає — він створює відповідь. Це принципово інший підхід.'},{t:'Відкриє шаблон Word для заповнення',v:'wrong',fb:'Ні. ШІ пише готовий текст прямо у відповідь на ваше прохання.'}],
+    expTitle:'ШІ — це не «розумний Google»',expSub:'Це різні інструменти для різних задач.',
+    ch3:[{t:'Знайти номер телефону поліклініки — краще Google',v:'correct',fb:'Правильно. Конкретні контакти — надійніше через Google або офіційні сайти.'},{t:'Зрозуміти, які документи потрібні для субсидії — краще ШІ',v:'correct',fb:'Так. Пояснити порядок дій зрозумілою мовою — ШІ робить добре.'},{t:'Дізнатися завтрашню погоду — краще ШІ',v:'wrong',fb:'Ні. ШІ не підключений до реальних даних. Для прогнозу — Google.'}],
+    pTitle:'Який запит до ШІ дасть кращий результат?',pSub:'Ви хочете написати ввічливого листа сусідці.',
+    ccA:'«лист сусідці шум»',ccB:'«Допоможи написати ввічливого листа сусідці з проханням не шуміти після 22:00. Тон — спокійний, без образ»',
+    fb4c:'Чудово. ШІ розуміє звичайну мову. Чим точніше ви описуєте задачу — тим кориснішою буде відповідь.',
+    fb4w:'Варіант А — стиль для Google. ШІ краще відповідає на прохання, сформульовані звичайною мовою.'}
+};
+var l1lbl=['Вибір аудиторії','Перша спроба','Пояснення','Перевірка','Практика'];
+var l1sum=['ШІ і Google — принципово різні інструменти з різними сильними сторонами','ШІ не шукає в інтернеті — він генерує відповідь на основі навчання','ШІ може помилятися, але звучати при цьому дуже впевнено','Правильний вибір інструменту залежить від задачі'];
+
+window.buildL1=function(panel){
+  panel.appendChild(progWrap(1,5));
+  var s0=mkStep(1,0);
+  s0.appendChild(p('hook','Урок 1. Що таке ШІ — і чим він відрізняється від Google?'));
+  s0.appendChild(p('hook-sub','Оберіть, хто ви — і приклади підлаштуються під вас.'));
+  s0.appendChild(audPickBlock(1,L1));panel.appendChild(s0);
+  for(var i=1;i<=4;i++){var s=mkStep(1,i);s.id='l1-s'+i;panel.appendChild(s);}
+};
+window.l1pick=function(aud){
+  l1aud=aud;var c=L1[aud];
+  var s1=document.getElementById('l1-s1');s1.innerHTML='';
+  s1.appendChild(whoTag(1,aud));s1.appendChild(p('hook',c.hook));s1.appendChild(p('hook-sub',c.hookSub));
+  s1.appendChild(p('s-sub',c.think));s1.appendChild(p('q-label','Яка відповідь найближча до вашої думки?'));
+  var fb1=fbDiv('l1-fb1');var nb1=nextBtn(1,2);
+  s1.appendChild(choicesBlock(c.ch1,function(b,opt,wrap){
+    disableBtns(wrap);b.className='cb '+(opt.v==='correct'?'correct':'wrong');
+    showFb('l1-fb1',opt.v==='correct'?'good':'info',opt.fb);nb1.classList.add('show');
+  }));
+  s1.appendChild(fb1);s1.appendChild(nb1);
+
+  var s2=document.getElementById('l1-s2');s2.innerHTML='';
+  s2.appendChild(badge('Ключова ідея'));s2.appendChild(p('s-title',c.expTitle));s2.appendChild(p('s-sub',c.expSub));
+  s2.appendChild(tableWrap(['','Google / пошуковик','Штучний інтелект (ШІ)'],[
+    ['Що робить','Знаходить сторінки','Генерує відповідь своїми словами'],
+    ['Звідки знає','Індексує сайти в реальному часі','Навчений на текстах, не «гуглить»'],
+    ['Відповідь','Список посилань','Зв\'язний текст, пояснення, поради'],
+    ['Помиляється?','Рідко','Може вигадати факт, звучить впевнено'],
+    ['Краще для','Знайти джерело, перевірити факт','Пояснити, написати, розібратися']]));
+  s2.appendChild(ruleBlock('Простими словами','Google знаходить інформацію, яка вже існує. ШІ створює відповідь на основі того, чого навчився. Це принципова різниця.'));
+  s2.appendChild(nextBtn(1,3,'Зрозуміло, далі →',true));
+
+  var s3=document.getElementById('l1-s3');s3.innerHTML='';
+  s3.appendChild(badge('Перевірте себе'));s3.appendChild(p('s-title','Куди краще звернутися?'));
+  var q3done=0,q3err=false;var fb3=fbDiv('l1-fb3');var nb3=nextBtn(1,4);
+  s3.appendChild(choicesBlock(c.ch3,function(b,opt,wrap){
+    b.disabled=true;q3done++;b.className='cb '+(opt.v==='correct'?'correct':'wrong');
+    if(opt.v!=='correct')q3err=true;
+    showFb('l1-fb3',opt.v==='correct'?'good':'info',opt.fb);
+    if(q3done>=c.ch3.length){showFb('l1-fb3',q3err?'info':'good',q3err?'Майже правильно. ШІ не підключений до інтернету в реальному часі — для актуальних даних краще Google.':'Відмінно! Ви точно визначили, який інструмент підходить для кожної задачі.');nb3.classList.add('show');}
+  }));
+  s3.appendChild(fb3);s3.appendChild(nb3);
+
+  var s4=document.getElementById('l1-s4');s4.innerHTML='';
+  s4.appendChild(badge('Практика'));s4.appendChild(p('s-title',c.pTitle));s4.appendChild(p('s-sub',c.pSub));
+  var fb4=fbDiv('l1-fb4');
+  var sumW=div('');sumW.style.display='none';
+  sumW.appendChild(summaryBlock(l1sum));
+  var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('Урок 2 →','2'));br.appendChild(restartBtn(1));sumW.appendChild(br);
+  s4.appendChild(compareBlock(
+    [{lbl:'Варіант А',text:c.ccA,ch:'A'},{lbl:'Варіант Б',text:c.ccB,ch:'B'}],'B',
+    function(ch){showFb('l1-fb4',ch==='B'?'good':'info',ch==='B'?c.fb4c:c.fb4w);sumW.style.display='block';markDone(1);}
+  ));
+  s4.appendChild(fb4);s4.appendChild(sumW);l1go(1);
+};
+window.l1go=function(n){document.querySelectorAll('#panel-l1 .step').forEach(function(s){s.className='step';});var s=document.getElementById('l1-s'+n);if(s)s.className='step vis';l1cur=n;setProg(1,n,l1lbl);window.scrollTo(0,0);};
+window.l1restart=function(){l1aud='';l1cur=0;document.querySelectorAll('#panel-l1 .step').forEach(function(s){s.className='step';});var s0=document.getElementById('l1-s0');if(s0)s0.className='step vis';setProg(1,0,l1lbl);window.scrollTo(0,0);};
+
+/* ══ L2 ══ */
+var l2aud='',l2cur=0;
+var L2={
+  teen:{icon:'🎮',title:'Мені до 25',sub:'Хочу зрозуміти, де ШІ реально корисний, а де краще не довіряти',
+    hook:'Уяви: твій друг каже, що ШІ вирішить будь-яке завдання краще за гугл.',hookSub:'Це правда лише наполовину. ШІ неймовірний у одних речах — і марний в інших.',think:'Що ШІ точно не може зробити прямо зараз?',
+    ch1:[{t:'Переписати мій текст зрозумілішою мовою',v:'wrong',fb:'Це — одна з найсильніших сторін ШІ.'},{t:'Дізнатися, яка пісня грає зараз на радіо',v:'correct',fb:'Точно. ШІ не підключений до інтернету в реальному часі.'},{t:'Пояснити тему з фізики простими словами',v:'wrong',fb:'Це ШІ робить дуже добре.'}],
+    can:['Пояснити складну тему простими словами','Написати, переписати або покращити текст','Вигадати ідеї, сюжети, назви','Допомогти з кодом або рівнянням','Перекласти й адаптувати стиль','Скласти план або список кроків'],
+    cant:['Знати, що відбувається прямо зараз','Відкривати сайти або дивитися відео','Запам\'ятовувати попередні розмови','Гарантувати точність дат і цифр','Бачити твій екран або файли','Давати юридичні чи медичні гарантії'],
+    scens:[{q:'Написати привітання другові на день народження',ai:true,exp:'ШІ відмінно справляється з текстами будь-якого формату.'},{q:'Дізнатися, хто переміг на вчорашньому матчі',ai:false,exp:'ШІ не знає вчорашніх подій. Для новин — Google.'},{q:'Підготувати питання перед співбесідою',ai:true,exp:'Підготовка і репетиція відповідей — ШІ робить чудово.'},{q:'Перевірити, чи вільний певний сайт для реєстрації',ai:false,exp:'ШІ не може зайти на сайти в реальному часі.'}],
+    pTitle:'Тебе просять пояснити однокласнику, для чого ШІ.',pSub:'Яке пояснення найточніше?',
+    ch4:[{t:'ШІ — розумний пошуковик, який завжди правий',v:'wrong',fb:'Не зовсім. ШІ може помилятися і не знає останніх подій.'},{t:'ШІ — інструмент для роботи з текстом і думками, але факти краще перевіряти',v:'correct',fb:'Відмінно. Це чесне і точне пояснення.'},{t:'ШІ небезпечний, краще не користуватись',v:'wrong',fb:'Надмірна обережність теж шкодить. Важливо знати межі.'}]},
+  adult:{icon:'🧩',title:'Мені 40+',sub:'Хочу знати, для яких задач ШІ підходить, щоб спробувати в житті',
+    hook:'Сусідка каже: «Я попросила ШІ знайти лікаря поруч — він дав адресу, але її не існує.»',hookSub:'Типова ситуація: людина використала ШІ не за призначенням.',think:'Що ШІ точно не може зробити надійно?',
+    ch1:[{t:'Написати ввічливого листа до установи',v:'wrong',fb:'Навпаки — це одна з найсильніших сторін ШІ.'},{t:'Назвати адресу конкретної поліклініки у вашому місті',v:'correct',fb:'Правильно. ШІ може вигадати адресу або дати застарілу.'},{t:'Пояснити, як заповнити декларацію',v:'wrong',fb:'Загальний порядок дій — ШІ пояснює добре.'}],
+    can:['Написати лист, заяву або скаргу','Пояснити складне простими словами','Перекласти текст або адаптувати стиль','Допомогти сформулювати питання до лікаря','Скласти план покупок, справ або поїздки','Вигадати подарунок або привітання'],
+    cant:['Знати актуальні адреси й телефони','Бачити ваш екран або документи','Дати точну медичну або юридичну пораду','Знати ціни і графіки роботи прямо зараз','Пам\'ятати попередні розмови з вами','Гарантувати правильність дат і цифр'],
+    scens:[{q:'Написати вдячного листа лікарю',ai:true,exp:'Написати ввічливий лист — саме те, де ШІ корисний.'},{q:'Дізнатися, чи змінився графік роботи пошти',ai:false,exp:'ШІ не знає поточного графіку. Краще зателефонувати.'},{q:'Зрозуміти, що означає слово в медичній довідці',ai:true,exp:'Пояснити медичний термін простою мовою — ШІ робить чудово.'},{q:'Отримати точний рецепт конкретних ліків для вас',ai:false,exp:'ШІ не знає вашого стану здоров\'я. Це обов\'язково до лікаря.'}],
+    pTitle:'Подруга запитує: «Чи варто довіряти ШІ в побутових питаннях?»',pSub:'Яка відповідь найчесніша?',
+    ch4:[{t:'Так, ШІ завжди правий — він навчений на мільярдах текстів',v:'wrong',fb:'На жаль, ні. Великий обсяг навчання не гарантує точності.'},{t:'Для листів і пояснень — так. Для конкретних адрес і цифр — перевіряти',v:'correct',fb:'Чудово. Це і є цифрова грамотність.'},{t:'Ні, надто ризиковано — краще взагалі не використовувати',v:'wrong',fb:'Надмірна обережність теж коштує. Важливо знати межі.'}]}
+};
+var l2lbl=['Вибір аудиторії','Перша спроба','Карта вмінь','Перевірка','Практика'];
+var l2sum=['ШІ відмінно справляється з текстами, поясненнями та творчими задачами','Він не знає свіжих новин і може помилятися у фактах','Правильне використання — обирати ШІ для задач, де він сильний','Знання меж інструменту — це і є цифрова грамотність'];
+
+window.buildL2=function(panel){
+  panel.appendChild(progWrap(2,5));
+  var s0=mkStep(2,0);s0.appendChild(p('hook','Урок 2. Що ШІ вміє — і чого не вміє'));s0.appendChild(p('hook-sub','ШІ здається всемогутнім. Але у нього є чіткі межі.'));s0.appendChild(audPickBlock(2,L2));panel.appendChild(s0);
+  for(var i=1;i<=4;i++){var s=mkStep(2,i);s.id='l2-s'+i;panel.appendChild(s);}
+};
+window.l2pick=function(aud){
+  l2aud=aud;var c=L2[aud];
+  var s1=document.getElementById('l2-s1');s1.innerHTML='';
+  s1.appendChild(whoTag(2,aud));s1.appendChild(p('hook',c.hook));s1.appendChild(p('hook-sub',c.hookSub));s1.appendChild(p('s-sub',c.think));s1.appendChild(p('q-label','Яка відповідь найближча до вашої думки?'));
+  var fb1=fbDiv('l2-fb1');var nb1=nextBtn(2,2);
+  s1.appendChild(choicesBlock(c.ch1,function(b,opt,wrap){disableBtns(wrap);b.className='cb '+(opt.v==='correct'?'correct':'wrong');showFb('l2-fb1',opt.v==='correct'?'good':'info',opt.fb);nb1.classList.add('show');}));
+  s1.appendChild(fb1);s1.appendChild(nb1);
+  var s2=document.getElementById('l2-s2');s2.innerHTML='';
+  s2.appendChild(badge('Ключова ідея'));s2.appendChild(p('s-title','ШІ — потужний, але не всесильний'));s2.appendChild(p('s-sub','Ось чесна карта його можливостей:'));
+  s2.appendChild(abilityGrid(c.can,c.cant));
+  s2.appendChild(ruleBlock('Головне правило','ШІ чудово впорається з тим, що потребує мови й мислення. Але він не знає вашої конкретної ситуації і може вигадати деталь.'));
+  s2.appendChild(nextBtn(2,3,'Зрозуміло, далі →',true));
+  var s3=document.getElementById('l2-s3');s3.innerHTML='';
+  s3.appendChild(badge('Перевірте себе'));s3.appendChild(p('s-title','ШІ чи не ШІ?'));s3.appendChild(p('s-sub','Для кожної задачі — ШІ впорається чи краще шукати інакше?'));
+  var scDone=0;var fb3=fbDiv('l2-fb3');var nb3=nextBtn(2,4);
+  s3.appendChild(scenarioList(c.scens,['✓ ШІ впорається','✗ Краще інакше'],function(i,j,item,b,opts){
+    opts.querySelectorAll('.sc-btn').forEach(function(s){s.disabled=true;});
+    var ok=(j===0)===c.scens[i].ai;b.classList.add(ok?'good':'bad');
+    var exp=item.querySelector('.scenario-explain');exp.textContent=c.scens[i].exp;exp.className='scenario-explain show '+(ok?'good':'info');
+    scDone++;if(scDone>=c.scens.length){fb3.className='fb show good';fb3.textContent='Добре. Тепер ви відчуваєте, де ШІ сильний, а де краще інше джерело.';nb3.classList.add('show');}
+  }));
+  s3.appendChild(fb3);s3.appendChild(nb3);
+  var s4=document.getElementById('l2-s4');s4.innerHTML='';
+  s4.appendChild(badge('Практика'));s4.appendChild(p('s-title',c.pTitle));s4.appendChild(p('s-sub',c.pSub));
+  var fb4=fbDiv('l2-fb4');var sumW=div('');sumW.style.display='none';
+  sumW.appendChild(summaryBlock(l2sum));var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('Урок 3 →','3'));br.appendChild(restartBtn(2));sumW.appendChild(br);
+  s4.appendChild(choicesBlock(c.ch4,function(b,opt,wrap){disableBtns(wrap);b.className='cb '+(opt.v==='correct'?'correct':'wrong');showFb('l2-fb4',opt.v==='correct'?'good':'info',opt.fb);sumW.style.display='block';markDone(2);}));
+  s4.appendChild(fb4);s4.appendChild(sumW);l2go(1);
+};
+window.l2go=function(n){document.querySelectorAll('#panel-l2 .step').forEach(function(s){s.className='step';});var s=document.getElementById('l2-s'+n);if(s)s.className='step vis';l2cur=n;setProg(2,n,l2lbl);window.scrollTo(0,0);};
+window.l2restart=function(){l2aud='';l2cur=0;document.querySelectorAll('#panel-l2 .step').forEach(function(s){s.className='step';});var s0=document.getElementById('l2-s0');if(s0)s0.className='step vis';setProg(2,0,l2lbl);window.scrollTo(0,0);};
+
+/* ══ L3 ══ */
+var l3aud='',l3cur=0;
+var L3={
+  teen:{icon:'🔍',title:'Мені до 25',sub:'Хочу знати, де ШІ може підвести — і як це помітити',
+    hook:'Уяви: ти попросив ШІ написати реферат. Він додав цитату відомого вченого. Але цієї цитати не існує.',hookSub:'ШІ вигадав її — і написав впевнено, без застереження. Ти б помітив?',
+    aiText:'Як зазначав відомий фізик Нільс Бор у лекції 1952 року: «Уява важливіша за знання, бо знання обмежене, а уява охоплює весь світ». Саме ця думка лягла в основу сучасної квантової педагогіки.',
+    ch1:[{t:'Цитата підозріла — Бор так не казав, і «квантова педагогіка» не існує',v:'correct',fb:'Відмінна інтуїція! Цитата справді вигадана. Оригінал належить Ейнштейну, не Бору.'},{t:'Відповідь виглядає авторитетно — можна довіряти',v:'wrong',fb:'Саме в цьому і небезпека. Детальність — не доказ правди.'},{t:'Дату лекції варто перевірити, решта нормально',v:'partial',fb:'Дата — лише частина проблеми. Тут вигадана і сама цитата, і термін.'}],
+    scens:[{q:'«Фотосинтез — це процес перетворення світла на енергію»',chk:false,exp:'Загальновідомий факт. Перевіряти необов\'язково.'},{q:'«Закон України №1234-VIII від 15 березня 2019 року забороняє...»',chk:true,exp:'Конкретний номер і дата — типове місце для галюцинацій. Перевіряйте на zakon.rada.gov.ua'},{q:'«Ейнштейн казав: якщо не можеш пояснити просто — не розумієш достатньо»',chk:true,exp:'Ця цитата часто приписується Ейнштейну, але її автор насправді невідомий.'},{q:'«Щоб написати ввічливого листа, варто почати з подяки»',chk:false,exp:'Загальна порада про стиль — перевіряти нема чого.'}],
+    ccA:'«Розкажи про побічні ефекти ібупрофену»',ccB:'«Розкажи про побічні ефекти ібупрофену. Якщо в чомусь не впевнений — скажи про це прямо»',
+    fb4c:'Саме так. Варіант Б змушує ШІ бути чеснішим — він частіше додає застереження.',fb4w:'Варіант Б кращий. Якщо просити ШІ позначати невпевненість — якість відповіді зростає.',
+    pTitle:'Ти читаєш відповідь ШІ про історичну подію. Там є конкретна дата і ім\'я.',pSub:'Що робиш далі?',
+    ch5:[{t:'Довіряю — ШІ навчений на великій кількості текстів',v:'wrong',fb:'Саме так думають більшість — і потрапляють у халепу.'},{t:'Швидко гуглю дату та ім\'я — 30 секунд, і я впевнений',v:'correct',fb:'Відмінно. ШІ для ідей і структури, Google для перевірки фактів.'},{t:'Взагалі не використовую ШІ для такого — надто ризиковано',v:'partial',fb:'Занадто обережно. Просто конкретні факти варто перевіряти.'}]},
+  adult:{icon:'🧐',title:'Мені 40+',sub:'Хочу розуміти, яким відповідям ШІ довіряти, а які перевіряти',
+    hook:'Уявіть: ви попросили ШІ про пільги для пенсіонерів. Він дав детальну відповідь з конкретними сумами.',hookSub:'Відповідь звучить переконливо. Але суми виявились застарілими, а одна пільга — вигаданою.',
+    aiText:'Пенсіонери мають право на щомісячну надбавку в розмірі 15% від прожиткового мінімуму згідно з постановою Кабміну №847 від 2021 року. Також передбачена одноразова виплата при досягненні 70 років.',
+    ch1:[{t:'Звучить офіційно — можна йти оформлювати',v:'wrong',fb:'Саме тут і небезпека. Конкретні суми і номери постанов — типові місця для помилок ШІ.'},{t:'Конкретні суми і номер постанови варто перевірити',v:'correct',fb:'Правильно. Загальна інформація зазвичай правдива. Але конкретні цифри — перевіряйте.'},{t:'Треба уточнити тільки рік постанови',v:'partial',fb:'Рік — лише частина проблеми. Номер постанови і суми теж потребують перевірки.'}],
+    scens:[{q:'«Для отримання субсидії потрібно подати заяву до центру соціальних служб»',chk:false,exp:'Загальний порядок дій зазвичай правильний. Але конкретну адресу краще уточнити напряму.'},{q:'«Розмір субсидії у 2024 році становить 1840 грн на місяць»',chk:true,exp:'Конкретна сума і рік — типове місце для помилки. Перевіряйте на msp.gov.ua.'},{q:'«Добра практика — написати заяву чітко і вказати причину звернення»',chk:false,exp:'Загальна порада про стиль — не потребує перевірки.'},{q:'«Закон №2811-IX надає право на безкоштовний проїзд пенсіонерам»',chk:true,exp:'Номер закону — треба перевіряти. ШІ може написати правдоподібний, але неіснуючий номер.'}],
+    ccA:'«Які документи потрібні для оформлення субсидії?»',ccB:'«Які документи потрібні для субсидії? Якщо інформація може бути застарілою — скажи про це»',
+    fb4c:'Саме так. Варіант Б дає ШІ дозвіл бути чесним — він частіше додає застереження.',fb4w:'Варіант Б кращий. Якщо просити ШІ попереджати про невпевненість — якість відповіді зростає.',
+    pTitle:'Ви отримали від ШІ відповідь про медичну процедуру з конкретними дозами ліків.',pSub:'Який наступний крок?',
+    ch5:[{t:'Приймаю — відповідь детальна і звучить по-медичному',v:'wrong',fb:'Саме медичні деталі — найнебезпечніше місце для галюцинацій ШІ.'},{t:'Використовую як основу для питань до лікаря — але не дію без консультації',v:'correct',fb:'Чудово. Це ідеальне використання ШІ в медичних питаннях.'},{t:'Перевіряю через Google і якщо знаходжу схоже — довіряю',v:'partial',fb:'Краще, ніж нічого. Але для медичного — тільки лікар або офіційні джерела.'}]}
+};
+var l3lbl=['Вибір аудиторії','Перша спроба','Пояснення','Що перевіряти','Лайфхак','Практика'];
+var l3sum=['ШІ може звучати впевнено навіть коли помиляється — це «галюцинація»','Загальні пояснення зазвичай надійні, конкретні факти — перевіряти','Можна попросити ШІ самому позначити сумнівні місця','Впевнений тон — не доказ правди, а особливість інструменту'];
+
+window.buildL3=function(panel){
+  panel.appendChild(progWrap(3,6));
+  var s0=mkStep(3,0);s0.appendChild(p('hook','Урок 3. Чи можна довіряти відповіді ШІ?'));s0.appendChild(p('hook-sub','ШІ звучить впевнено майже завжди. Але впевненість — це не те саме, що правда.'));s0.appendChild(audPickBlock(3,L3));panel.appendChild(s0);
+  for(var i=1;i<=5;i++){var s=mkStep(3,i);s.id='l3-s'+i;panel.appendChild(s);}
+};
+window.l3pick=function(aud){
+  l3aud=aud;var c=L3[aud];
+  var s1=document.getElementById('l3-s1');s1.innerHTML='';
+  s1.appendChild(whoTag(3,aud));s1.appendChild(p('hook',c.hook));s1.appendChild(p('hook-sub',c.hookSub));
+  var ab=div('ai-bubble');ab.appendChild(mk('span','ai-bubble-label','Відповідь ШІ'));ab.appendChild(document.createTextNode(c.aiText));s1.appendChild(ab);
+  s1.appendChild(p('q-label','Що вас насторожує у цій відповіді?'));
+  var fb1=fbDiv('l3-fb1');var nb1=nextBtn(3,2);
+  s1.appendChild(choicesBlock(c.ch1,function(b,opt,wrap){disableBtns(wrap);b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');showFb('l3-fb1',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);nb1.classList.add('show');}));
+  s1.appendChild(fb1);s1.appendChild(nb1);
+
+  var s2=document.getElementById('l3-s2');s2.innerHTML='';
+  s2.appendChild(badge('Ключова ідея'));s2.appendChild(p('s-title','Чому ШІ може впевнено помилятися?'));s2.appendChild(p('s-sub','Це явище навіть має назву — «галюцинація» ШІ.'));
+  s2.appendChild(ruleBlock('Як це відбувається','ШІ навчений передбачати наступне слово на основі мільярдів текстів. Він знає, як «звучить» правдива відповідь — але не завжди знає, чи вона дійсно правдива.'));
+  s2.appendChild(abilityGrid(['Загальні пояснення і визначення','Структура тексту і логіка','Відомі історичні факти','Поради загального характеру'],['Конкретні дати, числа, ціни','Адреси, телефони, посилання','Медичні та юридичні деталі','Цитати і назви документів']));
+  s2.appendChild(nextBtn(3,3,'Зрозуміло, далі →',true));
+
+  var s3=document.getElementById('l3-s3');s3.innerHTML='';
+  s3.appendChild(badge('Перевірте себе'));s3.appendChild(p('s-title','Що тут варто перевірити?'));s3.appendChild(p('s-sub','Оцініть кожен фрагмент відповіді ШІ.'));
+  var scDone=0;var fb3=fbDiv('l3-fb3');var nb3=nextBtn(3,4);
+  s3.appendChild(scenarioList(c.scens,['⚠ Треба перевірити','✓ Можна довіряти'],function(i,j,item,b,opts){
+    opts.querySelectorAll('.sc-btn').forEach(function(s){s.disabled=true;});
+    var ok=(j===0)===c.scens[i].chk;b.classList.add(ok?'good':'bad');
+    var exp=item.querySelector('.scenario-explain');exp.textContent=c.scens[i].exp;exp.className='scenario-explain show '+(ok?'good':'info');
+    scDone++;if(scDone>=c.scens.length){fb3.className='fb show good';fb3.textContent='Добре. Ви вже відчуваєте різницю між загальними порадами і конкретними фактами.';nb3.classList.add('show');}
+  }));
+  s3.appendChild(fb3);s3.appendChild(nb3);
+
+  var s4=document.getElementById('l3-s4');s4.innerHTML='';
+  s4.appendChild(badge('Лайфхак'));s4.appendChild(p('s-title','ШІ може сам попередити вас про сумнівні місця'));s4.appendChild(p('s-sub','Якщо попросити — він позначить, де не впевнений. Порівняйте два запити:'));
+  var fb4=fbDiv('l3-fb4');var nb4=nextBtn(3,5);
+  s4.appendChild(compareBlock([{lbl:'Запит А',text:c.ccA,ch:'A'},{lbl:'Запит Б',text:c.ccB,ch:'B'}],'B',function(ch){showFb('l3-fb4',ch==='B'?'good':'info',ch==='B'?c.fb4c:c.fb4w);nb4.classList.add('show');}));
+  s4.appendChild(fb4);s4.appendChild(nb4);
+
+  var s5=document.getElementById('l3-s5');s5.innerHTML='';
+  s5.appendChild(badge('Практика'));s5.appendChild(p('s-title',c.pTitle));s5.appendChild(p('s-sub',c.pSub));
+  var fb5=fbDiv('l3-fb5');var sumW=div('');sumW.style.display='none';
+  sumW.appendChild(summaryBlock(l3sum));var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('Урок 4 →','4'));br.appendChild(restartBtn(3));sumW.appendChild(br);
+  s5.appendChild(choicesBlock(c.ch5,function(b,opt,wrap){disableBtns(wrap);b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');showFb('l3-fb5',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);sumW.style.display='block';markDone(3);}));
+  s5.appendChild(fb5);s5.appendChild(sumW);l3go(1);
+};
+window.l3go=function(n){document.querySelectorAll('#panel-l3 .step').forEach(function(s){s.className='step';});var s=document.getElementById('l3-s'+n);if(s)s.className='step vis';l3cur=n;setProg(3,n,l3lbl);window.scrollTo(0,0);};
+window.l3restart=function(){l3aud='';l3cur=0;document.querySelectorAll('#panel-l3 .step').forEach(function(s){s.className='step';});var s0=document.getElementById('l3-s0');if(s0)s0.className='step vis';setProg(3,0,l3lbl);window.scrollTo(0,0);};
+
+/* ══ L4 ══ */
+var l4aud='',l4cur=0;
+var L4={
+  teen:{icon:'✏️',title:'Мені до 25',sub:'Хочу навчитися отримувати від ШІ саме те, що потрібно',
+    hook:'Ти пишеш ШІ: «Допоможи з есе» — і отримуєш щось загальне й нудне.',hookSub:'Різниця — в запиті. ШІ не читає думки. Чим точніше ти пояснюєш задачу, тим кориснішою буде відповідь.',
+    ccA1:'«Напиши есе про клімат»',ccB1:'«Напиши есе на 300 слів про вплив кліматичних змін на Україну. Стиль — публіцистичний, аудиторія — старшокласники. Закінч закликом до дії»',
+    fb1c:'Саме так. Варіант Б дає ШІ все: обсяг, тему, стиль і структуру фіналу.',fb1w:'Варіант А — занадто загальний. Варіант Б дає конкретні параметри.',
+    scens:[{q:'«Поясни мені фізику»',ok:false,miss:'Нема теми, рівня і формату',fix:'Додай: яка тема, твій рівень, що потрібно — пояснення, задачі, конспект'},{q:'«Зроби цікавіше»',ok:false,miss:'Нема контексту — що саме і для кого',fix:'Додай: що за текст, хто читач, у якому напрямку покращити'},{q:'«Склади план реферату про Другу світову з 5 розділів, кожен по 2 підпункти»',ok:true,miss:'Запит повний',fix:'Тема, структура і обмеження — все є. Саме так і треба.'}],
+    ccA2:'«Поясни, як працює нейронна мережа»',ccB2:'«Ти — вчитель фізики для 10-го класу. Поясни нейронну мережу через аналогію. Без математики»',
+    fb4c:'Відмінно. Роль дає ШІ контекст: хто говорить, кому і як.',fb4w:'Варіант з роллю кращий. Без ролі — технічне пояснення для всіх. З роллю — адаптований текст.',
+    pTitle:'Ти хочеш підготуватись до усного іспиту з історії.',pSub:'Який запит дасть найкорисніший результат?',
+    ch5:[{t:'«Допоможи з іспитом з історії»',v:'wrong',fb:'Занадто загально. ШІ не знає тему, формат і що потрібно.'},{t:'«Склади список із 10 ключових дат Другої світової для іспиту. Коротко поясни кожну — 1-2 речення»',v:'correct',fb:'Відмінно. Тема, формат, кількість, стиль — все є.'},{t:'«Що треба знати з Другої світової?»',v:'partial',fb:'Краще, але широко. Додай: для чого, формат, обсяг.'}]},
+  adult:{icon:'📝',title:'Мені 40+',sub:'Хочу зрозуміти, як краще формулювати запити, щоб ШІ справді допомагав',
+    hook:'Ви пишете ШІ: «Допоможи написати листа» — і отримуєте щось офіційне й холодне.',hookSub:'ШІ не знає вашого тону і ситуації. Але якщо пояснити — він врахує все і напише саме так, як потрібно.',
+    ccA1:'«Напиши лист директору школи»',ccB1:'«Напиши ввічливого, але наполегливого листа директору школи щодо булінгу. Я — мама учня 6-го класу. Тон — спокійний, без юридичних погроз»',
+    fb1c:'Саме так. Варіант Б дає ШІ всі параметри: хто пише, кому, про що, яким тоном.',fb1w:'Варіант А — занадто загальний. Варіант Б дає контекст.',
+    scens:[{q:'«Як отримати субсидію»',ok:false,miss:'Нема контексту — хто питає і що вже відомо',fix:'Додай: ваша ситуація, що вже знаєте, що потрібно уточнити'},{q:'«Переклади цей текст»',ok:false,miss:'Нема мови і стилю',fix:'Додай: з якої мови, на яку, яким стилем'},{q:'«Ти — лікар. Поясни простими словами підвищений холестерин і яких продуктів уникати. Без термінів, коротко»',ok:true,miss:'Запит повний',fix:'Роль, задача, формат і обмеження — все є. Саме так і треба.'}],
+    ccA2:'«Що робити при болі в спині?»',ccB2:'«Ти — лікар-реабілітолог. Мені 58, хронічний біль у попереку. Порадь 3-4 вправи вдома без обладнання. Без термінів»',
+    fb4c:'Відмінно. Роль і контекст одразу задають правильний рівень відповіді.',fb4w:'Варіант з роллю кращий. Без ролі — загальні поради. З роллю — конкретні вправи для вашої ситуації.',
+    pTitle:'Ви хочете попросити ШІ написати привітання колезі на ювілей.',pSub:'Який запит дасть найкращий результат?',
+    ch5:[{t:'«Напиши привітання»',v:'wrong',fb:'Занадто мало. ШІ не знає кому, з якої нагоди, яким тоном і скільки тексту.'},{t:'«Напиши тепле привітання колезі Наталі з 60-річчям. Ми разом 15 років. Тон — щирий, без пафосу. 5-6 речень»',v:'correct',fb:'Чудово. Ім\'я, привід, стосунки, тон і обсяг — ШІ має все для особистого привітання.'},{t:'«Привітання на ювілей для жінки»',v:'partial',fb:'Краще, але загально. Додайте 2-3 деталі — результат буде набагато особистішим.'}]}
+};
+var l4lbl=['Вибір аудиторії','Перша спроба','Чотири складники','Аналіз запитів','Роль для ШІ','Практика'];
+var l4sum=['Якість відповіді ШІ залежить від якості запиту','Хороший запит: задача + контекст + формат + обмеження','Роль різко підвищує якість відповіді','Можна уточнити відповідь другим запитом — не обов\'язково починати з нуля'];
+
+window.buildL4=function(panel){
+  panel.appendChild(progWrap(4,6));
+  var s0=mkStep(4,0);s0.appendChild(p('hook','Урок 4. Як писати хороші запити до ШІ'));s0.appendChild(p('hook-sub','Відповідь ШІ на 80% залежить від того, як ви запитали.'));s0.appendChild(audPickBlock(4,L4));panel.appendChild(s0);
+  for(var i=1;i<=5;i++){var s=mkStep(4,i);s.id='l4-s'+i;panel.appendChild(s);}
+};
+window.l4pick=function(aud){
+  l4aud=aud;var c=L4[aud];
+  var s1=document.getElementById('l4-s1');s1.innerHTML='';
+  s1.appendChild(whoTag(4,aud));s1.appendChild(p('hook',c.hook));s1.appendChild(p('hook-sub',c.hookSub));s1.appendChild(p('q-label','Який запит дасть кориснішу відповідь?'));
+  var fb1=fbDiv('l4-fb1');var nb1=nextBtn(4,2);
+  s1.appendChild(compareBlock([{lbl:'Запит А',text:c.ccA1,ch:'A'},{lbl:'Запит Б',text:c.ccB1,ch:'B'}],'B',function(ch){showFb('l4-fb1',ch==='B'?'good':'info',ch==='B'?c.fb1c:c.fb1w);nb1.classList.add('show');}));
+  s1.appendChild(fb1);s1.appendChild(nb1);
+
+  var s2=document.getElementById('l4-s2');s2.innerHTML='';
+  s2.appendChild(badge('Ключова ідея'));s2.appendChild(p('s-title','Чотири складники хорошого запиту'));s2.appendChild(p('s-sub','Чим більше складників — тим точнішою буде відповідь.'));
+  s2.appendChild(tableWrap(['Складник','Що це','Приклад'],[['🎯 Задача','Що зробити','«Напиши», «Поясни», «Склади список»'],['📌 Контекст','Хто ви і яка ситуація','«Я студент», «Мені 65 років»'],['📐 Формат','Як має виглядати відповідь','«У вигляді списку», «Коротко»'],['🚫 Обмеження','Що не робити','«Без термінів», «Не більше 5 пунктів»']]));
+  s2.appendChild(ruleBlock('Простий тест','Прочитайте запит і запитайте: якби я надіслав це незнайомій людині — вона знала б, що мені потрібно?'));
+  s2.appendChild(nextBtn(4,3,'Зрозуміло, далі →',true));
+
+  var s3=document.getElementById('l4-s3');s3.innerHTML='';
+  s3.appendChild(badge('Перевірте себе'));s3.appendChild(p('s-title','Що бракує цим запитам?'));s3.appendChild(p('s-sub','Оцініть кожен запит.'));
+  var scDone=0;var fb3=fbDiv('l4-fb3');var nb3=nextBtn(4,4);
+  s3.appendChild(scenarioList(c.scens,['✓ Запит хороший','⚠ Чогось бракує'],function(i,j,item,b,opts){
+    opts.querySelectorAll('.sc-btn').forEach(function(s){s.disabled=true;});
+    var ok=(j===0)===c.scens[i].ok;b.classList.add(ok?'good':'bad');
+    var exp=item.querySelector('.scenario-explain');
+    var strong=mk('strong','',c.scens[i].miss);var br=document.createElement('br');
+    exp.innerHTML='';exp.appendChild(strong);exp.appendChild(br);exp.appendChild(document.createTextNode(c.scens[i].fix));
+    exp.className='scenario-explain show '+(ok?'good':'info');
+    scDone++;if(scDone>=c.scens.length){fb3.className='fb show good';fb3.textContent='Добре. Ви вже відчуваєте різницю між слабким і сильним запитом.';nb3.classList.add('show');}
+  }));
+  s3.appendChild(fb3);s3.appendChild(nb3);
+
+  var s4=document.getElementById('l4-s4');s4.innerHTML='';
+  s4.appendChild(badge('Просунутий прийом'));s4.appendChild(p('s-title','Дайте ШІ роль — і відповідь зміниться'));s4.appendChild(p('s-sub','Роль — коротка інструкція: хто ШІ у цій розмові.'));
+  var fb4=fbDiv('l4-fb4');var nb4=nextBtn(4,5);
+  s4.appendChild(compareBlock([{lbl:'Без ролі',text:c.ccA2,ch:'A'},{lbl:'З роллю',text:c.ccB2,ch:'B'}],'B',function(ch){showFb('l4-fb4',ch==='B'?'good':'info',ch==='B'?c.fb4c:c.fb4w);nb4.classList.add('show');}));
+  s4.appendChild(fb4);s4.appendChild(nb4);
+
+  var s5=document.getElementById('l4-s5');s5.innerHTML='';
+  s5.appendChild(badge('Практика'));s5.appendChild(p('s-title',c.pTitle));s5.appendChild(p('s-sub',c.pSub));
+  var fb5=fbDiv('l4-fb5');var sumW=div('');sumW.style.display='none';
+  sumW.appendChild(summaryBlock(l4sum));var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('Урок 5 →','5'));br.appendChild(restartBtn(4));sumW.appendChild(br);
+  s5.appendChild(choicesBlock(c.ch5,function(b,opt,wrap){disableBtns(wrap);b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');showFb('l4-fb5',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);sumW.style.display='block';markDone(4);}));
+  s5.appendChild(fb5);s5.appendChild(sumW);l4go(1);
+};
+window.l4go=function(n){document.querySelectorAll('#panel-l4 .step').forEach(function(s){s.className='step';});var s=document.getElementById('l4-s'+n);if(s)s.className='step vis';l4cur=n;setProg(4,n,l4lbl);window.scrollTo(0,0);};
+window.l4restart=function(){l4aud='';l4cur=0;document.querySelectorAll('#panel-l4 .step').forEach(function(s){s.className='step';});var s0=document.getElementById('l4-s0');if(s0)s0.className='step vis';setProg(4,0,l4lbl);window.scrollTo(0,0);};
+
+/* ══ L5 ══ */
+var l5aud='',l5cur=0;
+var L5={
+  teen:{icon:'🚀',title:'Мені до 25',sub:'Навчання, листи, підготовка до розмов — застосую ШІ вже сьогодні',
+    hook:'Завтра важлива розмова з викладачем про оцінку. Ти нервуєшся.',hookSub:'А ШІ може допомогти підготуватись за 10 хвилин — аргументи, заперечення, формулювання.',
+    ch1:[{t:'Написати замість мене весь текст',v:'partial',fb:'Частково. ШІ напише — але найкраще давати йому ситуацію і він покращить ваш черновик.'},{t:'Допомогти сформулювати аргументи і підготувати до розмови',v:'correct',fb:'Саме так. ШІ відмінно грає роль «спаринг-партнера».'},{t:'Нічого — це особиста розмова',v:'wrong',fb:'Не зовсім. ШІ не піде замість вас — але може допомогти підготуватись.'}],
+    mapRows:[['📚 Навчання','Пояснення теми','Підготовка до іспиту через Q&A','Перевірка логіки есе'],['✉️ Листи і тексти','Лист викладачу','Пост для соцмереж','Резюме або мотиваційний лист'],['💡 Ідеї','Назви для проєкту','Ідеї для подарунка','План для відео'],['🗣️ Підготовка','Аргументи для суперечки','Питання для інтерв\'ю','Репетиція складної розмови']],
+    scens:[
+      {q:'Написати email викладачу з поясненням про пропуск',cor:'B',a:'«Напиши листа викладачу»',b:'«Напиши ввічливого email викладачу. Пропустив через хворобу, є довідка. Прошу конспект і уточнити вплив на оцінку»',exp:'Варіант Б дає деталі: причину, що є, що потрібно і тон.'},
+      {q:'Готуватись до іспиту з біології — тема «Клітина»',cor:'B',a:'«Розкажи про клітину»',b:'«Постав 10 запитань по темі "Будова клітини" від простого до складного. Після кожного чекай відповіді і виправляй помилки»',exp:'Варіант Б перетворює ШІ на репетитора.'},
+      {q:'Ідея подарунка другові-геймеру',cor:'B',a:'«Що подарувати геймеру»',b:'«Друг обожнює стратегії на PC. Бюджет — до 500 грн. 5 ідей онлайн. Без ігрових ключів»',exp:'Варіант Б містить інтереси, бюджет і обмеження.'}],
+    tmpls:[
+      {icon:'📖',title:'Підготовка до іспиту',text:'Я готуюсь до іспиту з [предмет], тема [тема]. Постав мені 7 запитань різного рівня. Після кожного чекай відповіді і давай зворотній зв\'язок.'},
+      {icon:'✉️',title:'Лист викладачу',text:'Напиши ввічливого листа викладачу [ім\'я]. Причина: [ситуація]. Тон — поважний і конкретний. 3-4 речення.'},
+      {icon:'💬',title:'Підготовка до розмови',text:'Я маю поговорити з [ким] про [тему]. Допоможи сформулювати аргументи і передбачити заперечення. Мета: [мета].'},
+      {icon:'✏️',title:'Перевірка есе',text:'Перевір це есе: [текст]. Що слабке? Де логіка недостатня? Не переписуй — тільки коментарі.'}],
+    pTitle:'Друг просить допомогти написати мотиваційний лист.',pSub:'Який запит до ШІ буде найкориснішим?',
+    ch5:[{t:'«Напиши мотиваційний лист для університету»',v:'wrong',fb:'Занадто мало. ШІ не знає спеціальності, університету і досвіду.'},{t:'«Допоможи написати мотиваційний лист на журналістику до КНУ. Друг — активний блогер, організував шкільну газету. Тон — впевнений, стиль — живий»',v:'correct',fb:'Відмінно. Програма, університет, досягнення і стиль — ШІ має все.'},{t:'«Напиши лист — хочу вступити на журналістику»',v:'partial',fb:'Краще, але нема університету і досягнень. Додайте 2-3 деталі.'}]},
+  adult:{icon:'🌿',title:'Мені 40+',sub:'Листи, документи, пояснення, плани — знайду де ШІ реально допоможе',
+    hook:'Треба написати офіційну скаргу. Або підготуватись до розмови з лікарем.',hookSub:'ШІ може допомогти з усім цим — якщо знати, як просити.',
+    ch1:[{t:'Написати замість мене весь документ',v:'partial',fb:'Частково. ШІ напише — але найкраще давати деталі ситуації, і він оформить.'},{t:'Допомогти сформулювати думки і підготуватись до лікаря',v:'correct',fb:'Саме так. ШІ допоможе зрозуміти термін, скласти питання, підготувати опис симптомів.'},{t:'Нічого — такі справи треба вирішувати самостійно',v:'wrong',fb:'Не завжди. ШІ може пояснити терміни і допомогти підготувати питання.'}],
+    mapRows:[['✉️ Листи і заяви','Скарга до ЖКГ','Заява до установи','Відповідь на офіційного листа'],['🏥 Здоров\'я','Пояснення медичного терміну','Список питань до лікаря','Що означає цей аналіз'],['📋 Планування','Список справ на тиждень','План поїздки або свята','Розбивка завдання на кроки'],['👨‍👩‍👧 Сім\'я','Пояснити онуку складну тему','Ідея для подарунка','Допомога з домашнім завданням']],
+    scens:[
+      {q:'Написати скаргу до управляючої компанії про протікання даху',cor:'B',a:'«Напиши скаргу про дах»',b:'«Напиши офіційну скаргу. Проблема: протікання даху, зверталась двічі усно — без результату. Прошу відповіді за 10 днів. Тон — офіційний»',exp:'Варіант Б дає деталі: проблему, передісторію, що просять і тон.'},
+      {q:'Дізнатися, що означає «дисліпідемія» у результатах аналізів',cor:'B',a:'«Що таке дисліпідемія»',b:'«Поясни мені дисліпідемію простими словами, без жаргону. Що це означає на практиці? Я не медик»',exp:'Варіант Б задає рівень пояснення і контекст.'},
+      {q:'Онук просить пояснити, що таке штучний інтелект',cor:'B',a:'«Поясни штучний інтелект»',b:'«Поясни ШІ так, щоб зрозумів десятирічний хлопчик. Використай просту аналогію — з іграшкою, грою або тваринами»',exp:'Варіант Б задає аудиторію і формат — ШІ підбере зрозумілу аналогію.'}],
+    tmpls:[
+      {icon:'📄',title:'Офіційна скарга або заява',text:'Напиши офіційну [скаргу / заяву] до [куди]. Проблема: [опис]. Попередні звернення: [були / не були]. Прошу [що хочете]. Тон — офіційний, стриманий.'},
+      {icon:'🏥',title:'Підготовка до лікаря',text:'Я маю прийом у [спеціаліст] через [причина]. Допоможи скласти 5-7 запитань. Мій вік — [вік], основна скарга — [симптом].'},
+      {icon:'📖',title:'Пояснення терміну',text:'Поясни простими словами, що означає [термін] — як для людини без медичної освіти. Що це означає на практиці?'},
+      {icon:'🎁',title:'Ідея для подарунка',text:'Запропонуй 5 ідей подарунка для [кому]. Вік — [вік], інтереси — [інтереси]. Бюджет — до [сума] грн.'}],
+    pTitle:'Треба написати листа до міської ради щодо розбитої дороги.',pSub:'Який запит до ШІ буде найкориснішим?',
+    ch5:[{t:'«Напиши листа про дорогу»',v:'wrong',fb:'Занадто мало. ШІ не знає кому, яка проблема і чого хочемо.'},{t:'«Напиши офіційного листа до міської ради. Розбита дорога по вул. Лісовій. Усні звернення без результату. Прошу включити ремонт у план або дати відповідь. Тон — ввічливий, наполегливий»',v:'correct',fb:'Чудово. Є адресат, проблема, передісторія і прохання.'},{t:'«Допоможи написати скаргу на погану дорогу»',v:'partial',fb:'Краще. Але нема адресата і конкретного прохання. Додайте деталі.'}]}
+};
+var l5lbl=['Вибір аудиторії','Перша спроба','Карта застосувань','Підбір запитів','Шаблони','Фінальна практика'];
+var l5sum=['ШІ і Google — різні інструменти для різних задач','ШІ сильний у текстах і поясненнях — слабкий у свіжих фактах','Впевнений тон не означає правду — конкретні факти треба перевіряти','Якість запиту визначає якість відповіді: задача + контекст + формат','ШІ — практичний помічник у листах, планах, навчанні й підготовці до розмов'];
+
+window.buildL5=function(panel){
+  panel.appendChild(progWrap(5,6));
+  var s0=mkStep(5,0);s0.appendChild(p('hook','Урок 5. ШІ у повсякденних справах'));s0.appendChild(p('hook-sub','Час застосувати знання у справжніх ситуаціях — таких, які трапляються в житті кожного.'));s0.appendChild(audPickBlock(5,L5));panel.appendChild(s0);
+  for(var i=1;i<=5;i++){var s=mkStep(5,i);s.id='l5-s'+i;panel.appendChild(s);}
+};
+window.l5pick=function(aud){
+  l5aud=aud;var c=L5[aud];
+  var s1=document.getElementById('l5-s1');s1.innerHTML='';
+  s1.appendChild(whoTag(5,aud));s1.appendChild(p('hook',c.hook));s1.appendChild(p('hook-sub',c.hookSub));s1.appendChild(p('q-label','Як ви думаєте — з чим ШІ тут допоможе найбільше?'));
+  var fb1=fbDiv('l5-fb1');var nb1=nextBtn(5,2);
+  s1.appendChild(choicesBlock(c.ch1,function(b,opt,wrap){disableBtns(wrap);b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');showFb('l5-fb1',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);nb1.classList.add('show');}));
+  s1.appendChild(fb1);s1.appendChild(nb1);
+
+  var s2=document.getElementById('l5-s2');s2.innerHTML='';
+  s2.appendChild(badge('Карта застосувань'));s2.appendChild(p('s-title','Де ШІ реально корисний у вашому житті'));s2.appendChild(p('s-sub','Конкретні ситуації — без перебільшень.'));
+  var tw=div('table-wrap');var tbl=mk('table','diff-table');
+  var hr=mk('tr');[mk('th','','Сфера'),mk('th','','Приклади задач')].forEach(function(th){hr.appendChild(th);});tbl.appendChild(hr);
+  c.mapRows.forEach(function(row){var tr=mk('tr');tr.appendChild(mk('td','',row[0]));tr.appendChild(mk('td','',row.slice(1).join(' · ')));tbl.appendChild(tr);});
+  tw.appendChild(tbl);s2.appendChild(tw);
+  s2.appendChild(ruleBlock('Головне','ШІ не замінює фахівця — але допомагає підготуватись до зустрічі з ним і сформулювати своє питання.'));
+  s2.appendChild(nextBtn(5,3,'Далі →',true));
+
+  var s3=document.getElementById('l5-s3');s3.innerHTML='';
+  s3.appendChild(badge('Перевірте себе'));s3.appendChild(p('s-title','Підберіть запит до ситуації'));s3.appendChild(p('s-sub','Для кожної ситуації — який запит до ШІ буде кориснішим?'));
+  var scDone=0;var fb3=fbDiv('l5-fb3');var nb3=nextBtn(5,4);
+  s3.appendChild(scenarioList(c.scens,['Запит А','Запит Б'],function(i,j,item,b,opts){
+    opts.querySelectorAll('.sc-btn').forEach(function(s){s.disabled=true;});
+    var chose=j===0?'A':'B';var ok=chose===c.scens[i].cor;b.classList.add(ok?'good':'bad');
+    opts.querySelectorAll('.sc-btn').forEach(function(sb,ji){if((ji===0?'A':'B')===c.scens[i].cor)sb.classList.add('good');});
+    var exp=item.querySelector('.scenario-explain');
+    exp.innerHTML='';
+    [mk('strong','','Запит А: '),document.createTextNode(c.scens[i].a),document.createElement('br'),document.createElement('br'),mk('strong','','Запит Б: '),document.createTextNode(c.scens[i].b),document.createElement('br'),document.createElement('br'),document.createTextNode(c.scens[i].exp)].forEach(function(node){exp.appendChild(node);});
+    exp.className='scenario-explain show '+(ok?'good':'info');
+    scDone++;if(scDone>=c.scens.length){fb3.className='fb show good';fb3.textContent='Відмінно. Ви вже добре відчуваєте різницю між загальним і точним запитом.';nb3.classList.add('show');}
+  }));
+  s3.appendChild(fb3);s3.appendChild(nb3);
+
+  var s4=document.getElementById('l5-s4');s4.innerHTML='';
+  s4.appendChild(badge('Шаблони для старту'));s4.appendChild(p('s-title','Готові запити — скопіюйте і спробуйте'));s4.appendChild(p('s-sub','Відкрийте ChatGPT або Claude — і спробуйте прямо зараз.'));
+  c.tmpls.forEach(function(t){
+    var card=div('');card.style.cssText='margin-bottom:12px;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden';
+    var hdr=div('');hdr.style.cssText='background:var(--bg2);padding:10px 14px;display:flex;align-items:center;gap:8px';
+    var ico=mk('span','',t.icon);ico.style.fontSize='16px';
+    var ttl=mk('span','',t.title);ttl.style.cssText='font-size:13px;font-weight:500;color:var(--ink);flex:1';
+    var cb=mk('button','','\u041a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438');
+    cb.style.cssText='font-size:12px;color:var(--accent);background:none;border:1px solid var(--accent);border-radius:4px;padding:3px 10px;cursor:pointer;font-family:inherit';
+    (function(txt,btn){btn.addEventListener('click',function(){navigator.clipboard.writeText(txt).then(function(){btn.textContent='\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u2713';setTimeout(function(){btn.textContent='\u041a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438';},2000);}).catch(function(){btn.textContent='(Ctrl+C)';setTimeout(function(){btn.textContent='\u041a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438';},2000);});});})(t.text,cb);
+    hdr.append(ico,ttl,cb);
+    var body=div('');body.style.cssText='padding:12px 14px;font-size:13px;color:var(--ink2);line-height:1.65;font-style:italic';body.textContent=t.text;
+    card.appendChild(hdr);card.appendChild(body);s4.appendChild(card);
+  });
+  s4.appendChild(nextBtn(5,5,'Далі →',true));
+
+  var s5=document.getElementById('l5-s5');s5.innerHTML='';
+  s5.appendChild(badge('\u0424\u0456\u043d\u0430\u043b\u044c\u043d\u0430 \u043f\u0440\u0430\u043a\u0442\u0438\u043a\u0430'));s5.appendChild(p('s-title',c.pTitle));s5.appendChild(p('s-sub',c.pSub));
+  var fb5=fbDiv('l5-fb5');var sumW=div('');sumW.style.display='none';
+  sumW.appendChild(summaryBlock(l5sum));
+  sumW.appendChild(ruleBlock('\u041d\u0430\u0441\u0442\u0443\u043f\u043d\u0438\u0439 \u043a\u0440\u043e\u043a','\u0412\u0456\u0434\u043a\u0440\u0438\u0439\u0442\u0435 \u0431\u0443\u0434\u044c-\u044f\u043a\u0438\u0439 \u0428\u0406 \u0456 \u0441\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u043e\u0434\u0438\u043d \u0456\u0437 \u0448\u0430\u0431\u043b\u043e\u043d\u0456\u0432 \u0443 \u0432\u043b\u0430\u0441\u043d\u0456\u0439 \u0441\u0438\u0442\u0443\u0430\u0446\u0456\u0457. \u041d\u0430\u0439\u043a\u0440\u0430\u0449\u0435 \u043d\u0430\u0432\u0447\u0430\u043d\u043d\u044f \u2014 \u0447\u0435\u0440\u0435\u0437 \u0440\u0435\u0430\u043b\u044c\u043d\u0443 \u0441\u043f\u0440\u043e\u0431\u0443.'));
+  var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('\u2190 \u041d\u0430 \u0433\u043e\u043b\u043e\u0432\u043d\u0443','home'));br.appendChild(restartBtn(5));sumW.appendChild(br);
+  s5.appendChild(choicesBlock(c.ch5,function(b,opt,wrap){disableBtns(wrap);b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');showFb('l5-fb5',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);sumW.style.display='block';markDone(5);}));
+  s5.appendChild(fb5);s5.appendChild(sumW);l5go(1);
+};
+window.l5go=function(n){document.querySelectorAll('#panel-l5 .step').forEach(function(s){s.className='step';});var s=document.getElementById('l5-s'+n);if(s)s.className='step vis';l5cur=n;setProg(5,n,l5lbl);window.scrollTo(0,0);};
+window.l5restart=function(){l5aud='';l5cur=0;document.querySelectorAll('#panel-l5 .step').forEach(function(s){s.className='step';});var s0=document.getElementById('l5-s0');if(s0)s0.className='step vis';setProg(5,0,l5lbl);window.scrollTo(0,0);};
+
+})();
+</script>
+</body>
+</html>

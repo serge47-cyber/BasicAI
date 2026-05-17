@@ -59,9 +59,14 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
 .audience-pick{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.75rem}
 .aud-btn{background:var(--bg);border:1px solid var(--line2);border-radius:var(--radius);padding:1.5rem 1.25rem;cursor:pointer;text-align:left;transition:background .15s,border-color .15s,box-shadow .15s;width:100%}
 .aud-btn:hover{background:var(--bg2);border-color:var(--ink3);box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.aud-btn.selected{background:var(--accent-bg);border-color:var(--accent);box-shadow:0 2px 12px rgba(45,106,79,.12)}
 .aud-icon{font-size:26px;margin-bottom:10px;display:block}
 .aud-title{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:5px}
 .aud-sub{font-size:13px;color:var(--ink2);line-height:1.55}
+.style-panel{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:1.25rem;margin:0 0 1.5rem}
+.style-panel-title{font-size:16px;font-weight:500;color:var(--ink);margin-bottom:.35rem}
+.style-panel-sub{font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:1rem}
+.style-status{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;margin-top:.9rem}
 .choices{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem}
 .cb{background:var(--bg);border:1px solid var(--line2);border-radius:var(--radius-sm);padding:12px 16px;font-family:'Literata',serif;font-size:14px;color:var(--ink);text-align:left;cursor:pointer;line-height:1.55;transition:background .15s,border-color .15s;width:100%}
 .cb:hover{background:var(--bg2);border-color:var(--ink3)}
@@ -174,6 +179,23 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
     <div class="lesson-panel active" id="panel-home">
       <h1 class="home-title">Посібник зі штучного інтелекту для тих, хто хоче розібратися</h1>
       <p class="home-sub">Не технічний курс і не рекламний буклет. Чесні інтерактивні уроки — з прикладами з реального життя і без зайвого жаргону.</p>
+      <div class="style-panel" id="style-panel">
+        <div class="style-panel-title">Оберіть стиль навчання один раз</div>
+        <div class="style-panel-sub">Курс запам'ятає вибір у цьому браузері й автоматично відкриватиме уроки у відповідній траєкторії.</div>
+        <div class="audience-pick">
+          <button class="aud-btn style-choice" type="button" data-aud="teen">
+            <span class="aud-icon">🎧</span>
+            <span class="aud-title">Я дослідник</span>
+            <span class="aud-sub">Люблю швидко пробувати, порівнювати варіанти й перевіряти, що працює.</span>
+          </button>
+          <button class="aud-btn style-choice" type="button" data-aud="adult">
+            <span class="aud-icon">☕</span>
+            <span class="aud-title">Я практик</span>
+            <span class="aud-sub">Хочу спокійно розібратися й одразу застосувати ШІ в конкретних справах.</span>
+          </button>
+        </div>
+        <div class="style-status" id="style-status">Стиль ще не обрано</div>
+      </div>
       <div class="module-list">
         <button class="module-card" id="mc1"><span class="mc-num">01</span><div class="mc-body"><div class="mc-title">ШІ і Google — в чому різниця?</div><div class="mc-sub">Перший крок: зрозуміти, що таке ШІ і чим він відрізняється від звичного пошуку</div></div><span class="mc-arrow">→</span></button>
         <button class="module-card" id="mc2"><span class="mc-num">02</span><div class="mc-body"><div class="mc-title">Що ШІ вміє і чого не вміє</div><div class="mc-sub">Чесна карта можливостей: де ШІ справді корисний, а де краще не ризикувати</div></div><span class="mc-arrow">→</span></button>
@@ -205,16 +227,45 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
 
 /* ── NAV ── */
 var done={};
+var styleKey='basicai-learning-style';
+function getSavedAudience(){
+  try{
+    var aud=localStorage.getItem(styleKey);
+    return aud==='teen'||aud==='adult'?aud:'';
+  }catch(e){return '';}
+}
+function saveAudience(aud){
+  if(aud!=='teen'&&aud!=='adult')return;
+  try{localStorage.setItem(styleKey,aud);}catch(e){}
+  refreshStyleUI();
+}
+function audName(aud){return aud==='teen'?'Дослідник':aud==='adult'?'Практик':'';}
+function refreshStyleUI(){
+  var saved=getSavedAudience();
+  document.querySelectorAll('.style-choice').forEach(function(btn){
+    btn.classList.toggle('selected',btn.getAttribute('data-aud')===saved);
+  });
+  document.querySelectorAll('.audience-pick .aud-btn').forEach(function(btn){
+    btn.classList.toggle('selected',btn.getAttribute('data-aud')===saved);
+  });
+  var status=document.getElementById('style-status');
+  if(status)status.textContent=saved?'Обраний стиль: '+audName(saved):'Стиль ще не обрано';
+  var note=document.querySelector('.sidebar-note');
+  if(note)note.textContent=saved?'Ваш стиль навчання: '+audName(saved)+'. Його можна змінити на головній сторінці.':'Оберіть свій стиль навчання на головній сторінці — і приклади підлаштуються під вас.';
+}
 function showHome(){
   document.querySelectorAll('.lesson-panel').forEach(function(p){p.classList.remove('active');});
   document.getElementById('panel-home').classList.add('active');
   document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
   document.getElementById('nav-home').classList.add('active');
+  refreshStyleUI();
 }
 function showLesson(n){
   var panel=document.getElementById('panel-l'+n);
   if(!panel)return;
   if(!panel.getAttribute('data-built'))buildLesson(n);
+  var saved=getSavedAudience();
+  if(saved&&window['l'+n+'pick'])window['l'+n+'pick'](saved);
   document.querySelectorAll('.lesson-panel').forEach(function(p){p.classList.remove('active');});
   panel.classList.add('active');
   document.querySelectorAll('.nav-item').forEach(function(ni){ni.classList.remove('active');});
@@ -231,6 +282,11 @@ function markDone(n){
 /* single delegated listener — catches ALL clicks */
 document.addEventListener('click',function(e){
   var t=e.target;
+  var styleBtn=t.closest('.style-choice');
+  if(styleBtn){
+    saveAudience(styleBtn.getAttribute('data-aud'));
+    return;
+  }
   if(t.id==='nav-home'||t.closest('#nav-home')){showHome();return;}
   for(var n=1;n<=9;n++){
     var nb=document.getElementById('nav-l'+n);
@@ -265,15 +321,20 @@ function setProg(ln,n,labels){
   for(var i=0;i<total;i++){var d=document.getElementById('l'+ln+'-d'+i);if(d)d.className='pd'+(i<n?' done':i===n?' on':'');}
 }
 function mkStep(ln,n){var s=div(n===0?'step vis':'step');s.id='l'+ln+'-s'+n;return s;}
+function stylePickHint(){
+  var saved=getSavedAudience();
+  return saved?'Збережений стиль: '+audName(saved)+'. Можна продовжити з ним або змінити вибір нижче.':'Оберіть стиль навчання — і курс запам\'ятає його для наступних уроків.';
+}
 
 function audPickBlock(ln,data){
   var wrap=div('audience-pick');
   ['teen','adult'].forEach(function(aud){
     var c=data[aud];
-    var b=mk('button','aud-btn');
+    var b=mk('button','aud-btn'+(getSavedAudience()===aud?' selected':''));
+    b.setAttribute('data-aud',aud);
     var ic=div('aud-icon');ic.textContent=c.icon;
     b.appendChild(ic);b.appendChild(div('aud-title',c.title));b.appendChild(div('aud-sub',c.sub));
-    b.addEventListener('click',function(){window['l'+ln+'pick'](aud);});
+    b.addEventListener('click',function(){saveAudience(aud);window['l'+ln+'pick'](aud);});
     wrap.appendChild(b);
   });
   return wrap;
@@ -395,7 +456,7 @@ window.buildL1=function(panel){
   panel.appendChild(progWrap(1,5));
   var s0=mkStep(1,0);
   s0.appendChild(p('hook','Урок 1. Що таке ШІ — і чим він відрізняється від Google?'));
-  s0.appendChild(p('hook-sub','Оберіть свій стиль навчання — і приклади підлаштуються під вас.'));
+  s0.appendChild(p('hook-sub',stylePickHint()));
   s0.appendChild(audPickBlock(1,L1));panel.appendChild(s0);
   for(var i=1;i<=4;i++){var s=mkStep(1,i);s.id='l1-s'+i;panel.appendChild(s);}
 };
@@ -473,7 +534,7 @@ var l2sum=['ШІ відмінно справляється з текстами, 
 
 window.buildL2=function(panel){
   panel.appendChild(progWrap(2,5));
-  var s0=mkStep(2,0);s0.appendChild(p('hook','Урок 2. Що ШІ вміє — і чого не вміє'));s0.appendChild(p('hook-sub','ШІ здається всемогутнім. Але у нього є чіткі межі.'));s0.appendChild(audPickBlock(2,L2));panel.appendChild(s0);
+  var s0=mkStep(2,0);s0.appendChild(p('hook','Урок 2. Що ШІ вміє — і чого не вміє'));s0.appendChild(p('hook-sub',stylePickHint()));s0.appendChild(audPickBlock(2,L2));panel.appendChild(s0);
   for(var i=1;i<=4;i++){var s=mkStep(2,i);s.id='l2-s'+i;panel.appendChild(s);}
 };
 window.l2pick=function(aud){
@@ -535,7 +596,7 @@ var l3sum=['ШІ може звучати впевнено навіть коли 
 
 window.buildL3=function(panel){
   panel.appendChild(progWrap(3,6));
-  var s0=mkStep(3,0);s0.appendChild(p('hook','Урок 3. Чи можна довіряти відповіді ШІ?'));s0.appendChild(p('hook-sub','ШІ звучить впевнено майже завжди. Але впевненість — це не те саме, що правда.'));s0.appendChild(audPickBlock(3,L3));panel.appendChild(s0);
+  var s0=mkStep(3,0);s0.appendChild(p('hook','Урок 3. Чи можна довіряти відповіді ШІ?'));s0.appendChild(p('hook-sub',stylePickHint()));s0.appendChild(audPickBlock(3,L3));panel.appendChild(s0);
   for(var i=1;i<=5;i++){var s=mkStep(3,i);s.id='l3-s'+i;panel.appendChild(s);}
 };
 window.l3pick=function(aud){
@@ -608,7 +669,7 @@ var l4sum=['Якість відповіді ШІ залежить від яко�
 
 window.buildL4=function(panel){
   panel.appendChild(progWrap(4,6));
-  var s0=mkStep(4,0);s0.appendChild(p('hook','Урок 4. Як писати хороші запити до ШІ'));s0.appendChild(p('hook-sub','Відповідь ШІ на 80% залежить від того, як ви запитали.'));s0.appendChild(audPickBlock(4,L4));panel.appendChild(s0);
+  var s0=mkStep(4,0);s0.appendChild(p('hook','Урок 4. Як писати хороші запити до ШІ'));s0.appendChild(p('hook-sub',stylePickHint()));s0.appendChild(audPickBlock(4,L4));panel.appendChild(s0);
   for(var i=1;i<=5;i++){var s=mkStep(4,i);s.id='l4-s'+i;panel.appendChild(s);}
 };
 window.l4pick=function(aud){
@@ -694,7 +755,7 @@ var l5sum=['ШІ і Google — різні інструменти для різн
 
 window.buildL5=function(panel){
   panel.appendChild(progWrap(5,6));
-  var s0=mkStep(5,0);s0.appendChild(p('hook','Урок 5. ШІ у повсякденних справах'));s0.appendChild(p('hook-sub','Час застосувати знання у справжніх ситуаціях — таких, які трапляються в житті кожного.'));s0.appendChild(audPickBlock(5,L5));panel.appendChild(s0);
+  var s0=mkStep(5,0);s0.appendChild(p('hook','Урок 5. ШІ у повсякденних справах'));s0.appendChild(p('hook-sub',stylePickHint()));s0.appendChild(audPickBlock(5,L5));panel.appendChild(s0);
   for(var i=1;i<=5;i++){var s=mkStep(5,i);s.id='l5-s'+i;panel.appendChild(s);}
 };
 window.l5pick=function(aud){
@@ -815,7 +876,7 @@ var l6sum=['Не вводьте у ШІ паролі, номери докуме�
 
 window.buildL6=function(panel){
   panel.appendChild(progWrap(6,6));
-  var s0=mkStep(6,0);s0.appendChild(p('hook','Урок 6. Безпека і особисті дані'));s0.appendChild(p('hook-sub','ШІ — корисний інструмент. Але він не «ваш» — він належить компанії. Розберемося, що безпечно писати, а що краще залишити при собі.'));s0.appendChild(audPickBlock(6,L6));panel.appendChild(s0);
+  var s0=mkStep(6,0);s0.appendChild(p('hook','Урок 6. Безпека і особисті дані'));s0.appendChild(p('hook-sub',stylePickHint()));s0.appendChild(audPickBlock(6,L6));panel.appendChild(s0);
   for(var i=1;i<=5;i++){var s=mkStep(6,i);s.id='l6-s'+i;panel.appendChild(s);}
 };
 window.l6pick=function(aud){
@@ -925,7 +986,7 @@ var l7tools=[
 
 window.buildL7=function(panel){
   panel.appendChild(progWrap(7,6));
-  var s0=mkStep(7,0);s0.appendChild(p('hook','Урок 7. Різні ШІ-інструменти'));s0.appendChild(p('hook-sub','ChatGPT, Claude, Gemini, Copilot — у кожного своя ніша. Розберемося, хто що вміє і який обрати для вашої задачі.'));s0.appendChild(audPickBlock(7,L7));panel.appendChild(s0);
+  var s0=mkStep(7,0);s0.appendChild(p('hook','Урок 7. Різні ШІ-інструменти'));s0.appendChild(p('hook-sub',stylePickHint()));s0.appendChild(audPickBlock(7,L7));panel.appendChild(s0);
   for(var i=1;i<=5;i++){var s=mkStep(7,i);s.id='l7-s'+i;panel.appendChild(s);}
 };
 
@@ -1104,7 +1165,7 @@ window.buildL8=function(panel){
   panel.appendChild(progWrap(8,5));
   var s0=mkStep(8,0);
   s0.appendChild(p('hook','Урок 8. ШІ для навчання'));
-  s0.appendChild(p('hook-sub','Пояснення, конспекти, підготовка до іспитів — ШІ як персональний репетитор у кишені.'));
+  s0.appendChild(p('hook-sub',stylePickHint()));
   s0.appendChild(audPickBlock(8,L8));
   panel.appendChild(s0);
   for(var i=1;i<=4;i++){var s=mkStep(8,i);s.id='l8-s'+i;panel.appendChild(s);}
@@ -1284,7 +1345,7 @@ window.buildL9=function(panel){
   panel.appendChild(progWrap(9,5));
   var s0=mkStep(9,0);
   s0.appendChild(p('hook','Урок 9. ШІ і фейки'));
-  s0.appendChild(p('hook-sub','Як розпізнати дезінформацію — і чи може ШІ допомогти чи нашкодити.'));
+  s0.appendChild(p('hook-sub',stylePickHint()));
   s0.appendChild(audPickBlock(9,L9));
   panel.appendChild(s0);
   for(var i=1;i<=4;i++){var s=mkStep(9,i);s.id='l9-s'+i;panel.appendChild(s);}
@@ -1379,6 +1440,7 @@ window.l9restart=function(){
   var s0=document.getElementById('l9-s0');if(s0)s0.className='step vis';
   setProg(9,0,l9lbl);window.scrollTo(0,0);
 };
+refreshStyleUI();
 if('serviceWorker' in navigator && location.protocol !== 'file:'){
   navigator.serviceWorker.register('sw.js').catch(function(){});
 }

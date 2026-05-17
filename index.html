@@ -125,6 +125,14 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
 .sum-list{list-style:none;display:flex;flex-direction:column;gap:8px}
 .sum-list li{font-size:14px;color:var(--ink2);padding-left:22px;position:relative;line-height:1.55}
 .sum-list li::before{content:"→";position:absolute;left:0;color:var(--ink3);font-family:'JetBrains Mono',monospace}
+.result-card{background:#FDF6EC;border:1px solid #E9C98D;border-left:3px solid var(--gold);border-radius:0 var(--radius) var(--radius) 0;padding:1.25rem;margin-bottom:1.5rem}
+.result-title{font-size:16px;font-weight:500;color:var(--ink);margin-bottom:.85rem}
+.result-row{margin-bottom:.85rem}
+.result-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.result-text{font-size:14px;color:var(--ink2);line-height:1.6}
+.result-list{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.result-list li{font-size:14px;color:var(--ink2);line-height:1.5;padding-left:18px;position:relative}
+.result-list li::before{content:"✓";position:absolute;left:0;color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:11px}
 .next-btn{background:var(--ink);color:var(--bg);border:none;border-radius:var(--radius-sm);padding:10px 22px;font-family:'Literata',serif;font-size:14px;cursor:pointer;transition:opacity .15s;display:none}
 .next-btn.show{display:inline-block}
 .next-btn:hover{opacity:.85}
@@ -226,8 +234,33 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
 'use strict';
 
 /* ── NAV ── */
-var done={};
+var progressKey='basicai-completed-lessons';
 var styleKey='basicai-learning-style';
+var done=loadDone();
+function loadDone(){
+  try{
+    var raw=JSON.parse(localStorage.getItem(progressKey)||'[]');
+    var map={};
+    if(Array.isArray(raw))raw.forEach(function(n){if(n>=1&&n<=9)map[n]=true;});
+    return map;
+  }catch(e){return {};}
+}
+function saveDone(){
+  try{
+    var list=[];
+    for(var i=1;i<=9;i++){if(done[i])list.push(i);}
+    localStorage.setItem(progressKey,JSON.stringify(list));
+  }catch(e){}
+}
+function refreshDoneUI(){
+  for(var i=1;i<=9;i++){
+    var isDone=!!done[i];
+    var nb=document.getElementById('nav-l'+i);
+    var mc=document.getElementById('mc'+i);
+    if(nb)nb.classList.toggle('done',isDone);
+    if(mc)mc.classList.toggle('done-card',isDone);
+  }
+}
 function getSavedAudience(){
   try{
     var aud=localStorage.getItem(styleKey);
@@ -259,6 +292,7 @@ function showHome(){
   document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
   document.getElementById('nav-home').classList.add('active');
   refreshStyleUI();
+  refreshDoneUI();
 }
 function showLesson(n){
   var panel=document.getElementById('panel-l'+n);
@@ -275,8 +309,8 @@ function showLesson(n){
 }
 function markDone(n){
   if(done[n])return;done[n]=true;
-  var nb=document.getElementById('nav-l'+n);if(nb)nb.classList.add('done');
-  var mc=document.getElementById('mc'+n);if(mc)mc.classList.add('done-card');
+  saveDone();
+  refreshDoneUI();
 }
 
 /* single delegated listener — catches ALL clicks */
@@ -411,6 +445,88 @@ function summaryBlock(items){
   var s=div('summary');s.appendChild(p('sum-title','Що ви засвоїли на цьому уроці:'));
   var ul=mk('ul','sum-list');items.forEach(function(txt){ul.appendChild(mk('li','',txt));});s.appendChild(ul);return s;
 }
+function resultBlock(cfg){
+  var card=div('result-card');
+  card.appendChild(div('result-title',cfg.title));
+  [
+    ['Я тепер умію',cfg.skill],
+    ['Готовий запит',cfg.prompt],
+    ['Спробувати сьогодні',cfg.action]
+  ].forEach(function(row){
+    var wrap=div('result-row');
+    wrap.appendChild(div('result-label',row[0]));
+    wrap.appendChild(div('result-text',row[1]));
+    card.appendChild(wrap);
+  });
+  var checklist=div('result-row');
+  checklist.appendChild(div('result-label','Міні-чекліст'));
+  var ul=mk('ul','result-list');
+  cfg.checklist.forEach(function(item){ul.appendChild(mk('li','',item));});
+  checklist.appendChild(ul);
+  card.appendChild(checklist);
+  return card;
+}
+function lessonResultBlock(ln,c){
+  var configs={
+    2:{
+      title:'Мій результат уроку 2',
+      skill:'Я можу визначити, коли ШІ справді корисний, а коли краще звернутися до пошуку, офіційного джерела або фахівця.',
+      prompt:'Поясни, чи підходить ШІ для задачі: [опишіть задачу]. Розділи відповідь на 3 частини: що ШІ може зробити добре, що треба перевірити окремо, де краще звернутися до людини або офіційного джерела.',
+      action:'Візьміть одну реальну задачу зі свого дня і вирішіть: це задача для ШІ, Google, офіційного сайту чи фахівця.',
+      checklist:['Задача потребує пояснення, тексту, плану або ідей','У задачі немає приватних даних, які не варто вводити','Актуальні факти, адреси, ціни й медичні/юридичні рішення я перевірю окремо']
+    },
+    3:{
+      title:'Мій результат уроку 3',
+      skill:'Я можу помічати відповіді ШІ, які звучать упевнено, але містять факти, що потребують перевірки.',
+      prompt:c.ccB||'Познач у цій відповіді місця, які можуть бути помилковими або застарілими. Для кожного пункту поясни, як його перевірити.',
+      action:'Візьміть будь-яку відповідь ШІ з конкретною датою, сумою, цитатою або назвою документа і перевірте одну деталь через надійне джерело.',
+      checklist:['Я не сприймаю впевнений тон як доказ правди','Конкретні дати, цифри, цитати й посилання перевіряю окремо','Можу попросити ШІ прямо позначити невпевнені місця']
+    },
+    4:{
+      title:'Мій результат уроку 4',
+      skill:'Я можу перетворити нечітке прохання на якісний запит із роллю, контекстом, форматом і обмеженнями.',
+      prompt:c.ccB||'Ти [роль]. Допоможи мені з [задача]. Контекст: [для кого/для чого]. Дай відповідь у форматі [список/таблиця/план]. Уникай [обмеження].',
+      action:'Перепишіть один свій короткий запит до ШІ так, щоб у ньому були роль, задача, контекст і формат відповіді.',
+      checklist:['У запиті є чітка задача','Я вказав аудиторію або ситуацію','Я задав формат відповіді й важливі обмеження']
+    },
+    5:{
+      title:'Мій результат уроку 5',
+      skill:'Я можу застосувати ШІ до побутової задачі: листа, пояснення, плану, підготовки до розмови або навчання.',
+      prompt:'Допоможи мені з реальною задачею: [опишіть ситуацію]. Спочатку постав 2 уточнювальні питання, потім запропонуй план дій і готовий текст/шаблон, який я зможу відредагувати.',
+      action:'Оберіть одну справу, яку давно відкладаєте: лист, план, пояснення або підготовку до розмови. Спробуйте зробити першу чернетку з ШІ.',
+      checklist:['Я не прошу ШІ приймати рішення замість мене','Я використовую відповідь як чернетку, а не як фінальний документ','Перед відправленням перевіряю імена, дати, факти й тон']
+    },
+    6:{
+      title:'Мій результат уроку 6',
+      skill:'Я можу користуватися ШІ безпечніше: прибирати зайві персональні дані й формулювати задачу без паролів, документів та ідентифікаторів.',
+      prompt:c.ccB||'Допоможи мені сформулювати безпечний запит до ШІ для задачі: [опис задачі]. Покажи, які особисті дані треба прибрати або замінити умовними позначками.',
+      action:'Перед наступним запитом до ШІ перевірте його за правилом: чи можна прибрати імена, адреси, номери документів, телефони або фінансові дані без втрати сенсу?',
+      checklist:['Я не вводжу паролі, ІПН, паспортні й банківські дані','Дані інших людей прибираю або замінюю умовними словами','Для заяв, листів і форм прошу структуру та приклад без реальних персональних даних']
+    },
+    7:{
+      title:'Мій результат уроку 7',
+      skill:'Я можу обрати AI-інструмент під задачу, а не користуватися першим знайомим сервісом для всього.',
+      prompt:'Порівняй 3 AI-інструменти для моєї задачі: [задача]. Оціни їх за простотою, якістю відповіді, роботою з джерелами, приватністю і тим, з чого краще почати.',
+      action:'Оберіть одну задачу і вирішіть, який інструмент логічніший: ChatGPT, Claude, Gemini, Copilot або пошук без ШІ.',
+      checklist:['Я розумію, що різні AI-сервіси мають різні сильні сторони','Для актуальних фактів потрібні джерела або пошук','Для старту достатньо безкоштовної версії й простого сценарію']
+    },
+    8:{
+      title:'Мій результат уроку 8',
+      skill:'Я можу використовувати ШІ як репетитора: просити пояснення, вправи, перевірку розуміння і план навчання.',
+      prompt:'Поясни мені тему [тема] на моєму рівні: [рівень]. Дай просте пояснення, 2 приклади, 3 питання для самоперевірки і коротке домашнє завдання.',
+      action:'Візьміть тему, яку давно хотіли зрозуміти, і попросіть ШІ пояснити її з прикладом та питаннями для самоперевірки.',
+      checklist:['Я прошу пояснення, а не готову роботу замість себе','Вказую свій рівень і бажаний формат','Перевіряю себе питаннями або короткою вправою']
+    },
+    9:{
+      title:'Мій результат уроку 9',
+      skill:'Я можу не поспішати з поширенням інформації й перевіряти підозрілі повідомлення за простим алгоритмом.',
+      prompt:c.ccB||'Як перевірити, чи є правдою це повідомлення: [вставте повідомлення без приватних даних]? Дай алгоритм перевірки, список джерел і ознаки маніпуляції.',
+      action:'Наступне емоційне повідомлення з месенджера або соцмережі перевірте за трьома питаннями: хто опублікував, коли, чи підтверджують інші надійні джерела.',
+      checklist:['Не поширюю повідомлення лише тому, що його надіслала знайома людина','Перевіряю першоджерело, дату й контекст','ШІ використовую для алгоритму перевірки, а не як остаточний суддя правди']
+    }
+  };
+  return resultBlock(configs[ln]);
+}
 function ruleBlock(title,text){
   var r=div('rule');var strong=mk('strong','',title);r.appendChild(strong);r.appendChild(document.createTextNode(' '+text));return r;
 }
@@ -499,6 +615,17 @@ window.l1pick=function(aud){
   var fb4=fbDiv('l1-fb4');
   var sumW=div('');sumW.style.display='none';
   sumW.appendChild(summaryBlock(l1sum));
+  sumW.appendChild(resultBlock({
+    title:'Мій результат уроку 1',
+    skill:'Я можу відрізнити задачу для Google від задачі для ШІ й сформулювати запит повним проханням, а не набором ключових слів.',
+    prompt:c.ccB,
+    action:'Оберіть одну реальну дрібну задачу сьогодні: пояснити тему, написати лист або розібратися в ситуації. Сформулюйте її як прохання до ШІ й перевірте факти окремо.',
+    checklist:[
+      'Мені потрібне пояснення або текст, а не просто актуальний факт',
+      'У запиті є контекст: для кого, про що і в якому форматі відповідь',
+      'Конкретні адреси, дати, ціни й контакти я перевірю в офіційному джерелі'
+    ]
+  }));
   var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('Урок 2 →','2'));br.appendChild(restartBtn(1));sumW.appendChild(br);
   s4.appendChild(compareBlock(
     [{lbl:'Варіант А',text:c.ccA,ch:'A'},{lbl:'Варіант Б',text:c.ccB,ch:'B'}],'B',
@@ -562,7 +689,7 @@ window.l2pick=function(aud){
   var s4=document.getElementById('l2-s4');s4.innerHTML='';
   s4.appendChild(badge('Практика'));s4.appendChild(p('s-title',c.pTitle));s4.appendChild(p('s-sub',c.pSub));
   var fb4=fbDiv('l2-fb4');var sumW=div('');sumW.style.display='none';
-  sumW.appendChild(summaryBlock(l2sum));var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('Урок 3 →','3'));br.appendChild(restartBtn(2));sumW.appendChild(br);
+  sumW.appendChild(summaryBlock(l2sum));sumW.appendChild(lessonResultBlock(2,c));var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('Урок 3 →','3'));br.appendChild(restartBtn(2));sumW.appendChild(br);
   s4.appendChild(choicesBlock(c.ch4,function(b,opt,wrap){disableBtns(wrap);b.className='cb '+(opt.v==='correct'?'correct':'wrong');showFb('l2-fb4',opt.v==='correct'?'good':'info',opt.fb);sumW.style.display='block';markDone(2);}));
   s4.appendChild(fb4);s4.appendChild(sumW);l2go(1);
 };
@@ -635,7 +762,7 @@ window.l3pick=function(aud){
   var s5=document.getElementById('l3-s5');s5.innerHTML='';
   s5.appendChild(badge('Практика'));s5.appendChild(p('s-title',c.pTitle));s5.appendChild(p('s-sub',c.pSub));
   var fb5=fbDiv('l3-fb5');var sumW=div('');sumW.style.display='none';
-  sumW.appendChild(summaryBlock(l3sum));var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('Урок 4 →','4'));br.appendChild(restartBtn(3));sumW.appendChild(br);
+  sumW.appendChild(summaryBlock(l3sum));sumW.appendChild(lessonResultBlock(3,c));var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('Урок 4 →','4'));br.appendChild(restartBtn(3));sumW.appendChild(br);
   s5.appendChild(choicesBlock(c.ch5,function(b,opt,wrap){disableBtns(wrap);b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');showFb('l3-fb5',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);sumW.style.display='block';markDone(3);}));
   s5.appendChild(fb5);s5.appendChild(sumW);l3go(1);
 };
@@ -709,7 +836,7 @@ window.l4pick=function(aud){
   var s5=document.getElementById('l4-s5');s5.innerHTML='';
   s5.appendChild(badge('Практика'));s5.appendChild(p('s-title',c.pTitle));s5.appendChild(p('s-sub',c.pSub));
   var fb5=fbDiv('l4-fb5');var sumW=div('');sumW.style.display='none';
-  sumW.appendChild(summaryBlock(l4sum));var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('Урок 5 →','5'));br.appendChild(restartBtn(4));sumW.appendChild(br);
+  sumW.appendChild(summaryBlock(l4sum));sumW.appendChild(lessonResultBlock(4,c));var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('Урок 5 →','5'));br.appendChild(restartBtn(4));sumW.appendChild(br);
   s5.appendChild(choicesBlock(c.ch5,function(b,opt,wrap){disableBtns(wrap);b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');showFb('l4-fb5',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);sumW.style.display='block';markDone(4);}));
   s5.appendChild(fb5);s5.appendChild(sumW);l4go(1);
 };
@@ -809,7 +936,7 @@ window.l5pick=function(aud){
   var s5=document.getElementById('l5-s5');s5.innerHTML='';
   s5.appendChild(badge('\u0424\u0456\u043d\u0430\u043b\u044c\u043d\u0430 \u043f\u0440\u0430\u043a\u0442\u0438\u043a\u0430'));s5.appendChild(p('s-title',c.pTitle));s5.appendChild(p('s-sub',c.pSub));
   var fb5=fbDiv('l5-fb5');var sumW=div('');sumW.style.display='none';
-  sumW.appendChild(summaryBlock(l5sum));
+  sumW.appendChild(summaryBlock(l5sum));sumW.appendChild(lessonResultBlock(5,c));
   sumW.appendChild(ruleBlock('\u041d\u0430\u0441\u0442\u0443\u043f\u043d\u0438\u0439 \u043a\u0440\u043e\u043a','\u0412\u0456\u0434\u043a\u0440\u0438\u0439\u0442\u0435 \u0431\u0443\u0434\u044c-\u044f\u043a\u0438\u0439 \u0428\u0406 \u0456 \u0441\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u043e\u0434\u0438\u043d \u0456\u0437 \u0448\u0430\u0431\u043b\u043e\u043d\u0456\u0432 \u0443 \u0432\u043b\u0430\u0441\u043d\u0456\u0439 \u0441\u0438\u0442\u0443\u0430\u0446\u0456\u0457. \u041d\u0430\u0439\u043a\u0440\u0430\u0449\u0435 \u043d\u0430\u0432\u0447\u0430\u043d\u043d\u044f \u2014 \u0447\u0435\u0440\u0435\u0437 \u0440\u0435\u0430\u043b\u044c\u043d\u0443 \u0441\u043f\u0440\u043e\u0431\u0443.'));
   var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('\u0423\u0440\u043e\u043a 6 \u2192','6'));br.appendChild(nextLessonBtn('\u2190 \u041d\u0430 \u0433\u043e\u043b\u043e\u0432\u043d\u0443','home'));br.appendChild(restartBtn(5));sumW.appendChild(br);
   s5.appendChild(choicesBlock(c.ch5,function(b,opt,wrap){disableBtns(wrap);b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');showFb('l5-fb5',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);sumW.style.display='block';markDone(5);}));
@@ -919,7 +1046,7 @@ window.l6pick=function(aud){
   var s5=document.getElementById('l6-s5');s5.innerHTML='';
   s5.appendChild(badge('Практика'));s5.appendChild(p('s-title',c.pTitle));s5.appendChild(p('s-sub',c.pSub));
   var fb5=fbDiv('l6-fb5');var sumW=div('');sumW.style.display='none';
-  sumW.appendChild(summaryBlock(l6sum));
+  sumW.appendChild(summaryBlock(l6sum));sumW.appendChild(lessonResultBlock(6,c));
   var finalRule=ruleBlock('Ви пройшли весь курс','Тепер ви розумієте ШІ краще за більшість людей — знаєте як він працює, де корисний, де треба перевіряти, як добре питати і як залишатись у безпеці.');
   sumW.appendChild(finalRule);
   var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('\u0423\u0440\u043e\u043a 7 \u2192','7'));br.appendChild(nextLessonBtn('\u2190 \u041d\u0430 \u0433\u043e\u043b\u043e\u0432\u043d\u0443','home'));br.appendChild(restartBtn(6));sumW.appendChild(br);
@@ -1069,7 +1196,7 @@ window.l7pick=function(aud){
   var s5=document.getElementById('l7-s5');s5.innerHTML='';
   s5.appendChild(badge('Практика'));s5.appendChild(p('s-title',c.pTitle));s5.appendChild(p('s-sub',c.pSub));
   var fb5=fbDiv('l7-fb5');var sumW=div('');sumW.style.display='none';
-  sumW.appendChild(summaryBlock(l7sum));
+  sumW.appendChild(summaryBlock(l7sum));sumW.appendChild(lessonResultBlock(7,c));
   var br=div('');br.style.marginTop='1rem';
   br.appendChild(nextLessonBtn('\u2190 \u041d\u0430 \u0433\u043e\u043b\u043e\u0432\u043d\u0443','home'));
   br.appendChild(restartBtn(7));sumW.appendChild(br);
@@ -1258,7 +1385,7 @@ window.l8pick=function(aud){
   s4.appendChild(p('s-sub',c.pSub));
   var fb4=fbDiv('l8-fb4');
   var sumW=div('');sumW.style.display='none';
-  sumW.appendChild(summaryBlock(l8sum));
+  sumW.appendChild(summaryBlock(l8sum));sumW.appendChild(lessonResultBlock(8,c));
   var br=div('');br.style.marginTop='1rem';
   br.appendChild(nextLessonBtn('\u2190 \u041d\u0430 \u0433\u043e\u043b\u043e\u0432\u043d\u0443','home'));
   br.appendChild(restartBtn(8));
@@ -1413,7 +1540,7 @@ window.l9pick=function(aud){
   s4.appendChild(p('s-sub',c.pSub));
   var fb4=fbDiv('l9-fb4');
   var sumW=div('');sumW.style.display='none';
-  sumW.appendChild(summaryBlock(l9sum));
+  sumW.appendChild(summaryBlock(l9sum));sumW.appendChild(lessonResultBlock(9,c));
   var ruleEnd=ruleBlock('Головне правило','Не поспішайте — ні ділитися, ні ігнорувати. 3-5 хвилин перевірки через офіційне джерело захищають від більшості маніпуляцій.');
   sumW.appendChild(ruleEnd);
   var br=div('');br.style.marginTop='1rem';
@@ -1441,6 +1568,7 @@ window.l9restart=function(){
   setProg(9,0,l9lbl);window.scrollTo(0,0);
 };
 refreshStyleUI();
+refreshDoneUI();
 if('serviceWorker' in navigator && location.protocol !== 'file:'){
   navigator.serviceWorker.register('sw.js').catch(function(){});
 }

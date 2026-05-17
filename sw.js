@@ -1,10 +1,8 @@
-const cacheName = "basicai-v3";
+const cacheName = "basicai-guide-v1";
 const assets = [
   "./",
   "./index.html",
-  "./styles.css",
-  "./script.js",
-  "./data/content.json",
+  "./ai_guide_lessons.html",
   "./manifest.webmanifest",
   "./icons/icon.svg",
   "./icons/maskable.svg"

@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ШІ для всіх — практичний інтерактивний посібник із 9 уроками, прикладами та вибором стилю навчання.">
+<meta name="theme-color" content="#1C1A17">
 <title>ШІ для всіх — інтерактивний посібник</title>
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -1375,6 +1379,9 @@ window.l9restart=function(){
   var s0=document.getElementById('l9-s0');if(s0)s0.className='step vis';
   setProg(9,0,l9lbl);window.scrollTo(0,0);
 };
+if('serviceWorker' in navigator && location.protocol !== 'file:'){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
 })();
 </script>
 </body>

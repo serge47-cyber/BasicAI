@@ -1,11 +1,11 @@
 {
-  "name": "BasicAI",
+  "name": "ШІ для всіх",
   "short_name": "BasicAI",
-  "description": "Інтерактивний посібник з основ штучного інтелекту.",
+  "description": "Практичний інтерактивний посібник зі штучного інтелекту з 9 уроками та вибором стилю навчання.",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#f6f2e8",
-  "theme_color": "#196c75",
+  "background_color": "#F7F4EF",
+  "theme_color": "#1C1A17",
   "icons": [
     {
       "src": "icons/icon.svg",

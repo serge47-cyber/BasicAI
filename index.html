@@ -145,7 +145,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
 <body>
 <header class="site-header">
   <div class="site-logo">ШІ для <span>всіх</span> — посібник</div>
-  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7EC8A0;letter-spacing:.06em">BETA · 10 уроків</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7EC8A0;letter-spacing:.06em">BETA · 11 уроків</div>
 </header>
 <div class="layout">
   <nav class="sidebar">
@@ -163,6 +163,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
       <button class="nav-item" id="nav-l8"><span class="nav-num">08</span><span class="nav-title">ШІ для навчання</span><span class="nav-check">✓</span></button>
       <button class="nav-item" id="nav-l9"><span class="nav-num">09</span><span class="nav-title">ШІ і фейки</span><span class="nav-check">✓</span></button>
       <button class="nav-item" id="nav-l10"><span class="nav-num">10</span><span class="nav-title">Діалог з ШІ</span><span class="nav-check">✓</span></button>
+      <button class="nav-item" id="nav-l11"><span class="nav-num">11</span><span class="nav-title">Мій перший AI-сценарій</span><span class="nav-check">✓</span></button>
     </div>
     <div class="sidebar-divider"></div>
     <div class="sidebar-note">Оберіть свою аудиторію на початку кожного уроку — і контент адаптується під вас.</div>
@@ -182,6 +183,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
         <button class="module-card" id="mc8"><span class="mc-num">08</span><div class="mc-body"><div class="mc-title">ШІ для навчання</div><div class="mc-sub">Пояснення, конспекти, підготовка до іспитів — ШІ як персональний репетитор</div></div><span class="mc-arrow">→</span></button>
         <button class="module-card" id="mc9"><span class="mc-num">09</span><div class="mc-body"><div class="mc-title">ШІ і фейки</div><div class="mc-sub">Як розпізнати дезінформацію — і чи може ШІ допомогти чи нашкодити</div></div><span class="mc-arrow">→</span></button>
         <button class="module-card" id="mc10"><span class="mc-num">10</span><div class="mc-body"><div class="mc-title">Діалог з ШІ</div><div class="mc-sub">Уточнення, продовження, багатокрокові задачі — як вести розмову, а не просто питати</div></div><span class="mc-arrow">→</span></button>
+        <button class="module-card" id="mc11"><span class="mc-num">11</span><div class="mc-body"><div class="mc-title">Мій перший AI-сценарій</div><div class="mc-sub">Обираєте реальну задачу — і вирішуєте її від початку до кінця разом з ШІ</div></div><span class="mc-arrow">→</span></button>
       </div>
       <p class="home-footer">Кожен урок — 5–8 хвилин активного навчання.</p>
     </div>
@@ -196,6 +198,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
     <div class="lesson-panel" id="panel-l8"></div>
     <div class="lesson-panel" id="panel-l9"></div>
     <div class="lesson-panel" id="panel-l10"></div>
+    <div class="lesson-panel" id="panel-l11"></div>
   </main>
 </div>
 <script>
@@ -231,7 +234,7 @@ function markDone(n){
 document.addEventListener('click',function(e){
   var t=e.target;
   if(t.id==='nav-home'||t.closest('#nav-home')){showHome();return;}
-  for(var n=1;n<=10;n++){
+  for(var n=1;n<=11;n++){
     var nb=document.getElementById('nav-l'+n);
     if(nb&&(t===nb||nb.contains(t))){showLesson(n);return;}
     var mc=document.getElementById('mc'+n);
@@ -1588,6 +1591,245 @@ window.l10restart=function(){
   document.querySelectorAll('#panel-l10 .step').forEach(function(s){s.className='step';});
   var s0=document.getElementById('l10-s0');if(s0)s0.className='step vis';
   setProg(10,0,l10lbl);window.scrollTo(0,0);
+};
+
+/* ══ L11 ══ */
+var l11aud='',l11cur=0,l11scenario='';
+var L11={
+  explorer:{icon:'🔬',title:'Я дослідник',sub:'Хочу пройти повний цикл роботи з ШІ — від задачі до результату — і зрозуміти механіку',
+    hook:'Знання без практики — це карта без подорожі. Настав час взяти реальну задачу і пройти її від початку до кінця.',
+    hookSub:'У цьому уроці ви не вчитесь про ШІ — ви працюєте з ним. Обираєте задачу, формулюєте запит, уточнюєте, отримуєте результат.',
+    scenarios:[
+      {id:'text',icon:'✍️',title:'Написати текст',desc:'Лист, пост, привітання, оголошення — будь-який текст від короткого до розгорнутого',
+       steps:[
+         {label:'Визначте задачу',prompt:'Що саме пишемо? Кому? Яким тоном?\n\nПриклад запиту:\n«Напиши короткий пост для LinkedIn про те, що я починаю вивчати ШІ. Тон — відкритий і трохи особистий. 3-4 речення»'},
+         {label:'Уточніть результат',prompt:'Щось не так? Уточніть в тій самій розмові:\n\n«Добре, але зроби більш конкретно — додай одну деталь про те, чому я це роблю»\n«Скороти до 2 речень»\n«Зміни тон — більш формально»'},
+         {label:'Фінальна перевірка',prompt:'Перед використанням запитайте ШІ:\n«Перечитай цей текст. Чи є щось, що звучить штучно або незрозуміло? Виправ тільки це»'},
+       ]},
+      {id:'plan',icon:'📋',title:'Скласти план',desc:'План дня, список справ, структура проєкту, покроковий маршрут до мети',
+       steps:[
+         {label:'Опишіть ціль і контекст',prompt:'Що плануємо? За який час? Які обмеження?\n\nПриклад:\n«Допоможи скласти план на тиждень для вивчення основ Python. Можу витрачати 30 хвилин на день. Починаю з нуля»'},
+         {label:'Конкретизуйте',prompt:'«Розбий кожен день на конкретні дії — не теми, а що саме робити»\n«Додай для кожного дня одне практичне завдання»\n«Перестав дні — почни з найпростішого»'},
+         {label:'Адаптуйте під себе',prompt:'«Я не можу в середу — перенеси ту тему на четвер»\n«Зроби план більш гнучким — з варіантами якщо щось не вийде»'},
+       ]},
+      {id:'research',icon:'🔍',title:'Розібратися в темі',desc:'Зрозуміти нову концепцію, розібрати складний документ, підготуватись до розмови зі спеціалістом',
+       steps:[
+         {label:'Сформулюйте питання',prompt:'Що хочете зрозуміти? Який ваш рівень?\n\nПриклад:\n«Поясни мені, що таке блокчейн — простими словами, без технічного жаргону. Потім дай один конкретний приклад з реального życia»'},
+         {label:'Поглиблюйте вибірково',prompt:'«Стоп — поясни детальніше саме частину про [конкретне]»\n«Яке практичне застосування це має для звичайної людини?»\n«Які є аргументи проти? Що критикують?»'},
+         {label:'Перевірте розуміння',prompt:'«Постав мені 3 питання по цій темі — щоб перевірити, чи я справді зрозумів»'},
+       ]},
+    ],
+    reflections:[
+      {q:'Що вам вдалося зробити за допомогою ШІ у цьому сценарії?',opts:['Отримав корисний результат з першого запиту','Довелось уточнювати — але результат покращився','Результат не зовсім той, але зрозумів як формулювати краще'],
+       fbs:['Відмінно. Якщо перший запит дав потрібне — ви вже добре формулюєте задачі. Наступний крок: пробуйте складніші.','Саме так і має бути. Уточнення — це не помилка, це нормальний діалог. Ви вже мислите правильно.','Це теж прогрес. Тепер ви знаєте, що уточнювати наступного разу. Спробуйте ще раз з новим запитом.']},
+      {q:'Що б ви зробили інакше наступного разу?',opts:['Одразу дав більше контексту у першому запиті','Уточнював би більш конкретно — не «покращ», а «зміни тон»','Розбив би задачу на менші кроки з самого початку'],
+       fbs:['Правильний висновок. Контекст у першому запиті — це найбільший важіль для якості результату.','Точно. «Покращ» — занадто розмито. «Зміни тон на більш розмовний» — це чітка інструкція.','Мудро. Покроковий підхід дає контроль над результатом на кожному етапі.']},
+    ]
+  },
+  practitioner:{icon:'🌿',title:'Я практик',sub:'Хочу вирішити конкретну задачу з ШІ прямо зараз — і відчути результат',
+    hook:'Найкраще навчання — через реальну задачу. Оберіть те, що вам насправді потрібно зробити.',
+    hookSub:'Не вигадана ситуація, не приклад з підручника — ваша реальна потреба прямо зараз.',
+    scenarios:[
+      {id:'letter',icon:'✉️',title:'Написати листа або заяву',desc:'Лист сусіду, заява до установи, скарга, привітання, подяка — будь-яке офіційне або особисте звернення',
+       steps:[
+         {label:'Опишіть ситуацію',prompt:'Хто пише, кому, з якого приводу і якого результату хочете?\n\nПриклад:\n«Допоможи написати ввічливу заяву до ЖЕКу. Проблема — не ремонтують під\'їзд вже 3 місяці. Тон — офіційний, але наполегливий. Хочу отримати письмову відповідь»'},
+         {label:'Підлаштуйте під себе',prompt:'«Зроби більш коротко — у них немає часу читати довго»\n«Додай конкретну дату, коли я вперше звернувся»\n«Прибери останній абзац — він зайвий»'},
+         {label:'Перевірте перед надсиланням',prompt:'«Чи є у цьому листі щось, що може сприйнятись негативно або незрозуміло?»'},
+       ]},
+      {id:'prepare',icon:'🗣️',title:'Підготуватись до важливої розмови',desc:'Розмова з лікарем, начальником, сусідом, родичем — будь-яка розмова, до якої хочеться підготуватись',
+       steps:[
+         {label:'Опишіть ситуацію',prompt:'З ким розмова? Про що? Чого хочете досягти?\n\nПриклад:\n«Маю розмову з лікарем про результати аналізів. Хочу зрозуміти, які питання варто поставити. Основна скарга — підвищений тиск і втома»'},
+         {label:'Уточніть і поглибте',prompt:'«Додай питання про можливі побічні ефекти ліків»\n«Як краще сформулювати питання про дієту — щоб отримати конкретну відповідь, а не загальні слова?»'},
+         {label:'Відрепетируйте',prompt:'«Виступи як лікар і відповідай на мої питання — щоб я міг потренуватись»'},
+       ]},
+      {id:'understand',icon:'📖',title:'Зрозуміти щось незнайоме',desc:'Незрозумілий документ, медичний термін, юридичне поняття, нова технологія — будь-що, що потрібно пояснити',
+       steps:[
+         {label:'Опишіть що незрозуміло',prompt:'Що саме і чому це важливо вам?\n\nПриклад:\n«У договорі є пункт про "форс-мажорні обставини" — поясни простими словами, що це означає і як це може вплинути на мене як на орендаря»'},
+         {label:'Запитуйте конкретніше',prompt:'«Що я повинен зробити, якщо настане така ситуація?»\n«Чи є ризик, що це можуть використати проти мене?»\n«Поясни ще простіше — як для людини без юридичної освіти»'},
+         {label:'Узагальніть',prompt:'«Підсумуй одним абзацом — що мені головне знати про цей пункт?»'},
+       ]},
+    ],
+    reflections:[
+      {q:'Як пройшов ваш перший AI-сценарій?',opts:['Отримав те, що потрібно — одразу або після уточнення','Результат не ідеальний, але зрозумів принцип','Складніше, ніж думав — але хочу спробувати ще раз'],
+       fbs:['Чудово. Це і є ціль — не ідеальна відповідь з першого разу, а корисний результат через діалог. Ви вже вмієте.','Це найчесніша і найважливіша відповідь. Ви побачили механіку — і наступного разу буде легше.','Так і має бути з будь-яким новим інструментом. Перша спроба — найважча. Друга вже простіша.']},
+      {q:'Що для вас виявилось найкориснішим в роботі з ШІ?',opts:['Що можна уточнювати і доопрацьовувати в діалозі','Що ШІ підлаштовується під мою ситуацію якщо я її описую','Що не потрібно формулювати ідеально з першого разу'],
+       fbs:['Саме. Діалог — це головна суперсила ШІ. Не разовий запит, а розмова.','Точно. Контекст — це ваш найбільший важіль. Чим більше ви пояснюєте ситуацію, тим точнішою є відповідь.','Це знімає найбільший бар\'єр. ШІ — не тест де треба дати правильну відповідь. Це інструмент для думання разом.']},
+    ]
+  }
+};
+var l11lbl=['Вибір стилю','Вибір сценарію','Покрокова робота','Рефлексія','Підсумок курсу'];
+var l11sum=['Ви пройшли повний AI-сценарій від задачі до результату','Реальна задача + діалог + уточнення = корисний результат','Перший раз завжди найскладніший — далі буде легше і швидше','Ви тепер знаєте більше про ШІ, ніж більшість людей навколо вас','Найкраще, що можна зробити далі — знайти ще одну реальну задачу і спробувати'];
+
+window.buildL11=function(panel){
+  panel.appendChild(progWrap(11,5));
+  var s0=mkStep(11,0);
+  s0.appendChild(p('hook','Урок 11. Мій перший AI-сценарій'));
+  s0.appendChild(p('hook-sub','Обираєте реальну задачу — і вирішуєте її від початку до кінця разом з ШІ.'));
+  var ap=div('audience-pick');
+  ['explorer','practitioner'].forEach(function(aud){
+    var c=L11[aud];
+    var b=mk('button','aud-btn');
+    var ic=div('aud-icon');ic.textContent=c.icon;
+    b.appendChild(ic);b.appendChild(div('aud-title',c.title));b.appendChild(div('aud-sub',c.sub));
+    b.addEventListener('click',function(){l11pick(aud);});
+    ap.appendChild(b);
+  });
+  s0.appendChild(ap);panel.appendChild(s0);
+  for(var i=1;i<=4;i++){var s=mkStep(11,i);s.id='l11-s'+i;panel.appendChild(s);}
+};
+
+window.l11pick=function(aud){
+  l11aud=aud;var c=L11[aud];
+  var tagText=aud==='explorer'?'Дослідник':'Практик';
+  var tagCls=aud==='explorer'?'teen':'adult';
+
+  /* s1 — вибір сценарію */
+  var s1=document.getElementById('l11-s1');s1.innerHTML='';
+  var tag=div('who-tag '+tagCls,tagText);s1.appendChild(tag);
+  s1.appendChild(p('hook',c.hook));
+  s1.appendChild(p('hook-sub',c.hookSub));
+  s1.appendChild(p('q-label','Оберіть свій сценарій — той, що найближче до вашої реальної потреби зараз'));
+  var scGrid=div('');scGrid.style.cssText='display:flex;flex-direction:column;gap:10px;margin-bottom:1.5rem';
+  c.scenarios.forEach(function(sc){
+    var b=mk('button','');
+    b.style.cssText='background:var(--bg);border:1px solid var(--line2);border-radius:var(--radius-sm);padding:14px 16px;text-align:left;cursor:pointer;transition:background .15s,border-color .15s;width:100%';
+    b.innerHTML='<div style="display:flex;align-items:center;gap:10px"><span style="font-size:20px">'+sc.icon+'</span><div><div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:2px">'+sc.title+'</div><div style="font-size:13px;color:var(--ink3);line-height:1.5">'+sc.desc+'</div></div></div>';
+    b.addEventListener('mouseover',function(){b.style.background='var(--bg2)';b.style.borderColor='var(--ink3)';});
+    b.addEventListener('mouseout',function(){b.style.background='var(--bg)';b.style.borderColor='var(--line2)';});
+    b.addEventListener('click',function(){l11pickScenario(sc);});
+    scGrid.appendChild(b);
+  });
+  s1.appendChild(scGrid);
+
+  /* s2-s4 placeholder */
+  ['l11-s2','l11-s3','l11-s4'].forEach(function(id){document.getElementById(id).innerHTML='';});
+  l11go(1);
+};
+
+window.l11pickScenario=function(sc){
+  l11scenario=sc.id;var c=L11[l11aud];
+
+  /* s2 — покрокова робота */
+  var s2=document.getElementById('l11-s2');s2.innerHTML='';
+  s2.appendChild(badge('Ваш сценарій: '+sc.title));
+  s2.appendChild(p('s-title','Три кроки до результату'));
+  s2.appendChild(p('s-sub','Відкрийте ChatGPT або Claude в іншій вкладці і працюйте паралельно з цією інструкцією.'));
+
+  sc.steps.forEach(function(step,i){
+    var card=div('');
+    card.style.cssText='margin-bottom:14px;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden';
+    var hdr=div('');
+    hdr.style.cssText='background:var(--bg2);padding:10px 16px;display:flex;align-items:center;gap:10px';
+    var num=mk('span','',String(i+1));
+    num.style.cssText='width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:"JetBrains Mono",monospace;line-height:1';
+    var lbl=mk('span','',step.label);lbl.style.cssText='font-size:14px;font-weight:500;color:var(--ink)';
+    hdr.appendChild(num);hdr.appendChild(lbl);
+    var body=div('');body.style.cssText='padding:12px 16px';
+    var lines=step.prompt.split('\n');
+    lines.forEach(function(line,li){
+      if(line===''){body.appendChild(document.createElement('br'));return;}
+      if(line.startsWith('«')||line.startsWith('Приклад')){
+        var el2=mk('div','');
+        el2.style.cssText='font-size:13px;color:var(--ink2);font-style:italic;line-height:1.6;'+(li>0?'margin-top:6px':'');
+        el2.textContent=line;body.appendChild(el2);
+      } else {
+        var el2=mk('div','');el2.style.cssText='font-size:14px;color:var(--ink);line-height:1.6;margin-bottom:4px';
+        el2.textContent=line;body.appendChild(el2);
+      }
+    });
+    card.appendChild(hdr);card.appendChild(body);
+    s2.appendChild(card);
+  });
+
+  var doneBtn=mk('button','next-btn show','Я виконав сценарій — далі →');
+  doneBtn.addEventListener('click',function(){l11buildReflection();l11go(3);});
+  s2.appendChild(doneBtn);
+  l11go(2);
+};
+
+window.l11buildReflection=function(){
+  var c=L11[l11aud];
+  var s3=document.getElementById('l11-s3');s3.innerHTML='';
+  s3.appendChild(badge('Рефлексія'));
+  s3.appendChild(p('s-title','Що вийшло — і що дізналися'));
+  s3.appendChild(p('s-sub','Два коротких питання. Чесна відповідь — найкорисніша.'));
+
+  var allDone=0;var nb3=nextBtn(11,4);
+
+  c.reflections.forEach(function(ref,ri){
+    var block=div('');block.style.marginBottom='1.5rem';
+    block.appendChild(p('q-label',ref.q));
+    var wrap=div('choices');
+    ref.opts.forEach(function(opt,oi){
+      var b=mk('button','cb',opt);
+      b.addEventListener('click',function(){
+        wrap.querySelectorAll('.cb').forEach(function(x){x.disabled=true;});
+        b.className='cb correct';
+        var fb=div('fb show good');fb.textContent=ref.fbs[oi];
+        block.appendChild(fb);
+        allDone++;
+        if(allDone>=c.reflections.length){nb3.classList.add('show');}
+      });
+      wrap.appendChild(b);
+    });
+    block.appendChild(wrap);
+    s3.appendChild(block);
+  });
+  s3.appendChild(nb3);
+};
+
+window.l11go=function(n){
+  document.querySelectorAll('#panel-l11 .step').forEach(function(s){s.className='step';});
+  var s=document.getElementById('l11-s'+n);if(s)s.className='step vis';
+  l11cur=n;setProg(11,n,l11lbl);window.scrollTo(0,0);
+};
+
+/* s4 — підсумок курсу (будується статично) */
+window.buildL11_final=function(){
+  var s4=document.getElementById('l11-s4');if(!s4||s4.innerHTML!=='')return;
+  s4.appendChild(badge('Курс пройдено'));
+  s4.appendChild(p('s-title','Ви пройшли весь курс «ШІ для всіх»'));
+
+  var bigRule=div('rule');
+  bigRule.style.cssText='border-left-color:var(--accent);background:var(--accent-bg)';
+  bigRule.innerHTML='<strong style="color:var(--accent)">Що ви вмієте тепер</strong>Розрізняти ШІ і Google. Писати ефективні запити. Вести діалог і уточнювати. Обирати правильний інструмент. Розпізнавати галюцинації і фейки. Захищати свої дані. Застосовувати ШІ в навчанні, роботі і повсякденних справах.';
+  s4.appendChild(bigRule);
+
+  s4.appendChild(summaryBlock(l11sum));
+
+  var nextSteps=div('');nextSteps.style.cssText='margin-bottom:1.5rem';
+  nextSteps.appendChild(p('s-title','Що робити далі'));
+  var stepsList=[
+    '🔁 Повторіть будь-який урок, де хочеться більше практики',
+    '🛠️ Виберіть одну реальну задачу на цьому тижні і вирішіть її з ШІ',
+    '🧪 Спробуйте інший ШІ-інструмент, ніж той, що зазвичай використовуєте',
+    '💬 Поясніть комусь одну річ про ШІ — навчання через пояснення найміцніше',
+  ];
+  stepsList.forEach(function(txt){
+    var li=div('');li.style.cssText='font-size:14px;color:var(--ink2);padding:8px 0;border-bottom:1px solid var(--line);line-height:1.55';
+    li.textContent=txt;nextSteps.appendChild(li);
+  });
+  s4.appendChild(nextSteps);
+
+  var br=div('');br.style.marginTop='1.5rem';
+  br.appendChild(nextLessonBtn('\u2190 \u041d\u0430 \u0433\u043e\u043b\u043e\u0432\u043d\u0443','home'));
+  br.appendChild(restartBtn(11));
+  s4.appendChild(br);
+  markDone(11);
+};
+
+/* wire s4 build on step 4 navigation */
+var _l11goOrig=window.l11go;
+window.l11go=function(n){
+  _l11goOrig(n);
+  if(n===4) window.buildL11_final();
+};
+
+window.l11restart=function(){
+  l11aud='';l11cur=0;l11scenario='';
+  document.querySelectorAll('#panel-l11 .step').forEach(function(s){s.className='step';});
+  var s0=document.getElementById('l11-s0');if(s0)s0.className='step vis';
+  setProg(11,0,l11lbl);window.scrollTo(0,0);
 };
 })();
 </script>

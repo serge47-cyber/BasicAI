@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="uk">
+<!DOCTYPE html>
+<html lang="uk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="ШІ для всіх — практичний інтерактивний посібник із 9 уроками, прикладами та вибором стилю навчання.">
+<meta name="description" content="ШІ для всіх — практичний інтерактивний посібник із 11 уроками, прикладами та вибором стилю навчання.">
 <meta name="theme-color" content="#1C1A17">
 <title>ШІ для всіх — інтерактивний посібник</title>
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
@@ -54,8 +56,8 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
 .q-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
 .badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;background:var(--accent-bg);color:var(--accent);letter-spacing:.06em;text-transform:uppercase;margin-bottom:1rem;border:1px solid #B5DFC8}
 .who-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1.25rem}
-.who-tag.teen{background:#EEEDFE;color:#3C3489;border:1px solid #C5C2F5}
-.who-tag.adult{background:var(--accent-bg);color:var(--accent);border:1px solid #B5DFC8}
+.who-tag.teen,.who-tag.explorer{background:#EEEDFE;color:#3C3489;border:1px solid #C5C2F5}
+.who-tag.adult,.who-tag.practitioner{background:var(--accent-bg);color:var(--accent);border:1px solid #B5DFC8}
 .audience-pick{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.75rem}
 .aud-btn{background:var(--bg);border:1px solid var(--line2);border-radius:var(--radius);padding:1.5rem 1.25rem;cursor:pointer;text-align:left;transition:background .15s,border-color .15s,box-shadow .15s;width:100%}
 .aud-btn:hover{background:var(--bg2);border-color:var(--ink3);box-shadow:0 2px 12px rgba(0,0,0,.08)}
@@ -162,7 +164,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
 <body>
 <header class="site-header">
   <div class="site-logo">ШІ для <span>всіх</span> — посібник</div>
-  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7EC8A0;letter-spacing:.06em">BETA · 9 уроків</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7EC8A0;letter-spacing:.06em">BETA · 11 уроків</div>
 </header>
 <div class="layout">
   <nav class="sidebar">
@@ -179,31 +181,16 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
       <button class="nav-item" id="nav-l7"><span class="nav-num">07</span><span class="nav-title">Різні ШІ-інструменти</span><span class="nav-check">✓</span></button>
       <button class="nav-item" id="nav-l8"><span class="nav-num">08</span><span class="nav-title">ШІ для навчання</span><span class="nav-check">✓</span></button>
       <button class="nav-item" id="nav-l9"><span class="nav-num">09</span><span class="nav-title">ШІ і фейки</span><span class="nav-check">✓</span></button>
+      <button class="nav-item" id="nav-l10"><span class="nav-num">10</span><span class="nav-title">Діалог з ШІ</span><span class="nav-check">✓</span></button>
+      <button class="nav-item" id="nav-l11"><span class="nav-num">11</span><span class="nav-title">Мій перший AI-сценарій</span><span class="nav-check">✓</span></button>
     </div>
     <div class="sidebar-divider"></div>
-    <div class="sidebar-note">Оберіть свій стиль навчання на початку кожного уроку — і приклади підлаштуються під вас.</div>
+    <div class="sidebar-note">Оберіть свою аудиторію на початку кожного уроку — і контент адаптується під вас.</div>
   </nav>
   <main class="main">
     <div class="lesson-panel active" id="panel-home">
       <h1 class="home-title">Посібник зі штучного інтелекту для тих, хто хоче розібратися</h1>
       <p class="home-sub">Не технічний курс і не рекламний буклет. Чесні інтерактивні уроки — з прикладами з реального життя і без зайвого жаргону.</p>
-      <div class="style-panel" id="style-panel">
-        <div class="style-panel-title">Оберіть стиль навчання один раз</div>
-        <div class="style-panel-sub">Курс запам'ятає вибір у цьому браузері й автоматично відкриватиме уроки у відповідній траєкторії.</div>
-        <div class="audience-pick">
-          <button class="aud-btn style-choice" type="button" data-aud="teen">
-            <span class="aud-icon">🎧</span>
-            <span class="aud-title">Я дослідник</span>
-            <span class="aud-sub">Люблю швидко пробувати, порівнювати варіанти й перевіряти, що працює.</span>
-          </button>
-          <button class="aud-btn style-choice" type="button" data-aud="adult">
-            <span class="aud-icon">☕</span>
-            <span class="aud-title">Я практик</span>
-            <span class="aud-sub">Хочу спокійно розібратися й одразу застосувати ШІ в конкретних справах.</span>
-          </button>
-        </div>
-        <div class="style-status" id="style-status">Стиль ще не обрано</div>
-      </div>
       <div class="module-list">
         <button class="module-card" id="mc1"><span class="mc-num">01</span><div class="mc-body"><div class="mc-title">ШІ і Google — в чому різниця?</div><div class="mc-sub">Перший крок: зрозуміти, що таке ШІ і чим він відрізняється від звичного пошуку</div></div><span class="mc-arrow">→</span></button>
         <button class="module-card" id="mc2"><span class="mc-num">02</span><div class="mc-body"><div class="mc-title">Що ШІ вміє і чого не вміє</div><div class="mc-sub">Чесна карта можливостей: де ШІ справді корисний, а де краще не ризикувати</div></div><span class="mc-arrow">→</span></button>
@@ -214,6 +201,8 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
         <button class="module-card" id="mc7"><span class="mc-num">07</span><div class="mc-body"><div class="mc-title">Різні ШІ-інструменти</div><div class="mc-sub">ChatGPT, Claude, Gemini та інші — чим відрізняються і який обрати</div></div><span class="mc-arrow">→</span></button>
         <button class="module-card" id="mc8"><span class="mc-num">08</span><div class="mc-body"><div class="mc-title">ШІ для навчання</div><div class="mc-sub">Пояснення, конспекти, підготовка до іспитів — ШІ як персональний репетитор</div></div><span class="mc-arrow">→</span></button>
         <button class="module-card" id="mc9"><span class="mc-num">09</span><div class="mc-body"><div class="mc-title">ШІ і фейки</div><div class="mc-sub">Як розпізнати дезінформацію — і чи може ШІ допомогти чи нашкодити</div></div><span class="mc-arrow">→</span></button>
+        <button class="module-card" id="mc10"><span class="mc-num">10</span><div class="mc-body"><div class="mc-title">Діалог з ШІ</div><div class="mc-sub">Уточнення, продовження, багатокрокові задачі — як вести розмову, а не просто питати</div></div><span class="mc-arrow">→</span></button>
+        <button class="module-card" id="mc11"><span class="mc-num">11</span><div class="mc-body"><div class="mc-title">Мій перший AI-сценарій</div><div class="mc-sub">Обираєте реальну задачу — і вирішуєте її від початку до кінця разом з ШІ</div></div><span class="mc-arrow">→</span></button>
       </div>
       <p class="home-footer">Кожен урок — 5–8 хвилин активного навчання.</p>
     </div>
@@ -227,6 +216,8 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
     <div class="lesson-panel" id="panel-l7"></div>
     <div class="lesson-panel" id="panel-l8"></div>
     <div class="lesson-panel" id="panel-l9"></div>
+    <div class="lesson-panel" id="panel-l10"></div>
+    <div class="lesson-panel" id="panel-l11"></div>
   </main>
 </div>
 <script>
@@ -234,72 +225,17 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
 'use strict';
 
 /* ── NAV ── */
-var progressKey='basicai-completed-lessons';
-var styleKey='basicai-learning-style';
-var done=loadDone();
-function loadDone(){
-  try{
-    var raw=JSON.parse(localStorage.getItem(progressKey)||'[]');
-    var map={};
-    if(Array.isArray(raw))raw.forEach(function(n){if(n>=1&&n<=9)map[n]=true;});
-    return map;
-  }catch(e){return {};}
-}
-function saveDone(){
-  try{
-    var list=[];
-    for(var i=1;i<=9;i++){if(done[i])list.push(i);}
-    localStorage.setItem(progressKey,JSON.stringify(list));
-  }catch(e){}
-}
-function refreshDoneUI(){
-  for(var i=1;i<=9;i++){
-    var isDone=!!done[i];
-    var nb=document.getElementById('nav-l'+i);
-    var mc=document.getElementById('mc'+i);
-    if(nb)nb.classList.toggle('done',isDone);
-    if(mc)mc.classList.toggle('done-card',isDone);
-  }
-}
-function getSavedAudience(){
-  try{
-    var aud=localStorage.getItem(styleKey);
-    return aud==='teen'||aud==='adult'?aud:'';
-  }catch(e){return '';}
-}
-function saveAudience(aud){
-  if(aud!=='teen'&&aud!=='adult')return;
-  try{localStorage.setItem(styleKey,aud);}catch(e){}
-  refreshStyleUI();
-}
-function audName(aud){return aud==='teen'?'Дослідник':aud==='adult'?'Практик':'';}
-function refreshStyleUI(){
-  var saved=getSavedAudience();
-  document.querySelectorAll('.style-choice').forEach(function(btn){
-    btn.classList.toggle('selected',btn.getAttribute('data-aud')===saved);
-  });
-  document.querySelectorAll('.audience-pick .aud-btn').forEach(function(btn){
-    btn.classList.toggle('selected',btn.getAttribute('data-aud')===saved);
-  });
-  var status=document.getElementById('style-status');
-  if(status)status.textContent=saved?'Обраний стиль: '+audName(saved):'Стиль ще не обрано';
-  var note=document.querySelector('.sidebar-note');
-  if(note)note.textContent=saved?'Ваш стиль навчання: '+audName(saved)+'. Його можна змінити на головній сторінці.':'Оберіть свій стиль навчання на головній сторінці — і приклади підлаштуються під вас.';
-}
+var done={};
 function showHome(){
   document.querySelectorAll('.lesson-panel').forEach(function(p){p.classList.remove('active');});
   document.getElementById('panel-home').classList.add('active');
   document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
   document.getElementById('nav-home').classList.add('active');
-  refreshStyleUI();
-  refreshDoneUI();
 }
 function showLesson(n){
   var panel=document.getElementById('panel-l'+n);
   if(!panel)return;
   if(!panel.getAttribute('data-built'))buildLesson(n);
-  var saved=getSavedAudience();
-  if(saved&&window['l'+n+'pick'])window['l'+n+'pick'](saved);
   document.querySelectorAll('.lesson-panel').forEach(function(p){p.classList.remove('active');});
   panel.classList.add('active');
   document.querySelectorAll('.nav-item').forEach(function(ni){ni.classList.remove('active');});
@@ -309,20 +245,15 @@ function showLesson(n){
 }
 function markDone(n){
   if(done[n])return;done[n]=true;
-  saveDone();
-  refreshDoneUI();
+  var nb=document.getElementById('nav-l'+n);if(nb)nb.classList.add('done');
+  var mc=document.getElementById('mc'+n);if(mc)mc.classList.add('done-card');
 }
 
 /* single delegated listener — catches ALL clicks */
 document.addEventListener('click',function(e){
   var t=e.target;
-  var styleBtn=t.closest('.style-choice');
-  if(styleBtn){
-    saveAudience(styleBtn.getAttribute('data-aud'));
-    return;
-  }
   if(t.id==='nav-home'||t.closest('#nav-home')){showHome();return;}
-  for(var n=1;n<=9;n++){
+  for(var n=1;n<=11;n++){
     var nb=document.getElementById('nav-l'+n);
     if(nb&&(t===nb||nb.contains(t))){showLesson(n);return;}
     var mc=document.getElementById('mc'+n);
@@ -355,25 +286,20 @@ function setProg(ln,n,labels){
   for(var i=0;i<total;i++){var d=document.getElementById('l'+ln+'-d'+i);if(d)d.className='pd'+(i<n?' done':i===n?' on':'');}
 }
 function mkStep(ln,n){var s=div(n===0?'step vis':'step');s.id='l'+ln+'-s'+n;return s;}
-function stylePickHint(){
-  var saved=getSavedAudience();
-  return saved?'Збережений стиль: '+audName(saved)+'. Можна продовжити з ним або змінити вибір нижче.':'Оберіть стиль навчання — і курс запам\'ятає його для наступних уроків.';
-}
 
 function audPickBlock(ln,data){
   var wrap=div('audience-pick');
-  ['teen','adult'].forEach(function(aud){
+  ['explorer','practitioner'].forEach(function(aud){
     var c=data[aud];
-    var b=mk('button','aud-btn'+(getSavedAudience()===aud?' selected':''));
-    b.setAttribute('data-aud',aud);
+    var b=mk('button','aud-btn');
     var ic=div('aud-icon');ic.textContent=c.icon;
     b.appendChild(ic);b.appendChild(div('aud-title',c.title));b.appendChild(div('aud-sub',c.sub));
-    b.addEventListener('click',function(){saveAudience(aud);window['l'+ln+'pick'](aud);});
+    b.addEventListener('click',function(){window['l'+ln+'pick'](aud);});
     wrap.appendChild(b);
   });
   return wrap;
 }
-function whoTag(ln,aud){var t=div('who-tag '+aud,aud==='teen'?'Дослідник':'Практик');t.id='l'+ln+'-who';return t;}
+function whoTag(ln,aud){var t=div('who-tag '+aud,aud==='explorer'?'Дослідник':'Практик');t.id='l'+ln+'-who';return t;}
 
 function nextBtn(ln,toStep,text,show){
   var b=mk('button','next-btn'+(show?' show':''),text||'Далі →');
@@ -445,88 +371,6 @@ function summaryBlock(items){
   var s=div('summary');s.appendChild(p('sum-title','Що ви засвоїли на цьому уроці:'));
   var ul=mk('ul','sum-list');items.forEach(function(txt){ul.appendChild(mk('li','',txt));});s.appendChild(ul);return s;
 }
-function resultBlock(cfg){
-  var card=div('result-card');
-  card.appendChild(div('result-title',cfg.title));
-  [
-    ['Я тепер умію',cfg.skill],
-    ['Готовий запит',cfg.prompt],
-    ['Спробувати сьогодні',cfg.action]
-  ].forEach(function(row){
-    var wrap=div('result-row');
-    wrap.appendChild(div('result-label',row[0]));
-    wrap.appendChild(div('result-text',row[1]));
-    card.appendChild(wrap);
-  });
-  var checklist=div('result-row');
-  checklist.appendChild(div('result-label','Міні-чекліст'));
-  var ul=mk('ul','result-list');
-  cfg.checklist.forEach(function(item){ul.appendChild(mk('li','',item));});
-  checklist.appendChild(ul);
-  card.appendChild(checklist);
-  return card;
-}
-function lessonResultBlock(ln,c){
-  var configs={
-    2:{
-      title:'Мій результат уроку 2',
-      skill:'Я можу визначити, коли ШІ справді корисний, а коли краще звернутися до пошуку, офіційного джерела або фахівця.',
-      prompt:'Поясни, чи підходить ШІ для задачі: [опишіть задачу]. Розділи відповідь на 3 частини: що ШІ може зробити добре, що треба перевірити окремо, де краще звернутися до людини або офіційного джерела.',
-      action:'Візьміть одну реальну задачу зі свого дня і вирішіть: це задача для ШІ, Google, офіційного сайту чи фахівця.',
-      checklist:['Задача потребує пояснення, тексту, плану або ідей','У задачі немає приватних даних, які не варто вводити','Актуальні факти, адреси, ціни й медичні/юридичні рішення я перевірю окремо']
-    },
-    3:{
-      title:'Мій результат уроку 3',
-      skill:'Я можу помічати відповіді ШІ, які звучать упевнено, але містять факти, що потребують перевірки.',
-      prompt:c.ccB||'Познач у цій відповіді місця, які можуть бути помилковими або застарілими. Для кожного пункту поясни, як його перевірити.',
-      action:'Візьміть будь-яку відповідь ШІ з конкретною датою, сумою, цитатою або назвою документа і перевірте одну деталь через надійне джерело.',
-      checklist:['Я не сприймаю впевнений тон як доказ правди','Конкретні дати, цифри, цитати й посилання перевіряю окремо','Можу попросити ШІ прямо позначити невпевнені місця']
-    },
-    4:{
-      title:'Мій результат уроку 4',
-      skill:'Я можу перетворити нечітке прохання на якісний запит із роллю, контекстом, форматом і обмеженнями.',
-      prompt:c.ccB||'Ти [роль]. Допоможи мені з [задача]. Контекст: [для кого/для чого]. Дай відповідь у форматі [список/таблиця/план]. Уникай [обмеження].',
-      action:'Перепишіть один свій короткий запит до ШІ так, щоб у ньому були роль, задача, контекст і формат відповіді.',
-      checklist:['У запиті є чітка задача','Я вказав аудиторію або ситуацію','Я задав формат відповіді й важливі обмеження']
-    },
-    5:{
-      title:'Мій результат уроку 5',
-      skill:'Я можу застосувати ШІ до побутової задачі: листа, пояснення, плану, підготовки до розмови або навчання.',
-      prompt:'Допоможи мені з реальною задачею: [опишіть ситуацію]. Спочатку постав 2 уточнювальні питання, потім запропонуй план дій і готовий текст/шаблон, який я зможу відредагувати.',
-      action:'Оберіть одну справу, яку давно відкладаєте: лист, план, пояснення або підготовку до розмови. Спробуйте зробити першу чернетку з ШІ.',
-      checklist:['Я не прошу ШІ приймати рішення замість мене','Я використовую відповідь як чернетку, а не як фінальний документ','Перед відправленням перевіряю імена, дати, факти й тон']
-    },
-    6:{
-      title:'Мій результат уроку 6',
-      skill:'Я можу користуватися ШІ безпечніше: прибирати зайві персональні дані й формулювати задачу без паролів, документів та ідентифікаторів.',
-      prompt:c.ccB||'Допоможи мені сформулювати безпечний запит до ШІ для задачі: [опис задачі]. Покажи, які особисті дані треба прибрати або замінити умовними позначками.',
-      action:'Перед наступним запитом до ШІ перевірте його за правилом: чи можна прибрати імена, адреси, номери документів, телефони або фінансові дані без втрати сенсу?',
-      checklist:['Я не вводжу паролі, ІПН, паспортні й банківські дані','Дані інших людей прибираю або замінюю умовними словами','Для заяв, листів і форм прошу структуру та приклад без реальних персональних даних']
-    },
-    7:{
-      title:'Мій результат уроку 7',
-      skill:'Я можу обрати AI-інструмент під задачу, а не користуватися першим знайомим сервісом для всього.',
-      prompt:'Порівняй 3 AI-інструменти для моєї задачі: [задача]. Оціни їх за простотою, якістю відповіді, роботою з джерелами, приватністю і тим, з чого краще почати.',
-      action:'Оберіть одну задачу і вирішіть, який інструмент логічніший: ChatGPT, Claude, Gemini, Copilot або пошук без ШІ.',
-      checklist:['Я розумію, що різні AI-сервіси мають різні сильні сторони','Для актуальних фактів потрібні джерела або пошук','Для старту достатньо безкоштовної версії й простого сценарію']
-    },
-    8:{
-      title:'Мій результат уроку 8',
-      skill:'Я можу використовувати ШІ як репетитора: просити пояснення, вправи, перевірку розуміння і план навчання.',
-      prompt:'Поясни мені тему [тема] на моєму рівні: [рівень]. Дай просте пояснення, 2 приклади, 3 питання для самоперевірки і коротке домашнє завдання.',
-      action:'Візьміть тему, яку давно хотіли зрозуміти, і попросіть ШІ пояснити її з прикладом та питаннями для самоперевірки.',
-      checklist:['Я прошу пояснення, а не готову роботу замість себе','Вказую свій рівень і бажаний формат','Перевіряю себе питаннями або короткою вправою']
-    },
-    9:{
-      title:'Мій результат уроку 9',
-      skill:'Я можу не поспішати з поширенням інформації й перевіряти підозрілі повідомлення за простим алгоритмом.',
-      prompt:c.ccB||'Як перевірити, чи є правдою це повідомлення: [вставте повідомлення без приватних даних]? Дай алгоритм перевірки, список джерел і ознаки маніпуляції.',
-      action:'Наступне емоційне повідомлення з месенджера або соцмережі перевірте за трьома питаннями: хто опублікував, коли, чи підтверджують інші надійні джерела.',
-      checklist:['Не поширюю повідомлення лише тому, що його надіслала знайома людина','Перевіряю першоджерело, дату й контекст','ШІ використовую для алгоритму перевірки, а не як остаточний суддя правди']
-    }
-  };
-  return resultBlock(configs[ln]);
-}
 function ruleBlock(title,text){
   var r=div('rule');var strong=mk('strong','',title);r.appendChild(strong);r.appendChild(document.createTextNode(' '+text));return r;
 }
@@ -542,7 +386,7 @@ function buildLesson(n){var panel=document.getElementById('panel-l'+n);if(!panel
 /* ══ L1 ══ */
 var l1aud='',l1cur=0;
 var L1={
-  teen:{icon:'🎧',title:'Я дослідник',sub:'Люблю пробувати нове і хочу швидко зрозуміти, як ШІ працює насправді',
+  explorer:{icon:'🔬',title:'Я дослідник',sub:'Люблю розбиратися як все влаштовано — і одразу пробувати',
     hook:'Ти вже гуглив сотні разів. А тепер уяви: замість посилань — хтось відповідає тобі своїми словами.',
     hookSub:'Саме так працює ШІ. Але між Google і ШІ є принципова різниця, яку більшість людей не помічає.',
     think:'Ти пишеш: «Як написати заяву?» — Google знайде зразки. А ШІ?',
@@ -553,7 +397,7 @@ var L1={
     ccA:'«кліматичні зміни»',ccB:'«Поясни простими словами, що таке кліматичні зміни і чому вчені сперечаються про їхні наслідки»',
     fb4c:'Варіант Б набагато кращий. ШІ не пошуковик — йому потрібні не ключові слова, а чітка задача.',
     fb4w:'Варіант А — стиль для Google. ШІ краще відповідає на питання і прохання.'},
-  adult:{icon:'☕',title:'Я практик',sub:'Хочу спокійно розібратися, де ШІ може бути корисним у реальних справах',
+  practitioner:{icon:'🌿',title:'Я практик',sub:'Хочу конкретних результатів — без зайвої теорії, одразу до справи',
     hook:'Уявіть, що ви телефонуєте не в довідкову, а до знайомого, який дуже багато читав.',
     hookSub:'Він не дає список книг — він пояснює своїми словами. Приблизно так і працює ШІ.',
     think:'Ви запитуєте: «Як написати скаргу до ЖКГ?» — Google покаже сайти. А ШІ?',
@@ -565,14 +409,14 @@ var L1={
     fb4c:'Чудово. ШІ розуміє звичайну мову. Чим точніше ви описуєте задачу — тим кориснішою буде відповідь.',
     fb4w:'Варіант А — стиль для Google. ШІ краще відповідає на прохання, сформульовані звичайною мовою.'}
 };
-var l1lbl=['Вибір стилю','Перша спроба','Пояснення','Перевірка','Практика'];
+var l1lbl=['Вибір аудиторії','Перша спроба','Пояснення','Перевірка','Практика'];
 var l1sum=['ШІ і Google — принципово різні інструменти з різними сильними сторонами','ШІ не шукає в інтернеті — він генерує відповідь на основі навчання','ШІ може помилятися, але звучати при цьому дуже впевнено','Правильний вибір інструменту залежить від задачі'];
 
 window.buildL1=function(panel){
   panel.appendChild(progWrap(1,5));
   var s0=mkStep(1,0);
   s0.appendChild(p('hook','Урок 1. Що таке ШІ — і чим він відрізняється від Google?'));
-  s0.appendChild(p('hook-sub',stylePickHint()));
+  s0.appendChild(p('hook-sub','Оберіть, хто ви — і приклади підлаштуються під вас.'));
   s0.appendChild(audPickBlock(1,L1));panel.appendChild(s0);
   for(var i=1;i<=4;i++){var s=mkStep(1,i);s.id='l1-s'+i;panel.appendChild(s);}
 };
@@ -615,17 +459,6 @@ window.l1pick=function(aud){
   var fb4=fbDiv('l1-fb4');
   var sumW=div('');sumW.style.display='none';
   sumW.appendChild(summaryBlock(l1sum));
-  sumW.appendChild(resultBlock({
-    title:'Мій результат уроку 1',
-    skill:'Я можу відрізнити задачу для Google від задачі для ШІ й сформулювати запит повним проханням, а не набором ключових слів.',
-    prompt:c.ccB,
-    action:'Оберіть одну реальну дрібну задачу сьогодні: пояснити тему, написати лист або розібратися в ситуації. Сформулюйте її як прохання до ШІ й перевірте факти окремо.',
-    checklist:[
-      'Мені потрібне пояснення або текст, а не просто актуальний факт',
-      'У запиті є контекст: для кого, про що і в якому форматі відповідь',
-      'Конкретні адреси, дати, ціни й контакти я перевірю в офіційному джерелі'
-    ]
-  }));
   var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('Урок 2 →','2'));br.appendChild(restartBtn(1));sumW.appendChild(br);
   s4.appendChild(compareBlock(
     [{lbl:'Варіант А',text:c.ccA,ch:'A'},{lbl:'Варіант Б',text:c.ccB,ch:'B'}],'B',
@@ -639,7 +472,7 @@ window.l1restart=function(){l1aud='';l1cur=0;document.querySelectorAll('#panel-l
 /* ══ L2 ══ */
 var l2aud='',l2cur=0;
 var L2={
-  teen:{icon:'🎮',title:'Я дослідник',sub:'Хочу швидко перевірити, де ШІ справді корисний, а де краще не довіряти',
+  explorer:{icon:'🔬',title:'Я дослідник',sub:'Люблю розбиратися як все влаштовано — і одразу пробувати',
     hook:'Уяви: твій друг каже, що ШІ вирішить будь-яке завдання краще за гугл.',hookSub:'Це правда лише наполовину. ШІ неймовірний у одних речах — і марний в інших.',think:'Що ШІ точно не може зробити прямо зараз?',
     ch1:[{t:'Переписати мій текст зрозумілішою мовою',v:'wrong',fb:'Це — одна з найсильніших сторін ШІ.'},{t:'Дізнатися, яка пісня грає зараз на радіо',v:'correct',fb:'Точно. ШІ не підключений до інтернету в реальному часі.'},{t:'Пояснити тему з фізики простими словами',v:'wrong',fb:'Це ШІ робить дуже добре.'}],
     can:['Пояснити складну тему простими словами','Написати, переписати або покращити текст','Вигадати ідеї, сюжети, назви','Допомогти з кодом або рівнянням','Перекласти й адаптувати стиль','Скласти план або список кроків'],
@@ -647,7 +480,7 @@ var L2={
     scens:[{q:'Написати привітання другові на день народження',ai:true,exp:'ШІ відмінно справляється з текстами будь-якого формату.'},{q:'Дізнатися, хто переміг на вчорашньому матчі',ai:false,exp:'ШІ не знає вчорашніх подій. Для новин — Google.'},{q:'Підготувати питання перед співбесідою',ai:true,exp:'Підготовка і репетиція відповідей — ШІ робить чудово.'},{q:'Перевірити, чи вільний певний сайт для реєстрації',ai:false,exp:'ШІ не може зайти на сайти в реальному часі.'}],
     pTitle:'Тебе просять пояснити однокласнику, для чого ШІ.',pSub:'Яке пояснення найточніше?',
     ch4:[{t:'ШІ — розумний пошуковик, який завжди правий',v:'wrong',fb:'Не зовсім. ШІ може помилятися і не знає останніх подій.'},{t:'ШІ — інструмент для роботи з текстом і думками, але факти краще перевіряти',v:'correct',fb:'Відмінно. Це чесне і точне пояснення.'},{t:'ШІ небезпечний, краще не користуватись',v:'wrong',fb:'Надмірна обережність теж шкодить. Важливо знати межі.'}]},
-  adult:{icon:'🧩',title:'Я практик',sub:'Хочу зрозуміти, для яких життєвих задач ШІ справді підходить',
+  practitioner:{icon:'🌿',title:'Я практик',sub:'Хочу конкретних результатів — без зайвої теорії, одразу до справи',
     hook:'Сусідка каже: «Я попросила ШІ знайти лікаря поруч — він дав адресу, але її не існує.»',hookSub:'Типова ситуація: людина використала ШІ не за призначенням.',think:'Що ШІ точно не може зробити надійно?',
     ch1:[{t:'Написати ввічливого листа до установи',v:'wrong',fb:'Навпаки — це одна з найсильніших сторін ШІ.'},{t:'Назвати адресу конкретної поліклініки у вашому місті',v:'correct',fb:'Правильно. ШІ може вигадати адресу або дати застарілу.'},{t:'Пояснити, як заповнити декларацію',v:'wrong',fb:'Загальний порядок дій — ШІ пояснює добре.'}],
     can:['Написати лист, заяву або скаргу','Пояснити складне простими словами','Перекласти текст або адаптувати стиль','Допомогти сформулювати питання до лікаря','Скласти план покупок, справ або поїздки','Вигадати подарунок або привітання'],
@@ -656,12 +489,12 @@ var L2={
     pTitle:'Подруга запитує: «Чи варто довіряти ШІ в побутових питаннях?»',pSub:'Яка відповідь найчесніша?',
     ch4:[{t:'Так, ШІ завжди правий — він навчений на мільярдах текстів',v:'wrong',fb:'На жаль, ні. Великий обсяг навчання не гарантує точності.'},{t:'Для листів і пояснень — так. Для конкретних адрес і цифр — перевіряти',v:'correct',fb:'Чудово. Це і є цифрова грамотність.'},{t:'Ні, надто ризиковано — краще взагалі не використовувати',v:'wrong',fb:'Надмірна обережність теж коштує. Важливо знати межі.'}]}
 };
-var l2lbl=['Вибір стилю','Перша спроба','Карта вмінь','Перевірка','Практика'];
+var l2lbl=['Вибір аудиторії','Перша спроба','Карта вмінь','Перевірка','Практика'];
 var l2sum=['ШІ відмінно справляється з текстами, поясненнями та творчими задачами','Він не знає свіжих новин і може помилятися у фактах','Правильне використання — обирати ШІ для задач, де він сильний','Знання меж інструменту — це і є цифрова грамотність'];
 
 window.buildL2=function(panel){
   panel.appendChild(progWrap(2,5));
-  var s0=mkStep(2,0);s0.appendChild(p('hook','Урок 2. Що ШІ вміє — і чого не вміє'));s0.appendChild(p('hook-sub',stylePickHint()));s0.appendChild(audPickBlock(2,L2));panel.appendChild(s0);
+  var s0=mkStep(2,0);s0.appendChild(p('hook','Урок 2. Що ШІ вміє — і чого не вміє'));s0.appendChild(p('hook-sub','ШІ здається всемогутнім. Але у нього є чіткі межі.'));s0.appendChild(audPickBlock(2,L2));panel.appendChild(s0);
   for(var i=1;i<=4;i++){var s=mkStep(2,i);s.id='l2-s'+i;panel.appendChild(s);}
 };
 window.l2pick=function(aud){
@@ -689,7 +522,7 @@ window.l2pick=function(aud){
   var s4=document.getElementById('l2-s4');s4.innerHTML='';
   s4.appendChild(badge('Практика'));s4.appendChild(p('s-title',c.pTitle));s4.appendChild(p('s-sub',c.pSub));
   var fb4=fbDiv('l2-fb4');var sumW=div('');sumW.style.display='none';
-  sumW.appendChild(summaryBlock(l2sum));sumW.appendChild(lessonResultBlock(2,c));var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('Урок 3 →','3'));br.appendChild(restartBtn(2));sumW.appendChild(br);
+  sumW.appendChild(summaryBlock(l2sum));var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('Урок 3 →','3'));br.appendChild(restartBtn(2));sumW.appendChild(br);
   s4.appendChild(choicesBlock(c.ch4,function(b,opt,wrap){disableBtns(wrap);b.className='cb '+(opt.v==='correct'?'correct':'wrong');showFb('l2-fb4',opt.v==='correct'?'good':'info',opt.fb);sumW.style.display='block';markDone(2);}));
   s4.appendChild(fb4);s4.appendChild(sumW);l2go(1);
 };
@@ -699,7 +532,7 @@ window.l2restart=function(){l2aud='';l2cur=0;document.querySelectorAll('#panel-l
 /* ══ L3 ══ */
 var l3aud='',l3cur=0;
 var L3={
-  teen:{icon:'🔍',title:'Я дослідник',sub:'Хочу помічати слабкі місця ШІ й швидко перевіряти сумнівні відповіді',
+  explorer:{icon:'🔬',title:'Я дослідник',sub:'Люблю розбиратися як все влаштовано — і одразу пробувати',
     hook:'Уяви: ти попросив ШІ написати реферат. Він додав цитату відомого вченого. Але цієї цитати не існує.',hookSub:'ШІ вигадав її — і написав впевнено, без застереження. Ти б помітив?',
     aiText:'Як зазначав відомий фізик Нільс Бор у лекції 1952 року: «Уява важливіша за знання, бо знання обмежене, а уява охоплює весь світ». Саме ця думка лягла в основу сучасної квантової педагогіки.',
     ch1:[{t:'Цитата підозріла — Бор так не казав, і «квантова педагогіка» не існує',v:'correct',fb:'Відмінна інтуїція! Цитата справді вигадана. Оригінал належить Ейнштейну, не Бору.'},{t:'Відповідь виглядає авторитетно — можна довіряти',v:'wrong',fb:'Саме в цьому і небезпека. Детальність — не доказ правди.'},{t:'Дату лекції варто перевірити, решта нормально',v:'partial',fb:'Дата — лише частина проблеми. Тут вигадана і сама цитата, і термін.'}],
@@ -708,7 +541,7 @@ var L3={
     fb4c:'Саме так. Варіант Б змушує ШІ бути чеснішим — він частіше додає застереження.',fb4w:'Варіант Б кращий. Якщо просити ШІ позначати невпевненість — якість відповіді зростає.',
     pTitle:'Ти читаєш відповідь ШІ про історичну подію. Там є конкретна дата і ім\'я.',pSub:'Що робиш далі?',
     ch5:[{t:'Довіряю — ШІ навчений на великій кількості текстів',v:'wrong',fb:'Саме так думають більшість — і потрапляють у халепу.'},{t:'Швидко гуглю дату та ім\'я — 30 секунд, і я впевнений',v:'correct',fb:'Відмінно. ШІ для ідей і структури, Google для перевірки фактів.'},{t:'Взагалі не використовую ШІ для такого — надто ризиковано',v:'partial',fb:'Занадто обережно. Просто конкретні факти варто перевіряти.'}]},
-  adult:{icon:'🧐',title:'Я практик',sub:'Хочу спокійно розуміти, яким відповідям ШІ довіряти, а які перевіряти',
+  practitioner:{icon:'🌿',title:'Я практик',sub:'Хочу конкретних результатів — без зайвої теорії, одразу до справи',
     hook:'Уявіть: ви попросили ШІ про пільги для пенсіонерів. Він дав детальну відповідь з конкретними сумами.',hookSub:'Відповідь звучить переконливо. Але суми виявились застарілими, а одна пільга — вигаданою.',
     aiText:'Пенсіонери мають право на щомісячну надбавку в розмірі 15% від прожиткового мінімуму згідно з постановою Кабміну №847 від 2021 року. Також передбачена одноразова виплата при досягненні 70 років.',
     ch1:[{t:'Звучить офіційно — можна йти оформлювати',v:'wrong',fb:'Саме тут і небезпека. Конкретні суми і номери постанов — типові місця для помилок ШІ.'},{t:'Конкретні суми і номер постанови варто перевірити',v:'correct',fb:'Правильно. Загальна інформація зазвичай правдива. Але конкретні цифри — перевіряйте.'},{t:'Треба уточнити тільки рік постанови',v:'partial',fb:'Рік — лише частина проблеми. Номер постанови і суми теж потребують перевірки.'}],
@@ -718,12 +551,12 @@ var L3={
     pTitle:'Ви отримали від ШІ відповідь про медичну процедуру з конкретними дозами ліків.',pSub:'Який наступний крок?',
     ch5:[{t:'Приймаю — відповідь детальна і звучить по-медичному',v:'wrong',fb:'Саме медичні деталі — найнебезпечніше місце для галюцинацій ШІ.'},{t:'Використовую як основу для питань до лікаря — але не дію без консультації',v:'correct',fb:'Чудово. Це ідеальне використання ШІ в медичних питаннях.'},{t:'Перевіряю через Google і якщо знаходжу схоже — довіряю',v:'partial',fb:'Краще, ніж нічого. Але для медичного — тільки лікар або офіційні джерела.'}]}
 };
-var l3lbl=['Вибір стилю','Перша спроба','Пояснення','Що перевіряти','Лайфхак','Практика'];
+var l3lbl=['Вибір аудиторії','Перша спроба','Пояснення','Що перевіряти','Лайфхак','Практика'];
 var l3sum=['ШІ може звучати впевнено навіть коли помиляється — це «галюцинація»','Загальні пояснення зазвичай надійні, конкретні факти — перевіряти','Можна попросити ШІ самому позначити сумнівні місця','Впевнений тон — не доказ правди, а особливість інструменту'];
 
 window.buildL3=function(panel){
   panel.appendChild(progWrap(3,6));
-  var s0=mkStep(3,0);s0.appendChild(p('hook','Урок 3. Чи можна довіряти відповіді ШІ?'));s0.appendChild(p('hook-sub',stylePickHint()));s0.appendChild(audPickBlock(3,L3));panel.appendChild(s0);
+  var s0=mkStep(3,0);s0.appendChild(p('hook','Урок 3. Чи можна довіряти відповіді ШІ?'));s0.appendChild(p('hook-sub','ШІ звучить впевнено майже завжди. Але впевненість — це не те саме, що правда.'));s0.appendChild(audPickBlock(3,L3));panel.appendChild(s0);
   for(var i=1;i<=5;i++){var s=mkStep(3,i);s.id='l3-s'+i;panel.appendChild(s);}
 };
 window.l3pick=function(aud){
@@ -762,7 +595,7 @@ window.l3pick=function(aud){
   var s5=document.getElementById('l3-s5');s5.innerHTML='';
   s5.appendChild(badge('Практика'));s5.appendChild(p('s-title',c.pTitle));s5.appendChild(p('s-sub',c.pSub));
   var fb5=fbDiv('l3-fb5');var sumW=div('');sumW.style.display='none';
-  sumW.appendChild(summaryBlock(l3sum));sumW.appendChild(lessonResultBlock(3,c));var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('Урок 4 →','4'));br.appendChild(restartBtn(3));sumW.appendChild(br);
+  sumW.appendChild(summaryBlock(l3sum));var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('Урок 4 →','4'));br.appendChild(restartBtn(3));sumW.appendChild(br);
   s5.appendChild(choicesBlock(c.ch5,function(b,opt,wrap){disableBtns(wrap);b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');showFb('l3-fb5',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);sumW.style.display='block';markDone(3);}));
   s5.appendChild(fb5);s5.appendChild(sumW);l3go(1);
 };
@@ -772,7 +605,7 @@ window.l3restart=function(){l3aud='';l3cur=0;document.querySelectorAll('#panel-l
 /* ══ L4 ══ */
 var l4aud='',l4cur=0;
 var L4={
-  teen:{icon:'✏️',title:'Я дослідник',sub:'Хочу навчитися швидко отримувати від ШІ саме те, що потрібно',
+  explorer:{icon:'🔬',title:'Я дослідник',sub:'Люблю розбиратися як все влаштовано — і одразу пробувати',
     hook:'Ти пишеш ШІ: «Допоможи з есе» — і отримуєш щось загальне й нудне.',hookSub:'Різниця — в запиті. ШІ не читає думки. Чим точніше ти пояснюєш задачу, тим кориснішою буде відповідь.',
     ccA1:'«Напиши есе про клімат»',ccB1:'«Напиши есе на 300 слів про вплив кліматичних змін на Україну. Стиль — публіцистичний, аудиторія — старшокласники. Закінч закликом до дії»',
     fb1c:'Саме так. Варіант Б дає ШІ все: обсяг, тему, стиль і структуру фіналу.',fb1w:'Варіант А — занадто загальний. Варіант Б дає конкретні параметри.',
@@ -781,7 +614,7 @@ var L4={
     fb4c:'Відмінно. Роль дає ШІ контекст: хто говорить, кому і як.',fb4w:'Варіант з роллю кращий. Без ролі — технічне пояснення для всіх. З роллю — адаптований текст.',
     pTitle:'Ти хочеш підготуватись до усного іспиту з історії.',pSub:'Який запит дасть найкорисніший результат?',
     ch5:[{t:'«Допоможи з іспитом з історії»',v:'wrong',fb:'Занадто загально. ШІ не знає тему, формат і що потрібно.'},{t:'«Склади список із 10 ключових дат Другої світової для іспиту. Коротко поясни кожну — 1-2 речення»',v:'correct',fb:'Відмінно. Тема, формат, кількість, стиль — все є.'},{t:'«Що треба знати з Другої світової?»',v:'partial',fb:'Краще, але широко. Додай: для чого, формат, обсяг.'}]},
-  adult:{icon:'📝',title:'Я практик',sub:'Хочу формулювати запити так, щоб ШІ справді допомагав у конкретній справі',
+  practitioner:{icon:'🌿',title:'Я практик',sub:'Хочу конкретних результатів — без зайвої теорії, одразу до справи',
     hook:'Ви пишете ШІ: «Допоможи написати листа» — і отримуєте щось офіційне й холодне.',hookSub:'ШІ не знає вашого тону і ситуації. Але якщо пояснити — він врахує все і напише саме так, як потрібно.',
     ccA1:'«Напиши лист директору школи»',ccB1:'«Напиши ввічливого, але наполегливого листа директору школи щодо булінгу. Я — мама учня 6-го класу. Тон — спокійний, без юридичних погроз»',
     fb1c:'Саме так. Варіант Б дає ШІ всі параметри: хто пише, кому, про що, яким тоном.',fb1w:'Варіант А — занадто загальний. Варіант Б дає контекст.',
@@ -791,12 +624,12 @@ var L4={
     pTitle:'Ви хочете попросити ШІ написати привітання колезі на ювілей.',pSub:'Який запит дасть найкращий результат?',
     ch5:[{t:'«Напиши привітання»',v:'wrong',fb:'Занадто мало. ШІ не знає кому, з якої нагоди, яким тоном і скільки тексту.'},{t:'«Напиши тепле привітання колезі Наталі з 60-річчям. Ми разом 15 років. Тон — щирий, без пафосу. 5-6 речень»',v:'correct',fb:'Чудово. Ім\'я, привід, стосунки, тон і обсяг — ШІ має все для особистого привітання.'},{t:'«Привітання на ювілей для жінки»',v:'partial',fb:'Краще, але загально. Додайте 2-3 деталі — результат буде набагато особистішим.'}]}
 };
-var l4lbl=['Вибір стилю','Перша спроба','Чотири складники','Аналіз запитів','Роль для ШІ','Практика'];
+var l4lbl=['Вибір аудиторії','Перша спроба','Чотири складники','Аналіз запитів','Роль для ШІ','Практика'];
 var l4sum=['Якість відповіді ШІ залежить від якості запиту','Хороший запит: задача + контекст + формат + обмеження','Роль різко підвищує якість відповіді','Можна уточнити відповідь другим запитом — не обов\'язково починати з нуля'];
 
 window.buildL4=function(panel){
   panel.appendChild(progWrap(4,6));
-  var s0=mkStep(4,0);s0.appendChild(p('hook','Урок 4. Як писати хороші запити до ШІ'));s0.appendChild(p('hook-sub',stylePickHint()));s0.appendChild(audPickBlock(4,L4));panel.appendChild(s0);
+  var s0=mkStep(4,0);s0.appendChild(p('hook','Урок 4. Як писати хороші запити до ШІ'));s0.appendChild(p('hook-sub','Відповідь ШІ на 80% залежить від того, як ви запитали.'));s0.appendChild(audPickBlock(4,L4));panel.appendChild(s0);
   for(var i=1;i<=5;i++){var s=mkStep(4,i);s.id='l4-s'+i;panel.appendChild(s);}
 };
 window.l4pick=function(aud){
@@ -836,7 +669,7 @@ window.l4pick=function(aud){
   var s5=document.getElementById('l4-s5');s5.innerHTML='';
   s5.appendChild(badge('Практика'));s5.appendChild(p('s-title',c.pTitle));s5.appendChild(p('s-sub',c.pSub));
   var fb5=fbDiv('l4-fb5');var sumW=div('');sumW.style.display='none';
-  sumW.appendChild(summaryBlock(l4sum));sumW.appendChild(lessonResultBlock(4,c));var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('Урок 5 →','5'));br.appendChild(restartBtn(4));sumW.appendChild(br);
+  sumW.appendChild(summaryBlock(l4sum));var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('Урок 5 →','5'));br.appendChild(restartBtn(4));sumW.appendChild(br);
   s5.appendChild(choicesBlock(c.ch5,function(b,opt,wrap){disableBtns(wrap);b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');showFb('l4-fb5',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);sumW.style.display='block';markDone(4);}));
   s5.appendChild(fb5);s5.appendChild(sumW);l4go(1);
 };
@@ -846,7 +679,7 @@ window.l4restart=function(){l4aud='';l4cur=0;document.querySelectorAll('#panel-l
 /* ══ L5 ══ */
 var l5aud='',l5cur=0;
 var L5={
-  teen:{icon:'🚀',title:'Я дослідник',sub:'Хочу одразу спробувати ШІ для навчання, листів і підготовки до розмов',
+  explorer:{icon:'🔬',title:'Я дослідник',sub:'Люблю розбиратися як все влаштовано — і одразу пробувати',
     hook:'Завтра важлива розмова з викладачем про оцінку. Ти нервуєшся.',hookSub:'А ШІ може допомогти підготуватись за 10 хвилин — аргументи, заперечення, формулювання.',
     ch1:[{t:'Написати замість мене весь текст',v:'partial',fb:'Частково. ШІ напише — але найкраще давати йому ситуацію і він покращить ваш черновик.'},{t:'Допомогти сформулювати аргументи і підготувати до розмови',v:'correct',fb:'Саме так. ШІ відмінно грає роль «спаринг-партнера».'},{t:'Нічого — це особиста розмова',v:'wrong',fb:'Не зовсім. ШІ не піде замість вас — але може допомогти підготуватись.'}],
     mapRows:[['📚 Навчання','Пояснення теми','Підготовка до іспиту через Q&A','Перевірка логіки есе'],['✉️ Листи і тексти','Лист викладачу','Пост для соцмереж','Резюме або мотиваційний лист'],['💡 Ідеї','Назви для проєкту','Ідеї для подарунка','План для відео'],['🗣️ Підготовка','Аргументи для суперечки','Питання для інтерв\'ю','Репетиція складної розмови']],
@@ -861,7 +694,7 @@ var L5={
       {icon:'✏️',title:'Перевірка есе',text:'Перевір це есе: [текст]. Що слабке? Де логіка недостатня? Не переписуй — тільки коментарі.'}],
     pTitle:'Друг просить допомогти написати мотиваційний лист.',pSub:'Який запит до ШІ буде найкориснішим?',
     ch5:[{t:'«Напиши мотиваційний лист для університету»',v:'wrong',fb:'Занадто мало. ШІ не знає спеціальності, університету і досвіду.'},{t:'«Допоможи написати мотиваційний лист на журналістику до КНУ. Друг — активний блогер, організував шкільну газету. Тон — впевнений, стиль — живий»',v:'correct',fb:'Відмінно. Програма, університет, досягнення і стиль — ШІ має все.'},{t:'«Напиши лист — хочу вступити на журналістику»',v:'partial',fb:'Краще, але нема університету і досягнень. Додайте 2-3 деталі.'}]},
-  adult:{icon:'🌿',title:'Я практик',sub:'Хочу знайти спокійні й корисні сценарії для листів, документів, пояснень і планів',
+  practitioner:{icon:'🌿',title:'Я практик',sub:'Хочу конкретних результатів — без зайвої теорії, одразу до справи',
     hook:'Треба написати офіційну скаргу. Або підготуватись до розмови з лікарем.',hookSub:'ШІ може допомогти з усім цим — якщо знати, як просити.',
     ch1:[{t:'Написати замість мене весь документ',v:'partial',fb:'Частково. ШІ напише — але найкраще давати деталі ситуації, і він оформить.'},{t:'Допомогти сформулювати думки і підготуватись до лікаря',v:'correct',fb:'Саме так. ШІ допоможе зрозуміти термін, скласти питання, підготувати опис симптомів.'},{t:'Нічого — такі справи треба вирішувати самостійно',v:'wrong',fb:'Не завжди. ШІ може пояснити терміни і допомогти підготувати питання.'}],
     mapRows:[['✉️ Листи і заяви','Скарга до ЖКГ','Заява до установи','Відповідь на офіційного листа'],['🏥 Здоров\'я','Пояснення медичного терміну','Список питань до лікаря','Що означає цей аналіз'],['📋 Планування','Список справ на тиждень','План поїздки або свята','Розбивка завдання на кроки'],['👨‍👩‍👧 Сім\'я','Пояснити онуку складну тему','Ідея для подарунка','Допомога з домашнім завданням']],
@@ -877,12 +710,12 @@ var L5={
     pTitle:'Треба написати листа до міської ради щодо розбитої дороги.',pSub:'Який запит до ШІ буде найкориснішим?',
     ch5:[{t:'«Напиши листа про дорогу»',v:'wrong',fb:'Занадто мало. ШІ не знає кому, яка проблема і чого хочемо.'},{t:'«Напиши офіційного листа до міської ради. Розбита дорога по вул. Лісовій. Усні звернення без результату. Прошу включити ремонт у план або дати відповідь. Тон — ввічливий, наполегливий»',v:'correct',fb:'Чудово. Є адресат, проблема, передісторія і прохання.'},{t:'«Допоможи написати скаргу на погану дорогу»',v:'partial',fb:'Краще. Але нема адресата і конкретного прохання. Додайте деталі.'}]}
 };
-var l5lbl=['Вибір стилю','Перша спроба','Карта застосувань','Підбір запитів','Шаблони','Фінальна практика'];
+var l5lbl=['Вибір аудиторії','Перша спроба','Карта застосувань','Підбір запитів','Шаблони','Фінальна практика'];
 var l5sum=['ШІ і Google — різні інструменти для різних задач','ШІ сильний у текстах і поясненнях — слабкий у свіжих фактах','Впевнений тон не означає правду — конкретні факти треба перевіряти','Якість запиту визначає якість відповіді: задача + контекст + формат','ШІ — практичний помічник у листах, планах, навчанні й підготовці до розмов'];
 
 window.buildL5=function(panel){
   panel.appendChild(progWrap(5,6));
-  var s0=mkStep(5,0);s0.appendChild(p('hook','Урок 5. ШІ у повсякденних справах'));s0.appendChild(p('hook-sub',stylePickHint()));s0.appendChild(audPickBlock(5,L5));panel.appendChild(s0);
+  var s0=mkStep(5,0);s0.appendChild(p('hook','Урок 5. ШІ у повсякденних справах'));s0.appendChild(p('hook-sub','Час застосувати знання у справжніх ситуаціях — таких, які трапляються в житті кожного.'));s0.appendChild(audPickBlock(5,L5));panel.appendChild(s0);
   for(var i=1;i<=5;i++){var s=mkStep(5,i);s.id='l5-s'+i;panel.appendChild(s);}
 };
 window.l5pick=function(aud){
@@ -936,7 +769,7 @@ window.l5pick=function(aud){
   var s5=document.getElementById('l5-s5');s5.innerHTML='';
   s5.appendChild(badge('\u0424\u0456\u043d\u0430\u043b\u044c\u043d\u0430 \u043f\u0440\u0430\u043a\u0442\u0438\u043a\u0430'));s5.appendChild(p('s-title',c.pTitle));s5.appendChild(p('s-sub',c.pSub));
   var fb5=fbDiv('l5-fb5');var sumW=div('');sumW.style.display='none';
-  sumW.appendChild(summaryBlock(l5sum));sumW.appendChild(lessonResultBlock(5,c));
+  sumW.appendChild(summaryBlock(l5sum));
   sumW.appendChild(ruleBlock('\u041d\u0430\u0441\u0442\u0443\u043f\u043d\u0438\u0439 \u043a\u0440\u043e\u043a','\u0412\u0456\u0434\u043a\u0440\u0438\u0439\u0442\u0435 \u0431\u0443\u0434\u044c-\u044f\u043a\u0438\u0439 \u0428\u0406 \u0456 \u0441\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u043e\u0434\u0438\u043d \u0456\u0437 \u0448\u0430\u0431\u043b\u043e\u043d\u0456\u0432 \u0443 \u0432\u043b\u0430\u0441\u043d\u0456\u0439 \u0441\u0438\u0442\u0443\u0430\u0446\u0456\u0457. \u041d\u0430\u0439\u043a\u0440\u0430\u0449\u0435 \u043d\u0430\u0432\u0447\u0430\u043d\u043d\u044f \u2014 \u0447\u0435\u0440\u0435\u0437 \u0440\u0435\u0430\u043b\u044c\u043d\u0443 \u0441\u043f\u0440\u043e\u0431\u0443.'));
   var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('\u0423\u0440\u043e\u043a 6 \u2192','6'));br.appendChild(nextLessonBtn('\u2190 \u041d\u0430 \u0433\u043e\u043b\u043e\u0432\u043d\u0443','home'));br.appendChild(restartBtn(5));sumW.appendChild(br);
   s5.appendChild(choicesBlock(c.ch5,function(b,opt,wrap){disableBtns(wrap);b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');showFb('l5-fb5',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);sumW.style.display='block';markDone(5);}));
@@ -949,7 +782,7 @@ window.l5restart=function(){l5aud='';l5cur=0;document.querySelectorAll('#panel-l
 /* ══ L6 ══ */
 var l6aud='',l6cur=0;
 var L6={
-  teen:{icon:'🔒',title:'Я дослідник',sub:'Хочу швидко зрозуміти, що безпечно писати ШІ, а що краще не вводити',
+  explorer:{icon:'🔬',title:'Я дослідник',sub:'Люблю розбиратися як все влаштовано — і одразу пробувати',
     hook:'Уяви: ти описуєш ШІ проблему з другом і випадково вказуєш його повне ім\'я, школу і місто проживання.',hookSub:'ШІ не «злий» — але ці дані існують у його відповіді, у логах сервісу, і ти не контролюєш, що з ними станеться далі.',
     ch1:[
       {t:'Нічого страшного — ШІ не зберігає розмови',v:'wrong',fb:'На жаль, більшість сервісів ШІ зберігають розмови для покращення моделей. Це є у їхніх умовах використання. Те, що ти написав — може бути прочитане людьми.'},
@@ -973,7 +806,7 @@ var L6={
       {t:'Взагалі не використовувати ШІ для особистих тем',v:'wrong',fb:'Не обов\'язково. ШІ може бути корисним для обдумування особистих ситуацій — просто без зайвих ідентифікуючих деталей.'}
     ]
   },
-  adult:{icon:'🔒',title:'Я практик',sub:'Хочу користуватися ШІ обережно й не передавати зайві особисті дані',
+  practitioner:{icon:'🌿',title:'Я практик',sub:'Хочу конкретних результатів — без зайвої теорії, одразу до справи',
     hook:'Уявіть: ви просите ШІ допомогти заповнити заяву і вводите свій ідентифікаційний номер, дату народження і адресу.',hookSub:'ШІ відповів корисно. Але ці дані тепер існують у логах сервісу — і ви не контролюєте, хто ще може їх побачити.',
     ch1:[
       {t:'Нічого страшного — ШІ конфіденційний, як лікар',v:'wrong',fb:'На жаль, це не так. ШІ-сервіси — це комерційні компанії. Розмови можуть зберігатися, аналізуватися і використовуватися для навчання моделей. Правовий захист тут значно слабший, ніж у лікаря.'},
@@ -998,12 +831,12 @@ var L6={
     ]
   }
 };
-var l6lbl=['Вибір стилю','Перша спроба','Що безпечно','Практика перевірки','Порівняння запитів','Фінальна практика'];
+var l6lbl=['Вибір аудиторії','Перша спроба','Що безпечно','Практика перевірки','Порівняння запитів','Фінальна практика'];
 var l6sum=['Не вводьте у ШІ паролі, номери документів, ІПН, паспортні дані','Уникайте особистих даних інших людей без їхньої згоди','Для більшості завдань реальні дані не потрібні — ШІ допоможе і без них','Платний акаунт ≠ повна конфіденційність — читайте умови сервісу','Особисті теми можна обговорювати, просто без зайвих ідентифікаторів'];
 
 window.buildL6=function(panel){
   panel.appendChild(progWrap(6,6));
-  var s0=mkStep(6,0);s0.appendChild(p('hook','Урок 6. Безпека і особисті дані'));s0.appendChild(p('hook-sub',stylePickHint()));s0.appendChild(audPickBlock(6,L6));panel.appendChild(s0);
+  var s0=mkStep(6,0);s0.appendChild(p('hook','Урок 6. Безпека і особисті дані'));s0.appendChild(p('hook-sub','ШІ — корисний інструмент. Але він не «ваш» — він належить компанії. Розберемося, що безпечно писати, а що краще залишити при собі.'));s0.appendChild(audPickBlock(6,L6));panel.appendChild(s0);
   for(var i=1;i<=5;i++){var s=mkStep(6,i);s.id='l6-s'+i;panel.appendChild(s);}
 };
 window.l6pick=function(aud){
@@ -1046,7 +879,7 @@ window.l6pick=function(aud){
   var s5=document.getElementById('l6-s5');s5.innerHTML='';
   s5.appendChild(badge('Практика'));s5.appendChild(p('s-title',c.pTitle));s5.appendChild(p('s-sub',c.pSub));
   var fb5=fbDiv('l6-fb5');var sumW=div('');sumW.style.display='none';
-  sumW.appendChild(summaryBlock(l6sum));sumW.appendChild(lessonResultBlock(6,c));
+  sumW.appendChild(summaryBlock(l6sum));
   var finalRule=ruleBlock('Ви пройшли весь курс','Тепер ви розумієте ШІ краще за більшість людей — знаєте як він працює, де корисний, де треба перевіряти, як добре питати і як залишатись у безпеці.');
   sumW.appendChild(finalRule);
   var br=div('');br.style.marginTop='1rem';br.appendChild(nextLessonBtn('\u0423\u0440\u043e\u043a 7 \u2192','7'));br.appendChild(nextLessonBtn('\u2190 \u041d\u0430 \u0433\u043e\u043b\u043e\u0432\u043d\u0443','home'));br.appendChild(restartBtn(6));sumW.appendChild(br);
@@ -1059,7 +892,7 @@ window.l6restart=function(){l6aud='';l6cur=0;document.querySelectorAll('#panel-l
 /* ══ L7 ══ */
 var l7aud='',l7cur=0;
 var L7={
-  teen:{icon:'🧭',title:'Я дослідник',sub:'Хочу швидко розібратися, які ШІ-інструменти існують і чим відрізняються',
+  explorer:{icon:'🔬',title:'Я дослідник',sub:'Люблю розбиратися як все влаштовано — і одразу пробувати',
     hook:'ChatGPT, Claude, Gemini, Copilot... Всі звуть себе «ШІ-помічниками». Але між ними є реальна різниця.',
     hookSub:'Обирати інструмент навмання — як купувати ноутбук не дивлячись на характеристики. Розберемося, хто що вміє.',
     ch1:[
@@ -1080,7 +913,7 @@ var L7={
       {t:'Краще взагалі не використовувати ШІ для навчання',v:'wrong',fb:'Це залежить від того, як використовувати. ШІ як помічник для структуризації думок, перевірки логіки або пояснення теми — цілком допустимо і корисно.'}
     ]
   },
-  adult:{icon:'🧭',title:'Я практик',sub:'Хочу обрати ШІ-інструмент під свої задачі без зайвого технічного шуму',
+  practitioner:{icon:'🌿',title:'Я практик',sub:'Хочу зрозуміти, які ШІ-інструменти є і який підійде мені',
     hook:'У магазині побутової техніки є десятки пилососів. Не всі купують найдорожчий — обирають під свої потреби.',
     hookSub:'З ШІ-інструментами так само. ChatGPT, Claude, Gemini — у кожного своя ніша. Розберемося без жаргону.',
     ch1:[
@@ -1102,7 +935,7 @@ var L7={
     ]
   }
 };
-var l7lbl=['Вибір стилю','Перша спроба','Огляд інструментів','Задачі і інструменти','Порівняння','Практика'];
+var l7lbl=['Вибір аудиторії','Перша спроба','Огляд інструментів','Задачі і інструменти','Порівняння','Практика'];
 var l7sum=['ChatGPT, Claude, Gemini — схожі в основі, але відрізняються стилем і сильними сторонами','Claude — часто кращий для довгих текстів і точного слідування інструкціям','Gemini і ChatGPT з пошуком — кращі для актуальної інформації','Copilot — найкращий вибір, якщо ви у екосистемі Microsoft','Для початку безкоштовних версій цілком достатньо'];
 var l7tools=[
   {name:'ChatGPT',maker:'OpenAI',icon:'🟢',strong:'Універсальний, великий вибір плагінів і режимів',weak:'Базова версія без інтернету, платна версія значно потужніша',free:true},
@@ -1113,7 +946,7 @@ var l7tools=[
 
 window.buildL7=function(panel){
   panel.appendChild(progWrap(7,6));
-  var s0=mkStep(7,0);s0.appendChild(p('hook','Урок 7. Різні ШІ-інструменти'));s0.appendChild(p('hook-sub',stylePickHint()));s0.appendChild(audPickBlock(7,L7));panel.appendChild(s0);
+  var s0=mkStep(7,0);s0.appendChild(p('hook','Урок 7. Різні ШІ-інструменти'));s0.appendChild(p('hook-sub','ChatGPT, Claude, Gemini, Copilot — у кожного своя ніша. Розберемося, хто що вміє і який обрати для вашої задачі.'));s0.appendChild(audPickBlock(7,L7));panel.appendChild(s0);
   for(var i=1;i<=5;i++){var s=mkStep(7,i);s.id='l7-s'+i;panel.appendChild(s);}
 };
 
@@ -1196,7 +1029,7 @@ window.l7pick=function(aud){
   var s5=document.getElementById('l7-s5');s5.innerHTML='';
   s5.appendChild(badge('Практика'));s5.appendChild(p('s-title',c.pTitle));s5.appendChild(p('s-sub',c.pSub));
   var fb5=fbDiv('l7-fb5');var sumW=div('');sumW.style.display='none';
-  sumW.appendChild(summaryBlock(l7sum));sumW.appendChild(lessonResultBlock(7,c));
+  sumW.appendChild(summaryBlock(l7sum));
   var br=div('');br.style.marginTop='1rem';
   br.appendChild(nextLessonBtn('\u2190 \u041d\u0430 \u0433\u043e\u043b\u043e\u0432\u043d\u0443','home'));
   br.appendChild(restartBtn(7));sumW.appendChild(br);
@@ -1214,7 +1047,7 @@ window.l7restart=function(){l7aud='';l7cur=0;document.querySelectorAll('#panel-l
 /* ══ L8 ══ */
 var l8aud='',l8cur=0;
 var L8={
-  teen:{icon:'📚',title:'Я дослідник',sub:'Хочу використовувати ШІ для навчання активно, ефективно і чесно',
+  explorer:{icon:'🔬',title:'Я дослідник',sub:'Люблю розбиратися як все влаштовано — і одразу пробувати',
     hook:'Уяви: замість годинного читання підручника ти за 10 хвилин отримуєш чіткий конспект, приклади і список питань для самоперевірки.',
     hookSub:'ШІ не зробить домашнє завдання замість тебе — але може стати найкращим репетитором, якого ти коли-небудь мав.',
     ch1:[
@@ -1249,7 +1082,7 @@ var L8={
       {t:'Зовсім не використовувати ШІ — для шкільних завдань це нечесно',v:'wrong',fb:'Використання ШІ як інструменту для розуміння теми — цілком допустимо. Нечесно — видавати текст ШІ за свій. Різниця принципова.'}
     ]
   },
-  adult:{icon:'📚',title:'Я практик',sub:'Хочу вчитися новому за допомогою ШІ зручно і у своєму темпі',
+  practitioner:{icon:'🌿',title:'Я практик',sub:'Хочу конкретних результатів — без зайвої теорії, одразу до справи',
     hook:'Уявіть: ви хочете розібратись у темі, яка вам незнайома — пенсійна реформа, нові ліки, комп\'ютерна програма.',
     hookSub:'Раніше це означало годинний пошук і читання незрозумілих текстів. Тепер ШІ може пояснити будь-що зрозумілою мовою — стільки разів, скільки потрібно.',
     ch1:[
@@ -1285,14 +1118,14 @@ var L8={
     ]
   }
 };
-var l8lbl=['Вибір стилю','Перша спроба','Підбір запитів','Шаблони','Практика'];
+var l8lbl=['Вибір аудиторії','Перша спроба','Підбір запитів','Шаблони','Практика'];
 var l8sum=['ШІ — ідеальний репетитор: пояснює стільки разів, скільки треба, і підлаштовує рівень під вас','Запит з контекстом (рівень, мета, формат) дає набагато кращий результат','Режим «екзаменатора» — один з найефективніших способів підготовки до іспиту','ШІ допомагає навчатися, а не замінює навчання — різниця принципова','Для дорослих: ШІ дозволяє вчитися у власному темпі без страху виглядати «не так»'];
 
 window.buildL8=function(panel){
   panel.appendChild(progWrap(8,5));
   var s0=mkStep(8,0);
   s0.appendChild(p('hook','Урок 8. ШІ для навчання'));
-  s0.appendChild(p('hook-sub',stylePickHint()));
+  s0.appendChild(p('hook-sub','Пояснення, конспекти, підготовка до іспитів — ШІ як персональний репетитор у кишені.'));
   s0.appendChild(audPickBlock(8,L8));
   panel.appendChild(s0);
   for(var i=1;i<=4;i++){var s=mkStep(8,i);s.id='l8-s'+i;panel.appendChild(s);}
@@ -1385,7 +1218,7 @@ window.l8pick=function(aud){
   s4.appendChild(p('s-sub',c.pSub));
   var fb4=fbDiv('l8-fb4');
   var sumW=div('');sumW.style.display='none';
-  sumW.appendChild(summaryBlock(l8sum));sumW.appendChild(lessonResultBlock(8,c));
+  sumW.appendChild(summaryBlock(l8sum));
   var br=div('');br.style.marginTop='1rem';
   br.appendChild(nextLessonBtn('\u2190 \u041d\u0430 \u0433\u043e\u043b\u043e\u0432\u043d\u0443','home'));
   br.appendChild(restartBtn(8));
@@ -1414,7 +1247,7 @@ window.l8restart=function(){
 /* ══ L9 ══ */
 var l9aud='',l9cur=0;
 var L9={
-  teen:{icon:'🕵️',title:'Я дослідник',sub:'Хочу швидко розпізнавати фейки — особливо ті, що виглядають переконливо',
+  explorer:{icon:'🔬',title:'Я дослідник',sub:'Люблю розбиратися як все влаштовано — і одразу пробувати',
     hook:'Уяви: у Telegram з\'являється відео з відомою людиною, яка говорить щось шокуюче. Тисячі репостів за годину.',
     hookSub:'Частина цих відео — deepfake, створений ШІ. Частина — справжні, але вирвані з контексту. Як відрізнити?',
     ch1:[
@@ -1439,7 +1272,7 @@ var L9={
       {t:'Написати в групі: «Це фейк» — навіть якщо не перевіряв',v:'wrong',fb:'Стверджувати, що щось фейк, без перевірки — така ж помилка, як поширювати без перевірки. Спочатку перевірте, потім реагуйте.'}
     ]
   },
-  adult:{icon:'🕵️',title:'Я практик',sub:'Хочу спокійно відрізняти правдиву інформацію від маніпуляцій',
+  practitioner:{icon:'🌿',title:'Я практик',sub:'Хочу конкретних результатів — без зайвої теорії, одразу до справи',
     hook:'Уявіть: у Viber надходить повідомлення від знайомої: «Терміново! Нові правила пенсій — читай і поширюй!»',
     hookSub:'Частина таких повідомлень — правда. Частина — застаріла інформація. Частина — свідома дезінформація. Як розрізнити?',
     ch1:[
@@ -1465,14 +1298,14 @@ var L9={
     ]
   }
 };
-var l9lbl=['Вибір стилю','Перша спроба','Ознаки фейку','Як використати ШІ','Практика'];
+var l9lbl=['Вибір аудиторії','Перша спроба','Ознаки фейку','Як використати ШІ','Практика'];
 var l9sum=['Відео і скріншоти — вже не докази: deepfake і редагування доступні кожному','Три питання: хто опублікував? коли? чи підтверджують інші надійні джерела?','ШІ може помилятися у фактах — просіть алгоритм перевірки, а не відповідь «так чи ні»','Поспіх і емоційний заголовок — класичні ознаки маніпуляції','Перевірка займає 3-5 хвилин і може захистити від серйозних помилок'];
 
 window.buildL9=function(panel){
   panel.appendChild(progWrap(9,5));
   var s0=mkStep(9,0);
   s0.appendChild(p('hook','Урок 9. ШІ і фейки'));
-  s0.appendChild(p('hook-sub',stylePickHint()));
+  s0.appendChild(p('hook-sub','Як розпізнати дезінформацію — і чи може ШІ допомогти чи нашкодити.'));
   s0.appendChild(audPickBlock(9,L9));
   panel.appendChild(s0);
   for(var i=1;i<=4;i++){var s=mkStep(9,i);s.id='l9-s'+i;panel.appendChild(s);}
@@ -1540,7 +1373,7 @@ window.l9pick=function(aud){
   s4.appendChild(p('s-sub',c.pSub));
   var fb4=fbDiv('l9-fb4');
   var sumW=div('');sumW.style.display='none';
-  sumW.appendChild(summaryBlock(l9sum));sumW.appendChild(lessonResultBlock(9,c));
+  sumW.appendChild(summaryBlock(l9sum));
   var ruleEnd=ruleBlock('Головне правило','Не поспішайте — ні ділитися, ні ігнорувати. 3-5 хвилин перевірки через офіційне джерело захищають від більшості маніпуляцій.');
   sumW.appendChild(ruleEnd);
   var br=div('');br.style.marginTop='1rem';
@@ -1567,11 +1400,456 @@ window.l9restart=function(){
   var s0=document.getElementById('l9-s0');if(s0)s0.className='step vis';
   setProg(9,0,l9lbl);window.scrollTo(0,0);
 };
-refreshStyleUI();
-refreshDoneUI();
-if('serviceWorker' in navigator && location.protocol !== 'file:'){
-  navigator.serviceWorker.register('sw.js').catch(function(){});
-}
+
+/* ══ L10 ══ */
+var l10aud='',l10cur=0;
+var L10={
+  explorer:{icon:'🔬',title:'Я дослідник',sub:'Хочу зрозуміти, як ШІ обробляє багатокроковий діалог — і як це використати на повну',
+    hook:'Більшість людей використовують ШІ як пошуковик: одне питання — одна відповідь. Але ШІ — це співрозмовник.',
+    hookSub:'Справжня сила проявляється в діалозі: уточнити, розвинути, змінити напрямок, попросити переробити. Це зовсім інший рівень.',
+    ch1:[
+      {t:'ШІ пам\'ятає весь контекст розмови необмежено — можна говорити хоч годину',v:'wrong',fb:'Не зовсім. Більшість ШІ мають обмежений «контекстний вікно» — обсяг тексту, який вони можуть тримати в пам\'яті за раз. У дуже довгих розмовах початок може «забуватися». Для великих проєктів краще починати нову розмову з коротким резюме контексту.'},
+      {t:'Кожен наступний запит у розмові будується на попередньому — можна уточнювати і розвивати',v:'correct',fb:'Саме так. Це і є головна перевага діалогу над разовим запитом. Ви не починаєте з нуля кожного разу — ШІ пам\'ятає, що вже сказано в цій розмові.'},
+      {t:'Краще кожного разу починати нову розмову — так відповіді точніші',v:'wrong',fb:'Залежить від задачі. Для окремих, непов\'язаних питань — так. Але для складної задачі, де потрібно кілька кроків (написати, перевірити, переробити, скоротити) — одна розмова набагато ефективніша.'}
+    ],
+    scens:[
+      {q:'Ви попросили написати текст, але він виявився надто формальним',cor:'B',
+       a:'Починаєте нову розмову: «Напиши неформальний текст про...»',
+       b:'В тій самій розмові: «Добре, тепер переписи це більш розмовним тоном — як ніби пишеш другу»',
+       exp:'Варіант Б зберігає весь контекст (тема, структура, обсяг) і змінює лише тон. Варіант А змушує ШІ починати з нуля без попереднього контексту.'},
+      {q:'ШІ дав довгу відповідь, але вам потрібен лише один конкретний аспект',cor:'B',
+       a:'Читаєте всю відповідь і самі шукаєте потрібне',
+       b:'«Добре. Тепер зупинись тільки на третьому пункті — розкажи детальніше саме про нього»',
+       exp:'Діалог дозволяє «зумувати» в потрібне місце. ШІ вже знає контекст і може розгорнути будь-який аспект без повторення всього.'},
+      {q:'Вам потрібно написати складний документ з кількох частин',cor:'B',
+       a:'Пишете один великий запит з усіма вимогами одразу',
+       b:'Пишете по частинах: спочатку структура → затверджуєте → потім кожен розділ окремо → наприкінці попросіть звести все разом',
+       exp:'Покроковий підхід дає контроль над результатом на кожному етапі. Один великий запит часто дає нерівномірний результат — деякі частини слабкіші за інші.'}
+    ],
+    tmpls:[
+      {icon:'🔄',title:'Уточнення тону або стилю',text:'Добре. Тепер переписи це [більш формально / більш розмовно / коротше / детальніше / простішою мовою].'},
+      {icon:'🔍',title:'Поглиблення одного аспекту',text:'Зупинись тільки на [конкретний пункт або аспект]. Розкажи детальніше — чому це важливо і як це працює на практиці.'},
+      {icon:'🏗️',title:'Покрокова побудова документа',text:'Давай зробимо це покроково. Спочатку запропонуй структуру з [N] розділів. Я затверджу — і тоді пишемо кожен розділ окремо.'},
+      {icon:'↩️',title:'Повернення та виправлення',text:'Повернись до [конкретна частина]. Там є проблема: [опис проблеми]. Виправ тільки це, решту не чіпай.'}
+    ],
+    pTitle:'Ви отримали від ШІ чернетку листа — вона непогана, але надто довга і надто офіційна.',pSub:'Який наступний крок у діалозі найефективніший?',
+    ch5:[
+      {t:'Починаю нову розмову з детальнішим описом того, що хочу',v:'wrong',fb:'Ви втрачаєте контекст попередньої роботи. ШІ вже знає тему, адресата і структуру листа — це цінна основа.'},
+      {t:'В тій самій розмові: «Скороти до 3 абзаців і зроби тон більш особистим — як ніби пишеш колезі, а не в офіційний орган»',v:'correct',fb:'Відмінно. Два чіткі завдання в одному запиті — скоротити і змінити тон. ШІ виконає обидва, зберігши зміст попередньої роботи.'},
+      {t:'Прошу ШІ «покращити» лист без деталей',v:'partial',fb:'«Покращити» — надто розмито. ШІ не знає, що саме вас не влаштовує. Завжди уточнюйте: що змінити, у якому напрямку і що зберегти.'}
+    ]
+  },
+  practitioner:{icon:'🌿',title:'Я практик',sub:'Хочу навчитися вести розмову з ШІ, а не просто ставити одне питання',
+    hook:'Уявіть: ви замовляєте меблі. Ви ж не кажете майстру все одним реченням і йдете. Ви уточнюєте, погоджуєте, коригуєте.',
+    hookSub:'З ШІ — так само. Одне питання дає одну відповідь. Діалог дає саме те, що вам потрібно.',
+    ch1:[
+      {t:'Краще написати один дуже детальний запит — щоб не морочитись із переписуванням',v:'partial',fb:'Один детальний запит — краще, ніж один загальний. Але навіть найдетальніший запит не передбачить усього. Діалог дозволяє уточнювати по ходу — і це природніше та ефективніше.'},
+      {t:'Можна уточнювати і доповнювати в тій самій розмові — ШІ пам\'ятає що вже сказано',v:'correct',fb:'Саме так. Не потрібно повторювати контекст кожного разу. Ви вже пояснили ситуацію — тепер просто уточнюйте деталі.'},
+      {t:'Після кожної відповіді краще починати нову розмову — щоб ШІ не плутався',v:'wrong',fb:'Навпаки — в одній розмові ШІ не плутається, а використовує попередній контекст на вашу користь. Нова розмова доречна лише коли тема повністю змінилась.'}
+    ],
+    scens:[
+      {q:'Ви попросили ШІ написати привітання для колеги — вийшло занадто пафосно',cor:'B',
+       a:'Починаєте нову розмову і детальніше описуєте, що хочете',
+       b:'В тій самій розмові: «Добре, але зроби простіше і тепліше — без пафосу, як від щирого серця»',
+       exp:'Варіант Б зберігає ім\'я, привід і структуру — змінює тільки тон. Простий коректив в одному реченні.'},
+      {q:'ШІ написав план із 7 пунктів — вам потрібно тільки 3 найважливіші',cor:'B',
+       a:'Самі обираєте 3 пункти з відповіді',
+       b:'«З цих 7 пунктів вибери 3 найважливіші і поясни коротко, чому саме вони»',
+       exp:'Попросіть ШІ зробити вибір і пояснити його — це і економить час, і дає обґрунтування.'},
+      {q:'Вам треба написати офіційного листа — але ви не знаєте, з чого почати',cor:'B',
+       a:'Пишете: «Напиши офіційного листа» і чекаєте',
+       b:'Спочатку: «Допоможи мені зрозуміти, яка має бути структура листа до [куди].» Потім: «Добре, тепер напиши перший абзац.»',
+       exp:'Покроковий підхід знімає стрес від порожнього аркуша. Ви спочатку розумієте структуру — і тоді наповнення дається легше.'}
+    ],
+    tmpls:[
+      {icon:'🔄',title:'Змінити тон або стиль',text:'Добре. Тепер переписи це [простіше / тепліше / офіційніше / коротше] — приблизно [N] речень.'},
+      {icon:'✂️',title:'Скоротити або виділити головне',text:'З того, що ти написав, залиш тільки найголовніше. Не більше [N] пунктів або [N] речень.'},
+      {icon:'❓',title:'Уточнити незрозуміле',text:'Поясни докладніше пункт про [конкретна частина]. Чому це важливо і як це зробити на практиці — конкретний приклад.'},
+      {icon:'✅',title:'Перевірити і виправити',text:'Перечитай те, що написав. Чи є щось, що звучить незрозуміло або штучно? Виправ тільки це.'}
+    ],
+    pTitle:'Ви попросили ШІ допомогти скласти список питань до лікаря. Він дав 10 питань — але деякі не стосуються вашої ситуації.',pSub:'Що робите далі?',
+    ch5:[
+      {t:'Приймаю всі 10 питань — краще більше, ніж менше',v:'partial',fb:'Можна, але зайві питання відволікають від важливих. Краще відібрати те, що справді стосується вашої ситуації.'},
+      {t:'В тій самій розмові: «З цих 10 залиш тільки ті, що стосуються [моя конкретна ситуація]. Решту прибери»',v:'correct',fb:'Відмінно. Ви уточнюєте контекст — і ШІ фільтрує результат під вашу ситуацію. Саме для цього і потрібен діалог.'},
+      {t:'Починаю нову розмову і ставлю більш детальне питання',v:'wrong',fb:'Ви вже маєте хорошу основу — 10 питань. Не потрібно починати з нуля. Просто уточніть, що лишити, а що прибрати.'}
+    ]
+  }
+};
+var l10lbl=['Вибір стилю','Перша спроба','Підбір запитів','Шаблони для діалогу','Практика'];
+var l10sum=['ШІ — співрозмовник, а не пошуковик: діалог ефективніший за разовий запит','Уточнення в тій самій розмові зберігає контекст і економить час','«Переписи», «скороти», «поглиб», «поверни до» — прості команди для управління діалогом','Покроковий підхід до складних задач дає кращий результат, ніж один великий запит','Якщо щось не те — не починайте з нуля, просто скажіть ШІ, що саме змінити'];
+
+window.buildL10=function(panel){
+  panel.appendChild(progWrap(10,5));
+  var s0=mkStep(10,0);
+  s0.appendChild(p('hook','Урок 10. Як вести діалог з ШІ'));
+  s0.appendChild(p('hook-sub','Уточнення, продовження, багатокрокові задачі — як вести розмову, а не просто питати.'));
+  var ap=div('audience-pick');
+  ['explorer','practitioner'].forEach(function(aud){
+    var c=L10[aud];
+    var b=mk('button','aud-btn');
+    var ic=div('aud-icon');ic.textContent=c.icon;
+    b.appendChild(ic);
+    b.appendChild(div('aud-title',c.title));
+    b.appendChild(div('aud-sub',c.sub));
+    b.addEventListener('click',function(){l10pick(aud);});
+    ap.appendChild(b);
+  });
+  s0.appendChild(ap);
+  panel.appendChild(s0);
+  for(var i=1;i<=4;i++){var s=mkStep(10,i);s.id='l10-s'+i;panel.appendChild(s);}
+};
+
+window.l10pick=function(aud){
+  l10aud=aud;var c=L10[aud];
+  var tagText=aud==='explorer'?'Дослідник':'Практик';
+  var tagCls=aud;
+
+  /* s1 */
+  var s1=document.getElementById('l10-s1');s1.innerHTML='';
+  var tag=div('who-tag '+tagCls,tagText);tag.id='l10-who';
+  s1.appendChild(tag);
+  s1.appendChild(p('hook',c.hook));
+  s1.appendChild(p('hook-sub',c.hookSub));
+  s1.appendChild(p('q-label','Як найкраще використовувати розмову з ШІ?'));
+  var fb1=fbDiv('l10-fb1');var nb1=nextBtn(10,2);
+  s1.appendChild(choicesBlock(c.ch1,function(b,opt,wrap){
+    disableBtns(wrap);
+    b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');
+    showFb('l10-fb1',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);
+    nb1.classList.add('show');
+  }));
+  s1.appendChild(fb1);s1.appendChild(nb1);
+
+  /* s2 — сценарії */
+  var s2=document.getElementById('l10-s2');s2.innerHTML='';
+  s2.appendChild(badge('Перевірте себе'));
+  s2.appendChild(p('s-title','Як краще вести діалог?'));
+  s2.appendChild(p('s-sub','Для кожної ситуації — оберіть ефективніший підхід.'));
+  var scDone=0;var fb2=fbDiv('l10-fb2');var nb2=nextBtn(10,3);
+  s2.appendChild(scenarioList(c.scens,['Варіант А','Варіант Б'],function(i,j,item,b,opts){
+    opts.querySelectorAll('.sc-btn').forEach(function(s){s.disabled=true;});
+    var chose=j===0?'A':'B';var ok=chose===c.scens[i].cor;
+    b.classList.add(ok?'good':'bad');
+    opts.querySelectorAll('.sc-btn').forEach(function(sb,ji){
+      if((ji===0?'A':'B')===c.scens[i].cor)sb.classList.add('good');
+    });
+    var exp=item.querySelector('.scenario-explain');
+    exp.innerHTML='';
+    [mk('strong','','Варіант А: '),document.createTextNode(c.scens[i].a),
+     document.createElement('br'),document.createElement('br'),
+     mk('strong','','Варіант Б: '),document.createTextNode(c.scens[i].b),
+     document.createElement('br'),document.createElement('br'),
+     document.createTextNode(c.scens[i].exp)
+    ].forEach(function(node){exp.appendChild(node);});
+    exp.className='scenario-explain show '+(ok?'good':'info');
+    scDone++;
+    if(scDone>=c.scens.length){
+      fb2.className='fb show good';
+      fb2.textContent='Добре. Ключовий принцип: не починайте з нуля — уточнюйте в тій самій розмові.';
+      nb2.classList.add('show');
+    }
+  }));
+  s2.appendChild(fb2);s2.appendChild(nb2);
+
+  /* s3 — шаблони */
+  var s3=document.getElementById('l10-s3');s3.innerHTML='';
+  s3.appendChild(badge('Шаблони для діалогу'));
+  s3.appendChild(p('s-title','Готові фрази для управління розмовою'));
+  s3.appendChild(p('s-sub','Скопіюйте і використовуйте як продовження будь-якої розмови з ШІ.'));
+  c.tmpls.forEach(function(t){
+    var card=div('');
+    card.style.cssText='margin-bottom:12px;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden';
+    var hdr=div('');hdr.style.cssText='background:var(--bg2);padding:10px 14px;display:flex;align-items:center;gap:8px';
+    var ico=mk('span','',t.icon);ico.style.fontSize='16px';
+    var ttl=mk('span','',t.title);ttl.style.cssText='font-size:13px;font-weight:500;color:var(--ink);flex:1';
+    var cb=mk('button','','\u041a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438');
+    cb.style.cssText='font-size:12px;color:var(--accent);background:none;border:1px solid var(--accent);border-radius:4px;padding:3px 10px;cursor:pointer;font-family:inherit';
+    (function(txt,btn){
+      btn.addEventListener('click',function(){
+        navigator.clipboard.writeText(txt)
+          .then(function(){btn.textContent='\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u2713';setTimeout(function(){btn.textContent='\u041a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438';},2000);})
+          .catch(function(){btn.textContent='(Ctrl+C)';setTimeout(function(){btn.textContent='\u041a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438';},2000);});
+      });
+    })(t.text,cb);
+    hdr.append(ico,ttl,cb);
+    var body=div('');body.style.cssText='padding:12px 14px;font-size:13px;color:var(--ink2);line-height:1.65;font-style:italic';
+    body.textContent=t.text;
+    card.appendChild(hdr);card.appendChild(body);
+    s3.appendChild(card);
+  });
+  s3.appendChild(nextBtn(10,4,'Далі →',true));
+
+  /* s4 — практика */
+  var s4=document.getElementById('l10-s4');s4.innerHTML='';
+  s4.appendChild(badge('Практика'));
+  s4.appendChild(p('s-title',c.pTitle));
+  s4.appendChild(p('s-sub',c.pSub));
+  var fb4=fbDiv('l10-fb4');
+  var sumW=div('');sumW.style.display='none';
+  sumW.appendChild(summaryBlock(l10sum));
+  var br=div('');br.style.marginTop='1rem';
+  br.appendChild(nextLessonBtn('\u2190 \u041d\u0430 \u0433\u043e\u043b\u043e\u0432\u043d\u0443','home'));
+  br.appendChild(restartBtn(10));
+  sumW.appendChild(br);
+  s4.appendChild(choicesBlock(c.ch5,function(b,opt,wrap){
+    disableBtns(wrap);
+    b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');
+    showFb('l10-fb4',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);
+    sumW.style.display='block';markDone(10);
+  }));
+  s4.appendChild(fb4);s4.appendChild(sumW);
+  l10go(1);
+};
+window.l10go=function(n){
+  document.querySelectorAll('#panel-l10 .step').forEach(function(s){s.className='step';});
+  var s=document.getElementById('l10-s'+n);if(s)s.className='step vis';
+  l10cur=n;setProg(10,n,l10lbl);window.scrollTo(0,0);
+};
+window.l10restart=function(){
+  l10aud='';l10cur=0;
+  document.querySelectorAll('#panel-l10 .step').forEach(function(s){s.className='step';});
+  var s0=document.getElementById('l10-s0');if(s0)s0.className='step vis';
+  setProg(10,0,l10lbl);window.scrollTo(0,0);
+};
+
+/* ══ L11 ══ */
+var l11aud='',l11cur=0,l11scenario='';
+var L11={
+  explorer:{icon:'🔬',title:'Я дослідник',sub:'Хочу пройти повний цикл роботи з ШІ — від задачі до результату — і зрозуміти механіку',
+    hook:'Знання без практики — це карта без подорожі. Настав час взяти реальну задачу і пройти її від початку до кінця.',
+    hookSub:'У цьому уроці ви не вчитесь про ШІ — ви працюєте з ним. Обираєте задачу, формулюєте запит, уточнюєте, отримуєте результат.',
+    scenarios:[
+      {id:'text',icon:'✍️',title:'Написати текст',desc:'Лист, пост, привітання, оголошення — будь-який текст від короткого до розгорнутого',
+       steps:[
+         {label:'Визначте задачу',prompt:'Що саме пишемо? Кому? Яким тоном?\n\nПриклад запиту:\n«Напиши короткий пост для LinkedIn про те, що я починаю вивчати ШІ. Тон — відкритий і трохи особистий. 3-4 речення»'},
+         {label:'Уточніть результат',prompt:'Щось не так? Уточніть в тій самій розмові:\n\n«Добре, але зроби більш конкретно — додай одну деталь про те, чому я це роблю»\n«Скороти до 2 речень»\n«Зміни тон — більш формально»'},
+         {label:'Фінальна перевірка',prompt:'Перед використанням запитайте ШІ:\n«Перечитай цей текст. Чи є щось, що звучить штучно або незрозуміло? Виправ тільки це»'},
+       ]},
+      {id:'plan',icon:'📋',title:'Скласти план',desc:'План дня, список справ, структура проєкту, покроковий маршрут до мети',
+       steps:[
+         {label:'Опишіть ціль і контекст',prompt:'Що плануємо? За який час? Які обмеження?\n\nПриклад:\n«Допоможи скласти план на тиждень для вивчення основ Python. Можу витрачати 30 хвилин на день. Починаю з нуля»'},
+         {label:'Конкретизуйте',prompt:'«Розбий кожен день на конкретні дії — не теми, а що саме робити»\n«Додай для кожного дня одне практичне завдання»\n«Перестав дні — почни з найпростішого»'},
+         {label:'Адаптуйте під себе',prompt:'«Я не можу в середу — перенеси ту тему на четвер»\n«Зроби план більш гнучким — з варіантами якщо щось не вийде»'},
+       ]},
+      {id:'research',icon:'🔍',title:'Розібратися в темі',desc:'Зрозуміти нову концепцію, розібрати складний документ, підготуватись до розмови зі спеціалістом',
+       steps:[
+         {label:'Сформулюйте питання',prompt:'Що хочете зрозуміти? Який ваш рівень?\n\nПриклад:\n«Поясни мені, що таке блокчейн — простими словами, без технічного жаргону. Потім дай один конкретний приклад з реального życia»'},
+         {label:'Поглиблюйте вибірково',prompt:'«Стоп — поясни детальніше саме частину про [конкретне]»\n«Яке практичне застосування це має для звичайної людини?»\n«Які є аргументи проти? Що критикують?»'},
+         {label:'Перевірте розуміння',prompt:'«Постав мені 3 питання по цій темі — щоб перевірити, чи я справді зрозумів»'},
+       ]},
+    ],
+    reflections:[
+      {q:'Що вам вдалося зробити за допомогою ШІ у цьому сценарії?',opts:['Отримав корисний результат з першого запиту','Довелось уточнювати — але результат покращився','Результат не зовсім той, але зрозумів як формулювати краще'],
+       fbs:['Відмінно. Якщо перший запит дав потрібне — ви вже добре формулюєте задачі. Наступний крок: пробуйте складніші.','Саме так і має бути. Уточнення — це не помилка, це нормальний діалог. Ви вже мислите правильно.','Це теж прогрес. Тепер ви знаєте, що уточнювати наступного разу. Спробуйте ще раз з новим запитом.']},
+      {q:'Що б ви зробили інакше наступного разу?',opts:['Одразу дав більше контексту у першому запиті','Уточнював би більш конкретно — не «покращ», а «зміни тон»','Розбив би задачу на менші кроки з самого початку'],
+       fbs:['Правильний висновок. Контекст у першому запиті — це найбільший важіль для якості результату.','Точно. «Покращ» — занадто розмито. «Зміни тон на більш розмовний» — це чітка інструкція.','Мудро. Покроковий підхід дає контроль над результатом на кожному етапі.']},
+    ]
+  },
+  practitioner:{icon:'🌿',title:'Я практик',sub:'Хочу вирішити конкретну задачу з ШІ прямо зараз — і відчути результат',
+    hook:'Найкраще навчання — через реальну задачу. Оберіть те, що вам насправді потрібно зробити.',
+    hookSub:'Не вигадана ситуація, не приклад з підручника — ваша реальна потреба прямо зараз.',
+    scenarios:[
+      {id:'letter',icon:'✉️',title:'Написати листа або заяву',desc:'Лист сусіду, заява до установи, скарга, привітання, подяка — будь-яке офіційне або особисте звернення',
+       steps:[
+         {label:'Опишіть ситуацію',prompt:'Хто пише, кому, з якого приводу і якого результату хочете?\n\nПриклад:\n«Допоможи написати ввічливу заяву до ЖЕКу. Проблема — не ремонтують під\'їзд вже 3 місяці. Тон — офіційний, але наполегливий. Хочу отримати письмову відповідь»'},
+         {label:'Підлаштуйте під себе',prompt:'«Зроби більш коротко — у них немає часу читати довго»\n«Додай конкретну дату, коли я вперше звернувся»\n«Прибери останній абзац — він зайвий»'},
+         {label:'Перевірте перед надсиланням',prompt:'«Чи є у цьому листі щось, що може сприйнятись негативно або незрозуміло?»'},
+       ]},
+      {id:'prepare',icon:'🗣️',title:'Підготуватись до важливої розмови',desc:'Розмова з лікарем, начальником, сусідом, родичем — будь-яка розмова, до якої хочеться підготуватись',
+       steps:[
+         {label:'Опишіть ситуацію',prompt:'З ким розмова? Про що? Чого хочете досягти?\n\nПриклад:\n«Маю розмову з лікарем про результати аналізів. Хочу зрозуміти, які питання варто поставити. Основна скарга — підвищений тиск і втома»'},
+         {label:'Уточніть і поглибте',prompt:'«Додай питання про можливі побічні ефекти ліків»\n«Як краще сформулювати питання про дієту — щоб отримати конкретну відповідь, а не загальні слова?»'},
+         {label:'Відрепетируйте',prompt:'«Виступи як лікар і відповідай на мої питання — щоб я міг потренуватись»'},
+       ]},
+      {id:'understand',icon:'📖',title:'Зрозуміти щось незнайоме',desc:'Незрозумілий документ, медичний термін, юридичне поняття, нова технологія — будь-що, що потрібно пояснити',
+       steps:[
+         {label:'Опишіть що незрозуміло',prompt:'Що саме і чому це важливо вам?\n\nПриклад:\n«У договорі є пункт про "форс-мажорні обставини" — поясни простими словами, що це означає і як це може вплинути на мене як на орендаря»'},
+         {label:'Запитуйте конкретніше',prompt:'«Що я повинен зробити, якщо настане така ситуація?»\n«Чи є ризик, що це можуть використати проти мене?»\n«Поясни ще простіше — як для людини без юридичної освіти»'},
+         {label:'Узагальніть',prompt:'«Підсумуй одним абзацом — що мені головне знати про цей пункт?»'},
+       ]},
+    ],
+    reflections:[
+      {q:'Як пройшов ваш перший AI-сценарій?',opts:['Отримав те, що потрібно — одразу або після уточнення','Результат не ідеальний, але зрозумів принцип','Складніше, ніж думав — але хочу спробувати ще раз'],
+       fbs:['Чудово. Це і є ціль — не ідеальна відповідь з першого разу, а корисний результат через діалог. Ви вже вмієте.','Це найчесніша і найважливіша відповідь. Ви побачили механіку — і наступного разу буде легше.','Так і має бути з будь-яким новим інструментом. Перша спроба — найважча. Друга вже простіша.']},
+      {q:'Що для вас виявилось найкориснішим в роботі з ШІ?',opts:['Що можна уточнювати і доопрацьовувати в діалозі','Що ШІ підлаштовується під мою ситуацію якщо я її описую','Що не потрібно формулювати ідеально з першого разу'],
+       fbs:['Саме. Діалог — це головна суперсила ШІ. Не разовий запит, а розмова.','Точно. Контекст — це ваш найбільший важіль. Чим більше ви пояснюєте ситуацію, тим точнішою є відповідь.','Це знімає найбільший бар\'єр. ШІ — не тест де треба дати правильну відповідь. Це інструмент для думання разом.']},
+    ]
+  }
+};
+var l11lbl=['Вибір стилю','Вибір сценарію','Покрокова робота','Рефлексія','Підсумок курсу'];
+var l11sum=['Ви пройшли повний AI-сценарій від задачі до результату','Реальна задача + діалог + уточнення = корисний результат','Перший раз завжди найскладніший — далі буде легше і швидше','Ви тепер знаєте більше про ШІ, ніж більшість людей навколо вас','Найкраще, що можна зробити далі — знайти ще одну реальну задачу і спробувати'];
+
+window.buildL11=function(panel){
+  panel.appendChild(progWrap(11,5));
+  var s0=mkStep(11,0);
+  s0.appendChild(p('hook','Урок 11. Мій перший AI-сценарій'));
+  s0.appendChild(p('hook-sub','Обираєте реальну задачу — і вирішуєте її від початку до кінця разом з ШІ.'));
+  var ap=div('audience-pick');
+  ['explorer','practitioner'].forEach(function(aud){
+    var c=L11[aud];
+    var b=mk('button','aud-btn');
+    var ic=div('aud-icon');ic.textContent=c.icon;
+    b.appendChild(ic);b.appendChild(div('aud-title',c.title));b.appendChild(div('aud-sub',c.sub));
+    b.addEventListener('click',function(){l11pick(aud);});
+    ap.appendChild(b);
+  });
+  s0.appendChild(ap);panel.appendChild(s0);
+  for(var i=1;i<=4;i++){var s=mkStep(11,i);s.id='l11-s'+i;panel.appendChild(s);}
+};
+
+window.l11pick=function(aud){
+  l11aud=aud;var c=L11[aud];
+  var tagText=aud==='explorer'?'Дослідник':'Практик';
+  var tagCls=aud;
+
+  /* s1 — вибір сценарію */
+  var s1=document.getElementById('l11-s1');s1.innerHTML='';
+  var tag=div('who-tag '+tagCls,tagText);s1.appendChild(tag);
+  s1.appendChild(p('hook',c.hook));
+  s1.appendChild(p('hook-sub',c.hookSub));
+  s1.appendChild(p('q-label','Оберіть свій сценарій — той, що найближче до вашої реальної потреби зараз'));
+  var scGrid=div('');scGrid.style.cssText='display:flex;flex-direction:column;gap:10px;margin-bottom:1.5rem';
+  c.scenarios.forEach(function(sc){
+    var b=mk('button','');
+    b.style.cssText='background:var(--bg);border:1px solid var(--line2);border-radius:var(--radius-sm);padding:14px 16px;text-align:left;cursor:pointer;transition:background .15s,border-color .15s;width:100%';
+    b.innerHTML='<div style="display:flex;align-items:center;gap:10px"><span style="font-size:20px">'+sc.icon+'</span><div><div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:2px">'+sc.title+'</div><div style="font-size:13px;color:var(--ink3);line-height:1.5">'+sc.desc+'</div></div></div>';
+    b.addEventListener('mouseover',function(){b.style.background='var(--bg2)';b.style.borderColor='var(--ink3)';});
+    b.addEventListener('mouseout',function(){b.style.background='var(--bg)';b.style.borderColor='var(--line2)';});
+    b.addEventListener('click',function(){l11pickScenario(sc);});
+    scGrid.appendChild(b);
+  });
+  s1.appendChild(scGrid);
+
+  /* s2-s4 placeholder */
+  ['l11-s2','l11-s3','l11-s4'].forEach(function(id){document.getElementById(id).innerHTML='';});
+  l11go(1);
+};
+
+window.l11pickScenario=function(sc){
+  l11scenario=sc.id;var c=L11[l11aud];
+
+  /* s2 — покрокова робота */
+  var s2=document.getElementById('l11-s2');s2.innerHTML='';
+  s2.appendChild(badge('Ваш сценарій: '+sc.title));
+  s2.appendChild(p('s-title','Три кроки до результату'));
+  s2.appendChild(p('s-sub','Відкрийте ChatGPT або Claude в іншій вкладці і працюйте паралельно з цією інструкцією.'));
+
+  sc.steps.forEach(function(step,i){
+    var card=div('');
+    card.style.cssText='margin-bottom:14px;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden';
+    var hdr=div('');
+    hdr.style.cssText='background:var(--bg2);padding:10px 16px;display:flex;align-items:center;gap:10px';
+    var num=mk('span','',String(i+1));
+    num.style.cssText='width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:"JetBrains Mono",monospace;line-height:1';
+    var lbl=mk('span','',step.label);lbl.style.cssText='font-size:14px;font-weight:500;color:var(--ink)';
+    hdr.appendChild(num);hdr.appendChild(lbl);
+    var body=div('');body.style.cssText='padding:12px 16px';
+    var lines=step.prompt.split('\n');
+    lines.forEach(function(line,li){
+      if(line===''){body.appendChild(document.createElement('br'));return;}
+      if(line.startsWith('«')||line.startsWith('Приклад')){
+        var el2=mk('div','');
+        el2.style.cssText='font-size:13px;color:var(--ink2);font-style:italic;line-height:1.6;'+(li>0?'margin-top:6px':'');
+        el2.textContent=line;body.appendChild(el2);
+      } else {
+        var el2=mk('div','');el2.style.cssText='font-size:14px;color:var(--ink);line-height:1.6;margin-bottom:4px';
+        el2.textContent=line;body.appendChild(el2);
+      }
+    });
+    card.appendChild(hdr);card.appendChild(body);
+    s2.appendChild(card);
+  });
+
+  var doneBtn=mk('button','next-btn show','Я виконав сценарій — далі →');
+  doneBtn.addEventListener('click',function(){l11buildReflection();l11go(3);});
+  s2.appendChild(doneBtn);
+  l11go(2);
+};
+
+window.l11buildReflection=function(){
+  var c=L11[l11aud];
+  var s3=document.getElementById('l11-s3');s3.innerHTML='';
+  s3.appendChild(badge('Рефлексія'));
+  s3.appendChild(p('s-title','Що вийшло — і що дізналися'));
+  s3.appendChild(p('s-sub','Два коротких питання. Чесна відповідь — найкорисніша.'));
+
+  var allDone=0;var nb3=nextBtn(11,4);
+
+  c.reflections.forEach(function(ref,ri){
+    var block=div('');block.style.marginBottom='1.5rem';
+    block.appendChild(p('q-label',ref.q));
+    var wrap=div('choices');
+    ref.opts.forEach(function(opt,oi){
+      var b=mk('button','cb',opt);
+      b.addEventListener('click',function(){
+        wrap.querySelectorAll('.cb').forEach(function(x){x.disabled=true;});
+        b.className='cb correct';
+        var fb=div('fb show good');fb.textContent=ref.fbs[oi];
+        block.appendChild(fb);
+        allDone++;
+        if(allDone>=c.reflections.length){nb3.classList.add('show');}
+      });
+      wrap.appendChild(b);
+    });
+    block.appendChild(wrap);
+    s3.appendChild(block);
+  });
+  s3.appendChild(nb3);
+};
+
+window.l11go=function(n){
+  document.querySelectorAll('#panel-l11 .step').forEach(function(s){s.className='step';});
+  var s=document.getElementById('l11-s'+n);if(s)s.className='step vis';
+  l11cur=n;setProg(11,n,l11lbl);window.scrollTo(0,0);
+};
+
+/* s4 — підсумок курсу (будується статично) */
+window.buildL11_final=function(){
+  var s4=document.getElementById('l11-s4');if(!s4||s4.innerHTML!=='')return;
+  s4.appendChild(badge('Курс пройдено'));
+  s4.appendChild(p('s-title','Ви пройшли весь курс «ШІ для всіх»'));
+
+  var bigRule=div('rule');
+  bigRule.style.cssText='border-left-color:var(--accent);background:var(--accent-bg)';
+  bigRule.innerHTML='<strong style="color:var(--accent)">Що ви вмієте тепер</strong>Розрізняти ШІ і Google. Писати ефективні запити. Вести діалог і уточнювати. Обирати правильний інструмент. Розпізнавати галюцинації і фейки. Захищати свої дані. Застосовувати ШІ в навчанні, роботі і повсякденних справах.';
+  s4.appendChild(bigRule);
+
+  s4.appendChild(summaryBlock(l11sum));
+
+  var nextSteps=div('');nextSteps.style.cssText='margin-bottom:1.5rem';
+  nextSteps.appendChild(p('s-title','Що робити далі'));
+  var stepsList=[
+    '🔁 Повторіть будь-який урок, де хочеться більше практики',
+    '🛠️ Виберіть одну реальну задачу на цьому тижні і вирішіть її з ШІ',
+    '🧪 Спробуйте інший ШІ-інструмент, ніж той, що зазвичай використовуєте',
+    '💬 Поясніть комусь одну річ про ШІ — навчання через пояснення найміцніше',
+  ];
+  stepsList.forEach(function(txt){
+    var li=div('');li.style.cssText='font-size:14px;color:var(--ink2);padding:8px 0;border-bottom:1px solid var(--line);line-height:1.55';
+    li.textContent=txt;nextSteps.appendChild(li);
+  });
+  s4.appendChild(nextSteps);
+
+  var br=div('');br.style.marginTop='1.5rem';
+  br.appendChild(nextLessonBtn('\u2190 \u041d\u0430 \u0433\u043e\u043b\u043e\u0432\u043d\u0443','home'));
+  br.appendChild(restartBtn(11));
+  s4.appendChild(br);
+  markDone(11);
+};
+
+/* wire s4 build on step 4 navigation */
+var _l11goOrig=window.l11go;
+window.l11go=function(n){
+  _l11goOrig(n);
+  if(n===4) window.buildL11_final();
+};
+
+window.l11restart=function(){
+  l11aud='';l11cur=0;l11scenario='';
+  document.querySelectorAll('#panel-l11 .step').forEach(function(s){s.className='step';});
+  var s0=document.getElementById('l11-s0');if(s0)s0.className='step vis';
+  setProg(11,0,l11lbl);window.scrollTo(0,0);
+};
 })();
 </script>
 </body>

@@ -164,7 +164,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
 <body>
 <header class="site-header">
   <div class="site-logo">ШІ для <span>всіх</span> — посібник</div>
-  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7EC8A0;letter-spacing:.06em">BETA · 11 уроків</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7EC8A0;letter-spacing:.06em">BETA · 12 уроків</div>
 </header>
 <div class="layout">
   <nav class="sidebar">
@@ -183,6 +183,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
       <button class="nav-item" id="nav-l9"><span class="nav-num">09</span><span class="nav-title">ШІ і фейки</span><span class="nav-check">✓</span></button>
       <button class="nav-item" id="nav-l10"><span class="nav-num">10</span><span class="nav-title">Діалог з ШІ</span><span class="nav-check">✓</span></button>
       <button class="nav-item" id="nav-l11"><span class="nav-num">11</span><span class="nav-title">Мій перший AI-сценарій</span><span class="nav-check">✓</span></button>
+      <button class="nav-item" id="nav-l12"><span class="nav-num">12</span><span class="nav-title">ШІ і творчість</span><span class="nav-check">✓</span></button>
     </div>
     <div class="sidebar-divider"></div>
     <div class="sidebar-note">Оберіть свою аудиторію на початку кожного уроку — і контент адаптується під вас.</div>
@@ -203,6 +204,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
         <button class="module-card" id="mc9"><span class="mc-num">09</span><div class="mc-body"><div class="mc-title">ШІ і фейки</div><div class="mc-sub">Як розпізнати дезінформацію — і чи може ШІ допомогти чи нашкодити</div></div><span class="mc-arrow">→</span></button>
         <button class="module-card" id="mc10"><span class="mc-num">10</span><div class="mc-body"><div class="mc-title">Діалог з ШІ</div><div class="mc-sub">Уточнення, продовження, багатокрокові задачі — як вести розмову, а не просто питати</div></div><span class="mc-arrow">→</span></button>
         <button class="module-card" id="mc11"><span class="mc-num">11</span><div class="mc-body"><div class="mc-title">Мій перший AI-сценарій</div><div class="mc-sub">Обираєте реальну задачу — і вирішуєте її від початку до кінця разом з ШІ</div></div><span class="mc-arrow">→</span></button>
+        <button class="module-card" id="mc12"><span class="mc-num">12</span><div class="mc-body"><div class="mc-title">ШІ і творчість</div><div class="mc-sub">Писати, вигадувати, малювати ідеями — як ШІ стає партнером у творчому процесі</div></div><span class="mc-arrow">→</span></button>
       </div>
       <p class="home-footer">Кожен урок — 5–8 хвилин активного навчання.</p>
     </div>
@@ -218,6 +220,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
     <div class="lesson-panel" id="panel-l9"></div>
     <div class="lesson-panel" id="panel-l10"></div>
     <div class="lesson-panel" id="panel-l11"></div>
+    <div class="lesson-panel" id="panel-l12"></div>
   </main>
 </div>
 <script>
@@ -253,7 +256,7 @@ function markDone(n){
 document.addEventListener('click',function(e){
   var t=e.target;
   if(t.id==='nav-home'||t.closest('#nav-home')){showHome();return;}
-  for(var n=1;n<=11;n++){
+  for(var n=1;n<=12;n++){
     var nb=document.getElementById('nav-l'+n);
     if(nb&&(t===nb||nb.contains(t))){showLesson(n);return;}
     var mc=document.getElementById('mc'+n);
@@ -1849,6 +1852,213 @@ window.l11restart=function(){
   document.querySelectorAll('#panel-l11 .step').forEach(function(s){s.className='step';});
   var s0=document.getElementById('l11-s0');if(s0)s0.className='step vis';
   setProg(11,0,l11lbl);window.scrollTo(0,0);
+};
+
+/* ══ L12 ══ */
+var l12aud='',l12cur=0;
+var L12={
+  explorer:{icon:'🔬',title:'Я дослідник',sub:'Люблю розбиратися як все влаштовано — і одразу пробувати',
+    hook:'Творчість завжди здавалась чимось суто людським. Але ШІ вже пише вірші, придумує назви, малює концепти.',
+    hookSub:'Питання не в тому, чи може ШІ бути творчим. А в тому — як зробити його партнером у вашому творчому процесі, а не замінником.',
+    ch1:[
+      {t:'ШІ не може бути творчим — він просто комбінує те, що вже існує',v:'partial',fb:'Це частково правда — ШІ дійсно навчений на існуючих текстах і образах. Але людська творчість теж будується на впливах і засвоєному. Практична різниця: ШІ генерує варіанти швидко і без страху помилитись — і це саме по собі цінний інструмент для творчого процесу.'},
+      {t:'ШІ — ідеальний партнер для «що якби»: генерує ідеї, варіанти, чернетки для подальшої роботи',v:'correct',fb:'Саме так. Найефективніша роль ШІ в творчості — не замінити автора, а зняти бар\'єр чистого аркуша. Він генерує сирий матеріал, ви обираєте, доопрацьовуєте, надаєте сенс.'},
+      {t:'ШІ повністю замінює творця — можна просто попросити і отримати готовий твір',v:'wrong',fb:'Технічно можливо — але результат без людської редакції зазвичай помітно «штучний». Найкращі результати виходять коли людина і ШІ працюють разом: ШІ дає матеріал, людина — напрям, відбір і фінальний голос.'}
+    ],
+    scens:[
+      {q:'Хочете написати коротке оповідання, але не знаєте з чого почати',cor:'B',
+       a:'«Напиши мені оповідання»',
+       b:'«Запропонуй 5 різних зав\'язок для короткого оповідання — жанр фантастика, головний герой звичайна людина яка виявляє щось незвичайне. По одному реченню кожна»',
+       exp:'Варіант Б не просить готовий твір — просить варіанти зав\'язок для вибору. Ви обираєте найцікавішу і розвиваєте самі або з ШІ. Творчий контроль залишається у вас.'},
+      {q:'Пишете пісню і застрягли на приспіві',cor:'B',
+       a:'«Напиши мені приспів для пісні»',
+       b:'«Ось куплет моєї пісні: [текст]. Тема — розлука і надія. Запропонуй 3 варіанти приспіву: один емоційний, один стриманий, один з несподіваним образом»',
+       exp:'Варіант Б дає ШІ контекст вашого стилю і просить варіанти в різних напрямках. Ви обираєте напрямок і доопрацьовуєте — а не берете готове.'},
+      {q:'Потрібно придумати назву для проєкту або продукту',cor:'B',
+       a:'«Придумай назву для мого проєкту»',
+       b:'«Мій проєкт — [опис]. Аудиторія — [хто]. Настрій — [яке відчуття має передавати]. Запропонуй 10 варіантів назви: частина серйозних, частина з грою слів, одна несподівана»',
+       exp:'Назва — це рішення, яке ви приймаєте. ШІ генерує варіанти швидко і без упереджень. Чим більше варіантів — тим легше знайти або зібрати ідеальну з кількох.'}
+    ],
+    tmpls:[
+      {icon:'💡',title:'Генерація ідей',text:'Запропонуй [N] варіантів [що саме: назви / зав\'язки / образи / рими]. Контекст: [тема, стиль, аудиторія]. Хочу різноманіття — від очевидного до несподіваного.'},
+      {icon:'✍️',title:'Допомога з текстом',text:'Ось мій чернетковий текст: [текст]. Що тут найслабше з точки зору [ритму / образності / логіки]? Запропонуй 2-3 конкретних покращення — не переписуй повністю.'},
+      {icon:'🔄',title:'Варіації стилю',text:'Візьми цей текст: [текст]. Перепиши його у трьох різних стилях: [стиль 1], [стиль 2], [стиль 3]. Я хочу побачити, як змінюється відчуття.'},
+      {icon:'🧩',title:'Подолання творчого блоку',text:'Я пишу [жанр/формат] про [тему] і застряг. Постав мені 5 провокаційних питань про мій задум — такі, щоб змусити подивитись на нього інакше.'}
+    ],
+    pTitle:'Ви починаєте писати есе про свій досвід — але перший абзац виходить занадто загальним і нецікавим.',pSub:'Як найкраще використати ШІ для цього?',
+    ch5:[
+      {t:'Попросити ШІ написати перший абзац замість мене',v:'partial',fb:'Технічно спрацює — але ви втратите свій голос. Перший абзац задає тон всього есе. Краще залишити його своїм, але використати ШІ щоб розігрітися.'},
+      {t:'Написати свій абзац і попросити ШІ: «Що тут найслабше і як зробити перше речення більш захоплюючим?»',v:'correct',fb:'Відмінно. Ви пишете своє — ШІ дає конкретний зворотний зв\'язок. Текст залишається вашим, але стає кращим. Це і є творче партнерство.'},
+      {t:'Попросити ШІ запропонувати 5 варіантів першого речення і вибрати найкращий',v:'correct',fb:'Теж хороший підхід. Варіанти від ШІ можуть розблокувати ваше власне бачення — навіть якщо жоден варіант не підійде ідеально, вони дають відштовхнутись.'}
+    ]
+  },
+  practitioner:{icon:'🌿',title:'Я практик',sub:'Хочу конкретних результатів — без зайвої теорії, одразу до справи',
+    hook:'Привітання на день народження, підпис до фото, назва для чату, слоган для справи — дрібні творчі задачі, які постійно виникають у житті.',
+    hookSub:'ШІ може допомогти з усім цим — швидко, без натхнення, яке треба чекати. Розберемось як.',
+    ch1:[
+      {t:'Творчість — це особисте, ШІ тут не підходить',v:'wrong',fb:'Для особистих великих творів — можливо. Але для привітань, підписів, назв, слоганів — ШІ чудово підходить як генератор варіантів. Ви все одно обираєте і підписуєтесь своїм ім\'ям.'},
+      {t:'ШІ допомагає з дрібними творчими задачами — дає варіанти, з яких можна вибрати або зібрати своє',v:'correct',fb:'Саме так. Ніхто не бачить, скільки варіантів ви перебрали. Результат — ваш вибір і ваше рішення. ШІ просто прискорює процес.'},
+      {t:'ШІ дає готовий результат — можна брати і використовувати без змін',v:'partial',fb:'Іноді так — і це нормально. Але найкращі результати виходять коли ви трохи адаптуєте під себе: змінюєте слово, тон, деталь. Це робить результат справді вашим.'}
+    ],
+    scens:[
+      {q:'Треба написати щире привітання другу на день народження — але слова не знаходяться',cor:'B',
+       a:'«Напиши привітання на день народження»',
+       b:'«Напиши 3 варіанти привітання для близького друга. Ми знайомі 10 років, він любить гумор але цінує щирість. Один варіант — з жартом, один — теплий і серйозний, один — короткий і ємний»',
+       exp:'Три варіанти в різних тонах дають вибір. Ви, скоріше за все, візьмете елементи з кількох і складете своє — і це буде щиріше за будь-який шаблон.'},
+      {q:'Відкриваєте невеликий бізнес і потрібна коротка фраза для вивіски або соцмереж',cor:'B',
+       a:'«Придумай слоган для мого бізнесу»',
+       b:'«Мій бізнес — [опис]. Головна цінність — [що важливо клієнту]. Запропонуй 7 коротких слоганів: прості, без пафосу, щоб запам\'ятовувались. Максимум 6 слів кожен»',
+       exp:'Обмеження (7 варіантів, максимум 6 слів, без пафосу) дають конкретні результати замість загальних фраз. З 7 варіантів майже завжди знайдеться те, що резонує.'},
+      {q:'Хочете написати гарний підпис до сімейного фото для соцмереж',cor:'B',
+       a:'«Напиши підпис до фото»',
+       b:'«Ми з родиною на морі, перший спільний відпочинок за 3 роки. Запропонуй 4 варіанти підпису: один з гумором, один теплий і простий, один з цитатою або афоризмом, один зовсім короткий»',
+       exp:'Контекст і чотири різних напрямки дають ШІ матеріал для справді різних варіантів. Ви оберете той, що відчувається «вашим».'}
+    ],
+    tmpls:[
+      {icon:'🎉',title:'Привітання або побажання',text:'Напиши [N] варіантів привітання для [кому і з якого приводу]. Ця людина [характер / що цінує]. Варіанти: один теплий і щирий, один з гумором, один короткий і ємний.'},
+      {icon:'🏷️',title:'Назва або слоган',text:'Придумай [N] варіантів [назви / слогану] для [що саме]. Головне відчуття — [яким має бути]. Максимум [N] слів кожен. Без кліше і корпоративного пафосу.'},
+      {icon:'📸',title:'Підпис до фото або посту',text:'Ось контекст фото/посту: [опис]. Запропонуй 4 варіанти підпису: один емоційний, один з гумором, один з думкою або цитатою, один мінімалістичний.'},
+      {icon:'🖊️',title:'Поліпшення вже написаного',text:'Ось мій текст: [текст]. Він звучить [як звучить зараз]. Хочу щоб звучав [як хочу]. Запропонуй 2-3 правки — не переписуй повністю, тільки ключові зміни.'}
+    ],
+    pTitle:'Ви хочете написати пост у соцмережі про важливу для вас подію — але текст виходить або занадто сухим, або занадто емоційним.',pSub:'Як використати ШІ щоб знайти правильний тон?',
+    ch5:[
+      {t:'Попросити ШІ написати пост повністю — і опублікувати як є',v:'partial',fb:'Можна — але пост у соцмережах підписаний вашим ім\'ям. Якщо він звучить не як ви, це відчувається. Краще взяти елементи і доопрацювати своїм голосом.'},
+      {t:'Написати свій варіант і попросити ШІ: «Як зробити це менш сухим / менш пафосним?» — отримати конкретні правки',v:'correct',fb:'Відмінно. Ви пишете — ШІ коригує тон. Результат залишається вашим, але стає точнішим. Саме для цього і потрібен творчий партнер.'},
+      {t:'Попросити три варіанти посту в різних тонах і вибрати найближчий',v:'correct',fb:'Теж добре. Варіанти допомагають зрозуміти, який тон вам насправді потрібен — іноді ми самі не знаємо поки не бачимо варіанти поруч.'}
+    ]
+  }
+};
+var l12lbl=['Вибір стилю','Перша спроба','Підбір запитів','Шаблони','Практика'];
+var l12sum=['ШІ — партнер у творчості, а не замінник: він генерує варіанти, ви обираєте і надаєте сенс','Найкраща роль ШІ — зняти бар\'єр чистого аркуша і дати матеріал для відштовхування','Просіть варіанти в різних напрямках — це дає вибір і розблоковує власне бачення','Давайте контекст: для кого, який тон, що важливо — чим точніше, тим кращий результат','Дрібні творчі задачі (привітання, назви, підписи) — ідеальне місце для старту з ШІ'];
+
+window.buildL12=function(panel){
+  panel.appendChild(progWrap(12,5));
+  var s0=mkStep(12,0);
+  s0.appendChild(p('hook','Урок 12. ШІ і творчість'));
+  s0.appendChild(p('hook-sub','Писати, вигадувати, придумувати — як зробити ШІ партнером у творчому процесі, а не замінником.'));
+  var ap=div('audience-pick');
+  ['explorer','practitioner'].forEach(function(aud){
+    var c=L12[aud];
+    var b=mk('button','aud-btn');
+    var ic=div('aud-icon');ic.textContent=c.icon;
+    b.appendChild(ic);b.appendChild(div('aud-title',c.title));b.appendChild(div('aud-sub',c.sub));
+    b.addEventListener('click',function(){l12pick(aud);});
+    ap.appendChild(b);
+  });
+  s0.appendChild(ap);panel.appendChild(s0);
+  for(var i=1;i<=4;i++){var s=mkStep(12,i);s.id='l12-s'+i;panel.appendChild(s);}
+};
+
+window.l12pick=function(aud){
+  l12aud=aud;var c=L12[aud];
+  var tagCls=aud==='explorer'?'explorer':'practitioner';
+
+  /* s1 */
+  var s1=document.getElementById('l12-s1');s1.innerHTML='';
+  var tag=div('who-tag '+tagCls,aud==='explorer'?'Дослідник':'Практик');
+  s1.appendChild(tag);
+  s1.appendChild(p('hook',c.hook));
+  s1.appendChild(p('hook-sub',c.hookSub));
+  s1.appendChild(p('q-label','Яка роль ШІ у творчому процесі?'));
+  var fb1=fbDiv('l12-fb1');var nb1=nextBtn(12,2);
+  s1.appendChild(choicesBlock(c.ch1,function(b,opt,wrap){
+    disableBtns(wrap);
+    b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');
+    showFb('l12-fb1',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);
+    nb1.classList.add('show');
+  }));
+  s1.appendChild(fb1);s1.appendChild(nb1);
+
+  /* s2 — сценарії */
+  var s2=document.getElementById('l12-s2');s2.innerHTML='';
+  s2.appendChild(badge('Перевірте себе'));
+  s2.appendChild(p('s-title','Який запит дасть кращий творчий результат?'));
+  s2.appendChild(p('s-sub','Для кожної задачі — оберіть ефективніший підхід.'));
+  var scDone=0;var fb2=fbDiv('l12-fb2');var nb2=nextBtn(12,3);
+  s2.appendChild(scenarioList(c.scens,['Варіант А','Варіант Б'],function(i,j,item,b,opts){
+    opts.querySelectorAll('.sc-btn').forEach(function(s){s.disabled=true;});
+    var chose=j===0?'A':'B';var ok=chose===c.scens[i].cor;
+    b.classList.add(ok?'good':'bad');
+    opts.querySelectorAll('.sc-btn').forEach(function(sb,ji){
+      if((ji===0?'A':'B')===c.scens[i].cor)sb.classList.add('good');
+    });
+    var exp=item.querySelector('.scenario-explain');
+    exp.innerHTML='';
+    [mk('strong','','Варіант А: '),document.createTextNode(c.scens[i].a),
+     document.createElement('br'),document.createElement('br'),
+     mk('strong','','Варіант Б: '),document.createTextNode(c.scens[i].b),
+     document.createElement('br'),document.createElement('br'),
+     document.createTextNode(c.scens[i].exp)
+    ].forEach(function(node){exp.appendChild(node);});
+    exp.className='scenario-explain show '+(ok?'good':'info');
+    scDone++;
+    if(scDone>=c.scens.length){
+      fb2.className='fb show good';
+      fb2.textContent='Добре. Ключ до творчої роботи з ШІ — просити варіанти і напрямки, а не готовий результат.';
+      nb2.classList.add('show');
+    }
+  }));
+  s2.appendChild(fb2);s2.appendChild(nb2);
+
+  /* s3 — шаблони */
+  var s3=document.getElementById('l12-s3');s3.innerHTML='';
+  s3.appendChild(badge('Творчі шаблони'));
+  s3.appendChild(p('s-title','Готові запити для творчих задач'));
+  s3.appendChild(p('s-sub','Скопіюйте і підставте свій контекст.'));
+  c.tmpls.forEach(function(t){
+    var card=div('');
+    card.style.cssText='margin-bottom:12px;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden';
+    var hdr=div('');hdr.style.cssText='background:var(--bg2);padding:10px 14px;display:flex;align-items:center;gap:8px';
+    var ico=mk('span','',t.icon);ico.style.fontSize='16px';
+    var ttl=mk('span','',t.title);ttl.style.cssText='font-size:13px;font-weight:500;color:var(--ink);flex:1';
+    var cb=mk('button','','\u041a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438');
+    cb.style.cssText='font-size:12px;color:var(--accent);background:none;border:1px solid var(--accent);border-radius:4px;padding:3px 10px;cursor:pointer;font-family:inherit';
+    (function(txt,btn){
+      btn.addEventListener('click',function(){
+        navigator.clipboard.writeText(txt)
+          .then(function(){btn.textContent='\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u2713';setTimeout(function(){btn.textContent='\u041a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438';},2000);})
+          .catch(function(){btn.textContent='(Ctrl+C)';setTimeout(function(){btn.textContent='\u041a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438';},2000);});
+      });
+    })(t.text,cb);
+    hdr.append(ico,ttl,cb);
+    var body=div('');body.style.cssText='padding:12px 14px;font-size:13px;color:var(--ink2);line-height:1.65;font-style:italic';
+    body.textContent=t.text;
+    card.appendChild(hdr);card.appendChild(body);
+    s3.appendChild(card);
+  });
+  s3.appendChild(nextBtn(12,4,'Далі →',true));
+
+  /* s4 — практика */
+  var s4=document.getElementById('l12-s4');s4.innerHTML='';
+  s4.appendChild(badge('Практика'));
+  s4.appendChild(p('s-title',c.pTitle));
+  s4.appendChild(p('s-sub',c.pSub));
+  var fb4=fbDiv('l12-fb4');
+  var sumW=div('');sumW.style.display='none';
+  sumW.appendChild(summaryBlock(l12sum));
+  var br=div('');br.style.marginTop='1rem';
+  br.appendChild(nextLessonBtn('\u2190 \u041d\u0430 \u0433\u043e\u043b\u043e\u0432\u043d\u0443','home'));
+  br.appendChild(restartBtn(12));
+  sumW.appendChild(br);
+  s4.appendChild(choicesBlock(c.ch5,function(b,opt,wrap){
+    disableBtns(wrap);
+    b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');
+    showFb('l12-fb4',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);
+    sumW.style.display='block';markDone(12);
+  }));
+  s4.appendChild(fb4);s4.appendChild(sumW);
+  l12go(1);
+};
+window.l12go=function(n){
+  document.querySelectorAll('#panel-l12 .step').forEach(function(s){s.className='step';});
+  var s=document.getElementById('l12-s'+n);if(s)s.className='step vis';
+  l12cur=n;setProg(12,n,l12lbl);window.scrollTo(0,0);
+};
+window.l12restart=function(){
+  l12aud='';l12cur=0;
+  document.querySelectorAll('#panel-l12 .step').forEach(function(s){s.className='step';});
+  var s0=document.getElementById('l12-s0');if(s0)s0.className='step vis';
+  setProg(12,0,l12lbl);window.scrollTo(0,0);
 };
 })();
 </script>

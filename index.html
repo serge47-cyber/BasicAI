@@ -170,7 +170,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
 <body>
 <header class="site-header">
   <div class="site-logo">ШІ для <span>всіх</span> — посібник</div>
-  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7EC8A0;letter-spacing:.06em">BETA · 14 уроків</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7EC8A0;letter-spacing:.06em">BETA · 15 уроків</div>
 </header>
 <div class="layout">
   <nav class="sidebar">
@@ -192,6 +192,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
       <button class="nav-item" id="nav-l12"><span class="nav-num">12</span><span class="nav-title">ШІ і творчість</span><span class="nav-check">✓</span></button>
       <button class="nav-item" id="nav-l13"><span class="nav-num">13</span><span class="nav-title">ШІ на роботі</span><span class="nav-check">✓</span></button>
       <button class="nav-item" id="nav-l14"><span class="nav-num">14</span><span class="nav-title">ШІ і мова</span><span class="nav-check">✓</span></button>
+      <button class="nav-item" id="nav-l15"><span class="nav-num">15</span><span class="nav-title">ШІ і здоров'я</span><span class="nav-check">✓</span></button>
     </div>
     <div class="sidebar-divider"></div>
     <div class="sidebar-note">Оберіть свою аудиторію на початку кожного уроку — і контент адаптується під вас.</div>
@@ -215,6 +216,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
         <button class="module-card" id="mc12"><span class="mc-num">12</span><div class="mc-body"><div class="mc-title">ШІ і творчість</div><div class="mc-sub">Писати, вигадувати, малювати ідеями — як ШІ стає партнером у творчому процесі</div></div><span class="mc-arrow">→</span></button>
         <button class="module-card" id="mc13"><span class="mc-num">13</span><div class="mc-body"><div class="mc-title">ШІ на роботі</div><div class="mc-sub">Звіти, листи, аналіз, презентації — як ШІ економить години робочого часу</div></div><span class="mc-arrow">→</span></button>
         <button class="module-card" id="mc14"><span class="mc-num">14</span><div class="mc-body"><div class="mc-title">ШІ і мова</div><div class="mc-sub">Переклад, вивчення, стиль — ШІ як мовний партнер для будь-якого рівня</div></div><span class="mc-arrow">→</span></button>
+        <button class="module-card" id="mc15"><span class="mc-num">15</span><div class="mc-body"><div class="mc-title">ШІ і здоров'я</div><div class="mc-sub">Як безпечно питати про медицину — і де межа між корисною інформацією і ризиком</div></div><span class="mc-arrow">→</span></button>
       </div>
       <p class="home-footer">Кожен урок — 5–8 хвилин активного навчання.</p>
     </div>
@@ -233,6 +235,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
     <div class="lesson-panel" id="panel-l12"></div>
     <div class="lesson-panel" id="panel-l13"></div>
     <div class="lesson-panel" id="panel-l14"></div>
+    <div class="lesson-panel" id="panel-l15"></div>
   </main>
 </div>
 <script>
@@ -270,7 +273,7 @@ document.addEventListener('click',function(e){
   var t=e.target;
   console.log('CLICK',t.tagName,t.id,t.className);
   if(t.id==='nav-home'||t.closest('#nav-home')){showHome();return;}
-  for(var n=1;n<=14;n++){
+  for(var n=1;n<=15;n++){
     var nb=document.getElementById('nav-l'+n);
     if(nb&&(t===nb||nb.contains(t))){showLesson(n);return;}
     var mc=document.getElementById('mc'+n);
@@ -2508,6 +2511,186 @@ window.l14restart=function(){
   document.querySelectorAll('#panel-l14 .step').forEach(function(s){s.className='step';});
   var s0=document.getElementById('l14-s0');if(s0)s0.className='step vis';
   setProg(14,0,l14lbl);window.scrollTo(0,0);
+};
+
+/* ══ L15 ══ */
+var l15aud='',l15cur=0;
+var L15={
+  explorer:{icon:'🔬',title:'Я дослідник',sub:'Люблю розбиратися як все влаштовано — і одразу пробувати',
+    hook:'ШІ навчений на мільйонах медичних текстів. Він може пояснити симптоми, терміни, механізми хвороб — і зробити це краще за більшість пошукових запитів.',
+    hookSub:'Але є принципова межа: розуміти і пояснювати — так. Діагностувати і призначати лікування — ні. Розберемося де саме ця межа і чому вона важлива.',
+    ch1:[
+      {t:'ШІ знає медицину краще за лікарів — він навчений на всіх відомих текстах',v:'wrong',fb:'Не зовсім. ШІ має широкі загальні знання, але не знає вашу конкретну ситуацію, історію хвороби, результати аналізів і не може провести огляд. Лікар оцінює вас як особистість у контексті — ШІ дає загальну інформацію. Це різні речі.'},
+      {t:'ШІ корисний для розуміння медичної інформації — але діагностика і призначення ліків тільки через лікаря',v:'correct',fb:'Саме так. Це чітка і правильна межа. ШІ — чудовий інструмент для підготовки до лікаря, розуміння термінів і загальної медичної освіти. Але конкретний діагноз і лікування — завжди через фахівця.'},
+      {t:'ШІ не можна питати про здоров\'я взагалі — це небезпечно',v:'wrong',fb:'Надмірна обережність. Питати ШІ про те, що означає термін у довідці, які симптоми притаманні певному стану або як підготуватися до прийому лікаря — цілком безпечно і корисно. Небезпека виникає коли ШІ замінює лікаря, а не коли допомагає зрозуміти.'}
+    ],
+    scens:[
+      {q:'Лікар сказав «атеросклероз» — хочеться зрозуміти що це і як це працює',safe:true,
+       good:'«Поясни мені атеросклероз простими словами: що відбувається в організмі, чому це розвивається і які наслідки. Без медичного жаргону»',
+       bad:'«У мене атеросклероз — що мені приймати і яке лікування найкраще?»',
+       exp:'Перший запит — це освіта: зрозуміти стан. Другий — це призначення лікування, де ШІ не має права голосу. Лікування атеросклерозу залежить від десятків індивідуальних факторів які ШІ не знає.'},
+      {q:'Хочете підготувати список питань перед прийомом до кардіолога',safe:true,
+       good:'«Маю прийом у кардіолога. Основні скарги: [перелік]. Допоможи скласти список із 7 питань щоб максимально використати час прийому»',
+       bad:'«Кардіолог призначив [ліки]. Чи варто їх приймати?»',
+       exp:'Перший запит підсилює вашу взаємодію з лікарем — ви приходите підготованим. Другий ставить ШІ замість лікаря у рішення про конкретні ліки — це небезпечно.'},
+      {q:'Отримали результати аналізів і хочете зрозуміти що означають показники',safe:true,
+       good:'«Ось мої результати аналізів: [показники]. Поясни що означає кожен показник і що вважається нормою. Не ставлячи діагнозу»',
+       bad:'«Мої показники [дані] — це серйозно? Мені треба йти до лікаря?»',
+       exp:'Розуміти що означають числа — корисно і безпечно. Але чи «серйозно» у вашому конкретному випадку — залежить від контексту який знає тільки лікар. ШІ не може оцінити ризик для конкретної людини.'}
+    ],
+    pTitle:'Ви прокинулися з болем у грудях і одразу запитали ШІ що це може бути.',pSub:'Яка відповідь ШІ і ваша реакція на неї — правильна?',
+    ch5:[
+      {t:'ШІ пояснив можливі причини — заспокоївся і вирішив поспостерігати',v:'wrong',fb:'Біль у грудях — симптом який вимагає медичної оцінки, а не заспокоєння від ШІ. ШІ може дати список можливих причин від нешкідливих до серйозних — але не може визначити яка саме у вас. При гострому болі в грудях — до лікаря або швидка.'},
+      {t:'ШІ дав загальну інформацію про можливі причини — це допомогло краще описати симптом лікарю',v:'correct',fb:'Саме так. ШІ корисний щоб зрозуміти термінологію і чіткіше описати що відбувається. Але рішення про дії — тільки після медичної оцінки. При гострих симптомах — не чекати.'},
+      {t:'ШІ точно знає причину — якщо він не написав що серйозно, значить можна не хвилюватися',v:'wrong',fb:'Небезпечна логіка. ШІ дає загальну інформацію і не знає вашого стану здоров\'я. Відсутність слова «серйозно» у відповіді ШІ — не медичний висновок. Симптоми, що вас турбують, завжди варто показати лікарю.'}
+    ]
+  },
+  practitioner:{icon:'🌿',title:'Я практик',sub:'Хочу конкретних результатів — без зайвої теорії, одразу до справи',
+    hook:'Незрозумілий термін у довідці. Симптом який турбує. Питання перед прийомом до лікаря. ШІ може допомогти — якщо знати як питати.',
+    hookSub:'Головне правило одне: ШІ пояснює і готує, лікар діагностує і призначає. Розберемося як використати ШІ безпечно і з користю.',
+    ch1:[
+      {t:'Можна питати ШІ про все медичне — він знає більше за більшість лікарів',v:'wrong',fb:'ШІ має широкі загальні знання — але не знає вас особисто. Ваш вік, інші хвороби, ліки які приймаєте, результати аналізів — все це впливає на відповідь. Лікар оцінює вас в цілому, ШІ дає загальну інформацію.'},
+      {t:'ШІ добре пояснює медичну інформацію — але лікування і діагностика тільки через лікаря',v:'correct',fb:'Правильно. Це і є розумна межа. ШІ — для розуміння і підготовки. Лікар — для оцінки і рішень. Разом вони дають найкращий результат.'},
+      {t:'Краще взагалі не питати ШІ про здоров\'я — можна злякатися зайвого',v:'partial',fb:'Є такий ризик якщо питати неправильно — наприклад гуглити симптоми і отримувати найстрашніший діагноз. Але якщо питати конкретно і розумно — ШІ знімає тривогу, а не додає її. Важливо правильно формулювати.'}
+    ],
+    scens:[
+      {q:'У рецепті написано «приймати натщесерце» — не зрозуміло що це означає точно',safe:true,
+       good:'«Що означає "приймати ліки натщесерце"? Скільки годин після їжі? Чи можна пити воду?»',
+       bad:'«Мені призначили [ліки] — чи можна їх замінити на щось дешевше?»',
+       exp:'Перший запит — уточнення інструкції: це безпечно і корисно. Другий — заміна призначеного лікування: це рішення лікаря, який знає чому саме ці ліки. Заміна без консультації може бути небезпечною.'},
+      {q:'Після прийому ліків з\'явилися незвичні відчуття — хочете зрозуміти чи це нормально',safe:true,
+       good:'«Я приймаю [ліки]. Які типові побічні ефекти? На що треба звернути увагу і коли обов\'язково звернутися до лікаря?»',
+       bad:'«У мене [симптом] після ліків — це побічний ефект чи алергія? Що мені робити?»',
+       exp:'Перший запит дає загальну інформацію про відомі ефекти ліків. Другий просить ШІ поставити діагноз у вашому конкретному випадку — це лікар має оцінити, особливо якщо симптом новий або сильний.'},
+      {q:'Хочете підготуватися до прийому у лікаря і нічого не забути',safe:true,
+       good:'«Маю прийом у [спеціаліст]. Турбує [симптом або питання]. Допоможи скласти список питань і підготувати короткий опис симптомів щоб нічого не забути»',
+       bad:'«Лікар порадив [процедуру] — чи варто її робити?»',
+       exp:'Підготовка до прийому — це де ШІ безцінний. Ви приходите з чітким списком питань і описом симптомів — лікар може допомогти краще. Рішення ж чи робити процедуру — залишається за лікарем який вас оглянув.'}
+    ],
+    pTitle:'Вранці ви помітили незвичний симптом — щось турбує вже другий день.',pSub:'Як найбезпечніше використати ШІ в цій ситуації?',
+    ch5:[
+      {t:'Описати симптом ШІ і дочекатися діагнозу — якщо він нічого серйозного не знайде, до лікаря не йти',v:'wrong',fb:'ШІ не ставить діагнози і не може сказати «нічого серйозного» у вашому конкретному випадку. Якщо симптом турбує вже два дні — лікар є правильним кроком. ШІ може допомогти підготуватись до прийому.'},
+      {t:'Попросити ШІ допомогти чітко описати симптом і скласти питання до лікаря — і записатися на прийом',v:'correct',fb:'Чудово. ШІ допомагає підготуватися, лікар оцінює. Чіткий опис симптому допоможе лікарю швидше зрозуміти ситуацію. Це і є правильне партнерство між ШІ і медичною допомогою.'},
+      {t:'Знайти схожі симптоми в інтернеті і лікуватися самостійно на основі того що знайшов',v:'wrong',fb:'Самолікування на основі пошуку в інтернеті — один з найпоширеніших і небезпечних підходів. Схожі симптоми можуть мати десятки різних причин. Два дні — вже привід звернутися до лікаря.'}
+    ]
+  }
+};
+var l15lbl=['Вибір стилю','Перша спроба','Безпечні і ризиковані запити','Підсумок і практика'];
+var l15sum=['ШІ пояснює медичну інформацію — лікар діагностує і призначає: це непорушна межа','Запитувати про значення термінів, побічні ефекти ліків і підготовку до прийому — безпечно','Просити ШІ поставити діагноз або замінити призначення лікаря — небезпечно','ШІ як підготовка до лікаря: чіткий опис симптомів і список питань роблять прийом кориснішим','При гострих або тривалих симптомах — лікар, а не ШІ'];
+var l15try='Пригадайте останній медичний термін або результат аналізу, який вам було незрозуміло. Запитайте ШІ пояснення — і відчуйте різницю між «зрозуміти» і «лікуватися».';
+
+window.buildL15=function(panel){
+  panel.appendChild(progWrap(15,4));
+  var s0=mkStep(15,0);
+  s0.appendChild(p('hook','Урок 15. ШІ і здоров\'я'));
+  s0.appendChild(p('hook-sub','Як безпечно питати про медицину — і де межа між корисною інформацією і ризиком.'));
+  var ap=div('audience-pick');
+  ['explorer','practitioner'].forEach(function(aud){
+    var c=L15[aud];
+    var b=mk('button','aud-btn');
+    var ic=div('aud-icon');ic.textContent=c.icon;
+    b.appendChild(ic);b.appendChild(div('aud-title',c.title));b.appendChild(div('aud-sub',c.sub));
+    b.addEventListener('click',function(){l15pick(aud);});
+    ap.appendChild(b);
+  });
+  s0.appendChild(ap);panel.appendChild(s0);
+  for(var i=1;i<=3;i++){var s=mkStep(15,i);s.id='l15-s'+i;panel.appendChild(s);}
+};
+
+window.l15pick=function(aud){
+  l15aud=aud;var c=L15[aud];
+  var tagCls=aud==='explorer'?'explorer':'practitioner';
+
+  /* s1 */
+  var s1=document.getElementById('l15-s1');s1.innerHTML='';
+  s1.appendChild(div('who-tag '+tagCls,aud==='explorer'?'Дослідник':'Практик'));
+  s1.appendChild(p('hook',c.hook));
+  s1.appendChild(p('hook-sub',c.hookSub));
+  s1.appendChild(p('q-label','Де ШІ корисний у медичних питаннях?'));
+  var fb1=fbDiv('l15-fb1');var nb1=nextBtn(15,2);
+  s1.appendChild(choicesBlock(c.ch1,function(b,opt,wrap){
+    disableBtns(wrap);
+    b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');
+    showFb('l15-fb1',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);
+    nb1.classList.add('show');
+  }));
+  s1.appendChild(fb1);s1.appendChild(nb1);
+
+  /* s2 — безпечні і ризиковані запити */
+  var s2=document.getElementById('l15-s2');s2.innerHTML='';
+  s2.appendChild(badge('Безпечно чи ризиковано?'));
+  s2.appendChild(p('s-title','Два запити — одна ситуація'));
+  s2.appendChild(p('s-sub','Для кожної ситуації показані два запити. Один безпечний — один ні. Оцініть різницю.'));
+
+  var scDone=0;var fb2=fbDiv('l15-fb2');var nb2=nextBtn(15,3);
+  c.scens.forEach(function(sc,i){
+    var block=div('');block.style.marginBottom='1.25rem';
+    block.appendChild(p('q-label',sc.q));
+
+    var grid=div('compare');
+    // Good card
+    var cg=div('cc good');cg.style.cursor='default';
+    cg.innerHTML='<div class="cc-lbl">\u2705 \u0411\u0435\u0437\u043f\u0435\u0447\u043d\u043e</div><div class="cc-text"></div>';
+    cg.querySelector('.cc-text').textContent=sc.good;
+    // Bad card
+    var cb=div('cc bad');cb.style.cursor='default';
+    cb.innerHTML='<div class="cc-lbl">\u26a0 \u0420\u0438\u0437\u0438\u043a\u043e\u0432\u0430\u043d\u043e</div><div class="cc-text"></div>';
+    cb.querySelector('.cc-text').textContent=sc.bad;
+    grid.appendChild(cg);grid.appendChild(cb);
+    block.appendChild(grid);
+
+    var exp=div('fb show info');exp.textContent=sc.exp;exp.style.marginTop='-0.5rem';
+    block.appendChild(exp);
+    s2.appendChild(block);
+  });
+
+  // final question
+  s2.appendChild(p('q-label','Тепер — ваша оцінка'));
+  s2.appendChild(p('s-sub','Яке головне правило безпечної роботи з ШІ у медичних питаннях?'));
+  s2.appendChild(choicesBlock([
+    {t:'ШІ для розуміння і підготовки, лікар для діагностики і лікування',v:'correct',fb:'Саме так. Це і є золоте правило. Коли ви його дотримуєтесь — ШІ стає корисним партнером, а не джерелом тривоги або помилкових рішень.'},
+    {t:'ШІ знає більше за лікаря тому можна не ходити до лікаря для простих питань',v:'wrong',fb:'ШІ і лікар вирішують різні задачі. Лікар оцінює вас особисто — з урахуванням вашої історії, інших хвороб і результатів обстежень. ШІ цього не може.'},
+    {t:'Краще взагалі не питати ШІ про медицину — надто ризиковано',v:'partial',fb:'Питати ШІ про медичну інформацію — безпечно якщо ви не замінюєте ним лікаря. Зрозуміти термін, підготуватися до прийому, дізнатися про побічні ефекти — все це корисне і безпечне використання.'}
+  ],function(b,opt,wrap){
+    disableBtns(wrap);
+    b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');
+    showFb('l15-fb2',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);
+    nb2.classList.add('show');
+  }));
+  s2.appendChild(fb2);s2.appendChild(nb2);
+
+  /* s3 — практика + підсумок */
+  var s3=document.getElementById('l15-s3');s3.innerHTML='';
+  s3.appendChild(badge('Практика'));
+  s3.appendChild(p('s-title',c.pTitle));
+  s3.appendChild(p('s-sub',c.pSub));
+  var fb3=fbDiv('l15-fb3');
+  var sumW=div('');sumW.style.display='none';
+  sumW.appendChild(summaryBlock(l15sum));
+  sumW.appendChild(tryNowBlock(l15try));
+  var br=div('');br.style.marginTop='1rem';
+  br.appendChild(nextLessonBtn('\u2190 \u041d\u0430 \u0433\u043e\u043b\u043e\u0432\u043d\u0443','home'));
+  br.appendChild(restartBtn(15));
+  sumW.appendChild(br);
+  s3.appendChild(choicesBlock(c.ch5,function(b,opt,wrap){
+    disableBtns(wrap);
+    b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');
+    showFb('l15-fb3',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);
+    sumW.style.display='block';markDone(15);
+  }));
+  s3.appendChild(fb3);s3.appendChild(sumW);
+  l15go(1);
+};
+window.l15go=function(n){
+  document.querySelectorAll('#panel-l15 .step').forEach(function(s){s.className='step';});
+  var s=document.getElementById('l15-s'+n);if(s)s.className='step vis';
+  l15cur=n;setProg(15,n,l15lbl);window.scrollTo(0,0);
+};
+window.l15restart=function(){
+  l15aud='';l15cur=0;
+  document.querySelectorAll('#panel-l15 .step').forEach(function(s){s.className='step';});
+  var s0=document.getElementById('l15-s0');if(s0)s0.className='step vis';
+  setProg(15,0,l15lbl);window.scrollTo(0,0);
 };
 })();
 </script>

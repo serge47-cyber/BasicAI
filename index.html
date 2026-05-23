@@ -170,7 +170,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
 <body>
 <header class="site-header">
   <div class="site-logo">ШІ для <span>всіх</span> — посібник</div>
-  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7EC8A0;letter-spacing:.06em">BETA · 15 уроків</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7EC8A0;letter-spacing:.06em">BETA · 16 уроків</div>
 </header>
 <div class="layout">
   <nav class="sidebar">
@@ -193,6 +193,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
       <button class="nav-item" id="nav-l13"><span class="nav-num">13</span><span class="nav-title">ШІ на роботі</span><span class="nav-check">✓</span></button>
       <button class="nav-item" id="nav-l14"><span class="nav-num">14</span><span class="nav-title">ШІ і мова</span><span class="nav-check">✓</span></button>
       <button class="nav-item" id="nav-l15"><span class="nav-num">15</span><span class="nav-title">ШІ і здоров'я</span><span class="nav-check">✓</span></button>
+      <button class="nav-item" id="nav-l16"><span class="nav-num">16</span><span class="nav-title">ШІ і гроші</span><span class="nav-check">✓</span></button>
     </div>
     <div class="sidebar-divider"></div>
     <div class="sidebar-note">Оберіть свою аудиторію на початку кожного уроку — і контент адаптується під вас.</div>
@@ -217,6 +218,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
         <button class="module-card" id="mc13"><span class="mc-num">13</span><div class="mc-body"><div class="mc-title">ШІ на роботі</div><div class="mc-sub">Звіти, листи, аналіз, презентації — як ШІ економить години робочого часу</div></div><span class="mc-arrow">→</span></button>
         <button class="module-card" id="mc14"><span class="mc-num">14</span><div class="mc-body"><div class="mc-title">ШІ і мова</div><div class="mc-sub">Переклад, вивчення, стиль — ШІ як мовний партнер для будь-якого рівня</div></div><span class="mc-arrow">→</span></button>
         <button class="module-card" id="mc15"><span class="mc-num">15</span><div class="mc-body"><div class="mc-title">ШІ і здоров'я</div><div class="mc-sub">Як безпечно питати про медицину — і де межа між корисною інформацією і ризиком</div></div><span class="mc-arrow">→</span></button>
+        <button class="module-card" id="mc16"><span class="mc-num">16</span><div class="mc-body"><div class="mc-title">ШІ і гроші</div><div class="mc-sub">Бюджет, планування, фінансові питання — де ШІ допомагає, а де потрібен фахівець</div></div><span class="mc-arrow">→</span></button>
       </div>
       <p class="home-footer">Кожен урок — 5–8 хвилин активного навчання.</p>
     </div>
@@ -236,6 +238,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
     <div class="lesson-panel" id="panel-l13"></div>
     <div class="lesson-panel" id="panel-l14"></div>
     <div class="lesson-panel" id="panel-l15"></div>
+    <div class="lesson-panel" id="panel-l16"></div>
   </main>
 </div>
 <script>
@@ -273,7 +276,7 @@ document.addEventListener('click',function(e){
   var t=e.target;
   console.log('CLICK',t.tagName,t.id,t.className);
   if(t.id==='nav-home'||t.closest('#nav-home')){showHome();return;}
-  for(var n=1;n<=15;n++){
+  for(var n=1;n<=16;n++){
     var nb=document.getElementById('nav-l'+n);
     if(nb&&(t===nb||nb.contains(t))){showLesson(n);return;}
     var mc=document.getElementById('mc'+n);
@@ -2691,6 +2694,210 @@ window.l15restart=function(){
   document.querySelectorAll('#panel-l15 .step').forEach(function(s){s.className='step';});
   var s0=document.getElementById('l15-s0');if(s0)s0.className='step vis';
   setProg(15,0,l15lbl);window.scrollTo(0,0);
+};
+
+/* ══ L16 ══ */
+var l16aud='',l16cur=0;
+var L16={
+  explorer:{icon:'🔬',title:'Я дослідник',sub:'Люблю розбиратися як все влаштовано — і одразу пробувати',
+    hook:'Фінансова грамотність — одна з найважливіших навичок, але їй майже не вчать. ШІ може стати персональним фінансовим наставником — якщо знати як питати.',
+    hookSub:'Цікаво де ШІ справді допомагає з грошима — і де його відповіді можуть ввести в оману або замінити необхідну консультацію фахівця.',
+    ch1:[
+      {t:'ШІ може давати конкретні інвестиційні поради — він знає ринок краще за більшість',v:'wrong',fb:'Небезпечне припущення. ШІ не має доступу до поточних ринкових даних, не знає вашу фінансову ситуацію, ризик-профіль і цілі. Інвестиційні рішення на основі загальних порад ШІ без фахівця — реальний фінансовий ризик.'},
+      {t:'ШІ корисний для фінансової освіти, планування бюджету і розуміння термінів — але інвестиції і податки потребують фахівця',v:'correct',fb:'Саме так. ШІ чудово пояснює як працюють фінансові інструменти, допомагає скласти бюджет і зрозуміти терміни. Але конкретні рішення з інвестицій, податків і страхування — завжди через ліцензованого фахівця.'},
+      {t:'Будь-які фінансові питання до ШІ небезпечні — краще взагалі не питати',v:'wrong',fb:'Не так. Дізнатися що таке інфляція, як працює відсоток по кредиту, як скласти особистий бюджет або порівняти типи вкладів — цілком безпечно і корисно. Небезпека виникає коли ШІ замінює фінансового консультанта у конкретних рішеннях.'}
+    ],
+    scens:[
+      {q:'Хочете зрозуміти як працює складний відсоток і чому він важливий',cor:'B',
+       a:'«Розкажи про складний відсоток»',
+       b:'«Поясни що таке складний відсоток простими словами. Покажи на конкретному числовому прикладі: якщо я вкладу 10 000 грн під 10% річних на 10 років — скільки вийде зі складним і простим відсотком?»',
+       exp:'Варіант Б — це фінансова освіта в дії: конкретний приклад з числами. ШІ відмінно пояснює концепції через розрахунки. Це не інвестиційна порада — це розуміння механізму.'},
+      {q:'Хочете скласти особистий бюджет і не знаєте з чого почати',cor:'B',
+       a:'«Як скласти бюджет?»',
+       b:'«Допоможи скласти особистий бюджет. Мій місячний дохід: [сума]. Основні витрати: [перелік]. Хочу відкладати [сума] на місяць. Запропонуй структуру бюджету і де можна скоротити витрати»',
+       exp:'Бюджет — це саме те де ШІ безцінний. Варіант Б дає реальні цифри і отримує конкретну структуру. Це не фінансова консультація — це персональне планування на основі ваших даних.'},
+      {q:'Хочете зрозуміти різницю між різними типами банківських вкладів',cor:'B',
+       a:'«Які бувають банківські вклади?»',
+       b:'«Поясни різницю між строковим вкладом і вкладом на вимогу. Коли кожен краще підходить? Які ризики у кожного? Відповідай з точки зору звичайної людини без фінансового бекграунду»',
+       exp:'Розуміння фінансових інструментів — освіта, не порада. Варіант Б задає рівень і просить практичне порівняння. ШІ поясить відмінності краще за більшість банківських буклетів.'}
+    ],
+    tmpls:[
+      {icon:'📊',title:'Пояснення фінансового поняття',text:'Поясни [фінансовий термін або концепція] простими словами. Покажи на конкретному числовому прикладі. Яких типових помилок люди припускаються у зв\'язку з цим?'},
+      {icon:'💰',title:'Особистий бюджет',text:'Допоможи скласти особистий бюджет. Дохід: [сума на місяць]. Обов\'язкові витрати: [перелік]. Ціль: відкладати [сума або %]. Запропонуй структуру і де можна оптимізувати.'},
+      {icon:'🔍',title:'Порівняння фінансових продуктів',text:'Порівняй [продукт 1] і [продукт 2]: як вони працюють, в чому різниця, які ризики і для кого кожен підходить. Відповідь для людини без фінансової освіти.'},
+      {icon:'📋',title:'Підготовка до консультації з фахівцем',text:'Маю зустріч з [фінансовим консультантом / банком / податковою]. Тема: [що обговорюватиму]. Допоможи скласти список питань щоб максимально використати час і нічого не забути.'}
+    ],
+    pTitle:'Друг каже що ШІ порадив йому конкретний інвестиційний портфель і він збирається слідувати цій пораді.',pSub:'Яка ваша реакція?',
+    ch5:[
+      {t:'Хороша ідея — ШІ знає фінансові ринки і може давати конкретні поради',v:'wrong',fb:'Це небезпечне припущення. ШІ не має ліцензії фінансового радника, не знає фінансової ситуації друга, його ризик-профілю і поточного стану ринків. Конкретний інвестиційний портфель від ШІ без консультації фахівця — реальний ризик втрати грошей.'},
+      {t:'Варто використати пораду ШІ як відправну точку для власного дослідження і консультації з ліцензованим фінансовим радником',v:'correct',fb:'Правильно. ШІ може дати загальне розуміння типів інструментів і логіки диверсифікації. Але конкретний портфель під конкретну людину — це робота ліцензованого фахівця який знає всю картину.'},
+      {t:'ШІ взагалі не можна питати про інвестиції',v:'partial',fb:'Питати ШІ як працює ETF, що таке диверсифікація або як розрахувати ризик — корисно і безпечно. Небезпека у тому щоб виконувати конкретні інвестиційні рішення на основі порад ШІ без фахівця.'}
+    ]
+  },
+  practitioner:{icon:'🌿',title:'Я практик',sub:'Хочу конкретних результатів — без зайвої теорії, одразу до справи',
+    hook:'Гроші — тема де всі хочуть простих відповідей. ШІ може дати їх — але не завжди це безпечно.',
+    hookSub:'Де ШІ справді рятує час і гроші, а де краще зупинитися і звернутися до фахівця — розберемося з конкретними прикладами.',
+    ch1:[
+      {t:'ШІ може порадити куди вкласти гроші — він знає ринок',v:'wrong',fb:'ШІ не знає поточних ринкових цін, вашу фінансову подушку, зобов\'язання і ризик-профіль. Інвестиційна порада без цих даних — як рекомендація ліків без огляду. Для інвестицій — ліцензований фінансовий радник.'},
+      {t:'ШІ допомагає розібратися у фінансових питаннях і спланувати — але важливі рішення краще звірити з фахівцем',v:'correct',fb:'Саме так. ШІ — відмінний фінансовий наставник для розуміння і планування. Але конкретні рішення з великими сумами, інвестиціями або податками — завжди варто перевіряти з фахівцем.'},
+      {t:'Краще не довіряти ШІ у фінансових питаннях взагалі',v:'partial',fb:'Надмірна обережність. Зрозуміти як рахується кредит, скласти бюджет, порівняти умови вкладів або розібратися в термінах договору — все це безпечно і економить час і гроші.'}
+    ],
+    scens:[
+      {q:'Банк пропонує кредит і хочеться зрозуміти скільки реально переплатите',cor:'B',
+       a:'«Розкажи про кредити»',
+       b:'«Банк пропонує кредит: сума [X] грн, ставка [Y]% річних, термін [N] місяців. Розрахуй щомісячний платіж і загальну переплату. Поясни що означає ефективна ставка і чим вона відрізняється від номінальної»',
+       exp:'Варіант Б — конкретний розрахунок з вашими даними. ШІ чудово рахує і пояснює. Це не фінансова консультація — це математика і розуміння умов. Знаючи реальну переплату — легше приймати рішення.'},
+      {q:'Хочете почати відкладати гроші але не знаєте скільки і куди',cor:'B',
+       a:'«Як почати збирати гроші?»',
+       b:'«Хочу почати відкладати гроші. Мій місячний дохід [сума], основні витрати [перелік]. Яку суму реально відкладати? Які прості інструменти підходять для початківця в Україні — без ризику і зі збереженням від інфляції?»',
+       exp:'Варіант Б дає реальний контекст і отримує практичні варіанти. ШІ поясить загальні принципи і типи інструментів. Конкретний вибір банку або фонду — варто звірити з актуальними умовами та незалежним фахівцем.'},
+      {q:'Прийшов рахунок з незрозумілими нарахуваннями від комунальних служб',cor:'B',
+       a:'«Як рахуються комунальні?»',
+       b:'«Поясни як рахуються [конкретний тип нарахування: наприклад, абонплата за обслуговування будинку]. Які нормативи? Де перевірити чи правильно нараховано? Що робити якщо помилка?»',
+       exp:'ШІ добре пояснює загальні принципи нарахувань і куди звертатися. Але конкретні тарифи і норми змінюються — завжди перевіряйте через офіційні джерела або звертайтеся до постачальника послуг.'}
+    ],
+    tmpls:[
+      {icon:'🧮',title:'Розрахунок кредиту або вкладу',text:'Розрахуй [кредит / вклад]: сума [X], ставка [Y]% річних, термін [N] місяців. Покажи щомісячний платіж, загальну суму виплат і переплату. Поясни якщо є підводні камені.'},
+      {icon:'📅',title:'Сімейний або особистий бюджет',text:'Допоможи скласти [сімейний / особистий] бюджет на місяць. Дохід: [сума]. Витрати: [перелік]. Ціль: [відкладати X / погасити борг / купити щось]. Запропонуй розподіл і де можна оптимізувати.'},
+      {icon:'❓',title:'Зрозуміти фінансовий термін або умову',text:'Поясни простими словами що означає [термін або умова договору]. Які ризики? На що треба звернути увагу перед тим як підписувати або погоджуватися?'},
+      {icon:'📞',title:'Підготовка до розмови з банком або фінансистом',text:'Маю розмову з [банком / фінансовим консультантом] щодо [тема]. Допоможи скласти список питань і зрозуміти на що звертати увагу щоб не пропустити важливе.'}
+    ],
+    pTitle:'Вам запропонували вкласти гроші у «надійну схему» з гарантованою прибутковістю 30% на місяць.',pSub:'Як ШІ може допомогти оцінити цю пропозицію?',
+    ch5:[
+      {t:'Запитати ШІ чи варто вкладати — він скаже правду',v:'wrong',fb:'ШІ не знає конкретну схему і не може перевірити її легальність або реальний стан. Але він може пояснити загальні ознаки фінансових пірамід і допомогти критично оцінити пропозицію.'},
+      {t:'Попросити ШІ пояснити ознаки фінансових пірамід і порівняти з цією пропозицією — і проконсультуватися з незалежним фахівцем перед будь-яким рішенням',v:'correct',fb:'Відмінно. ШІ може дати чіткі ознаки шахрайських схем і допомогти критично подивитись на пропозицію. 30% на місяць — вже серйозний привід для перевірки. Будь-яке велике фінансове рішення — через незалежного фахівця.'},
+      {t:'Це точно піраміда — 30% на місяць нереально',v:'partial',fb:'Швидше за все ви праві. Але для повної впевненості — попросіть ШІ пояснити ознаки фінансових пірамід і перевірте схему через офіційні реєстри НКЦПФР або НБУ. Знання краще за інтуїцію.'}
+    ]
+  }
+};
+var l16lbl=['Вибір стилю','Перша спроба','Підбір запитів','Шаблони','Практика'];
+var l16sum=['ШІ — чудовий фінансовий наставник для розуміння і планування, але не замінює ліцензованого фахівця','Бюджет, розрахунки, пояснення термінів — безпечно і корисно','Конкретні інвестиційні рішення і податкові питання — завжди через фахівця','Давайте реальні цифри — ШІ розраховує і пояснює конкретно, а не загально','Ознаки фінансових пірамід і шахрайських схем — ШІ допоможе розпізнати'];
+var l16try='Відкрийте ШІ і попросіть скласти простий бюджет на місяць — вкажіть свій дохід і основні витрати. Подивіться яку структуру він запропонує і де бачить можливості для оптимізації.';
+
+window.buildL16=function(panel){
+  panel.appendChild(progWrap(16,5));
+  var s0=mkStep(16,0);
+  s0.appendChild(p('hook','Урок 16. ШІ і гроші'));
+  s0.appendChild(p('hook-sub','Бюджет, планування, фінансові питання — де ШІ допомагає заощадити час і гроші, а де потрібен фахівець.'));
+  var ap=div('audience-pick');
+  ['explorer','practitioner'].forEach(function(aud){
+    var c=L16[aud];
+    var b=mk('button','aud-btn');
+    var ic=div('aud-icon');ic.textContent=c.icon;
+    b.appendChild(ic);b.appendChild(div('aud-title',c.title));b.appendChild(div('aud-sub',c.sub));
+    b.addEventListener('click',function(){l16pick(aud);});
+    ap.appendChild(b);
+  });
+  s0.appendChild(ap);panel.appendChild(s0);
+  for(var i=1;i<=4;i++){var s=mkStep(16,i);s.id='l16-s'+i;panel.appendChild(s);}
+};
+
+window.l16pick=function(aud){
+  l16aud=aud;var c=L16[aud];
+  var tagCls=aud==='explorer'?'explorer':'practitioner';
+
+  var s1=document.getElementById('l16-s1');s1.innerHTML='';
+  s1.appendChild(div('who-tag '+tagCls,aud==='explorer'?'Дослідник':'Практик'));
+  s1.appendChild(p('hook',c.hook));
+  s1.appendChild(p('hook-sub',c.hookSub));
+  s1.appendChild(p('q-label','Де ШІ корисний у фінансових питаннях?'));
+  var fb1=fbDiv('l16-fb1');var nb1=nextBtn(16,2);
+  s1.appendChild(choicesBlock(c.ch1,function(b,opt,wrap){
+    disableBtns(wrap);
+    b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');
+    showFb('l16-fb1',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);
+    nb1.classList.add('show');
+  }));
+  s1.appendChild(fb1);s1.appendChild(nb1);
+
+  var s2=document.getElementById('l16-s2');s2.innerHTML='';
+  s2.appendChild(badge('Перевірте себе'));
+  s2.appendChild(p('s-title','Який запит дасть кращий фінансовий результат?'));
+  s2.appendChild(p('s-sub','Для кожної задачі — оберіть ефективніший підхід.'));
+  var scDone=0;var fb2=fbDiv('l16-fb2');var nb2=nextBtn(16,3);
+  s2.appendChild(scenarioList(c.scens,['Варіант А','Варіант Б'],function(i,j,item,b,opts){
+    opts.querySelectorAll('.sc-btn').forEach(function(s){s.disabled=true;});
+    var chose=j===0?'A':'B';var ok=chose===c.scens[i].cor;
+    b.classList.add(ok?'good':'bad');
+    opts.querySelectorAll('.sc-btn').forEach(function(sb,ji){
+      if((ji===0?'A':'B')===c.scens[i].cor)sb.classList.add('good');
+    });
+    var exp=item.querySelector('.scenario-explain');
+    exp.innerHTML='';
+    [mk('strong','','Варіант А: '),document.createTextNode(c.scens[i].a),
+     document.createElement('br'),document.createElement('br'),
+     mk('strong','','Варіант Б: '),document.createTextNode(c.scens[i].b),
+     document.createElement('br'),document.createElement('br'),
+     document.createTextNode(c.scens[i].exp)
+    ].forEach(function(node){exp.appendChild(node);});
+    exp.className='scenario-explain show '+(ok?'good':'info');
+    scDone++;
+    if(scDone>=c.scens.length){
+      fb2.className='fb show good';
+      fb2.textContent='Добре. Реальні цифри і конкретна мета — це ключ до корисної фінансової відповіді від ШІ.';
+      nb2.classList.add('show');
+    }
+  }));
+  s2.appendChild(fb2);s2.appendChild(nb2);
+
+  var s3=document.getElementById('l16-s3');s3.innerHTML='';
+  s3.appendChild(badge('Фінансові шаблони'));
+  s3.appendChild(p('s-title','Готові запити для фінансових задач'));
+  s3.appendChild(p('s-sub','Скопіюйте і підставте свої цифри.'));
+  c.tmpls.forEach(function(t){
+    var card=div('');
+    card.style.cssText='margin-bottom:12px;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden';
+    var hdr=div('');hdr.style.cssText='background:var(--bg2);padding:10px 14px;display:flex;align-items:center;gap:8px';
+    var ico=mk('span','',t.icon);ico.style.fontSize='16px';
+    var ttl=mk('span','',t.title);ttl.style.cssText='font-size:13px;font-weight:500;color:var(--ink);flex:1';
+    var cb=mk('button','','\u041a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438');
+    cb.style.cssText='font-size:12px;color:var(--accent);background:none;border:1px solid var(--accent);border-radius:4px;padding:3px 10px;cursor:pointer;font-family:inherit';
+    (function(txt,btn){
+      btn.addEventListener('click',function(){
+        navigator.clipboard.writeText(txt)
+          .then(function(){btn.textContent='\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u2713';setTimeout(function(){btn.textContent='\u041a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438';},2000);})
+          .catch(function(){btn.textContent='(Ctrl+C)';setTimeout(function(){btn.textContent='\u041a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438';},2000);});
+      });
+    })(t.text,cb);
+    hdr.append(ico,ttl,cb);
+    var body=div('');body.style.cssText='padding:12px 14px;font-size:13px;color:var(--ink2);line-height:1.65;font-style:italic';
+    body.textContent=t.text;
+    card.appendChild(hdr);card.appendChild(body);
+    s3.appendChild(card);
+  });
+  s3.appendChild(nextBtn(16,4,'Далі \u2192',true));
+
+  var s4=document.getElementById('l16-s4');s4.innerHTML='';
+  s4.appendChild(badge('Практика'));
+  s4.appendChild(p('s-title',c.pTitle));
+  s4.appendChild(p('s-sub',c.pSub));
+  var fb4=fbDiv('l16-fb4');
+  var sumW=div('');sumW.style.display='none';
+  sumW.appendChild(summaryBlock(l16sum));
+  sumW.appendChild(tryNowBlock(l16try));
+  var br=div('');br.style.marginTop='1rem';
+  br.appendChild(nextLessonBtn('\u2190 \u041d\u0430 \u0433\u043e\u043b\u043e\u0432\u043d\u0443','home'));
+  br.appendChild(restartBtn(16));
+  sumW.appendChild(br);
+  s4.appendChild(choicesBlock(c.ch5,function(b,opt,wrap){
+    disableBtns(wrap);
+    b.className='cb '+(opt.v==='correct'?'correct':opt.v==='partial'?'partial':'wrong');
+    showFb('l16-fb4',opt.v==='correct'?'good':opt.v==='partial'?'info':'warn',opt.fb);
+    sumW.style.display='block';markDone(16);
+  }));
+  s4.appendChild(fb4);s4.appendChild(sumW);
+  l16go(1);
+};
+window.l16go=function(n){
+  document.querySelectorAll('#panel-l16 .step').forEach(function(s){s.className='step';});
+  var s=document.getElementById('l16-s'+n);if(s)s.className='step vis';
+  l16cur=n;setProg(16,n,l16lbl);window.scrollTo(0,0);
+};
+window.l16restart=function(){
+  l16aud='';l16cur=0;
+  document.querySelectorAll('#panel-l16 .step').forEach(function(s){s.className='step';});
+  var s0=document.getElementById('l16-s0');if(s0)s0.className='step vis';
+  setProg(16,0,l16lbl);window.scrollTo(0,0);
 };
 })();
 </script>

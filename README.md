@@ -1,6 +1,8 @@
-# BasicAI — ШІ для всіх / ИИ для всех / AI for Everyone
+# BasicAI — ШІ для всіх / AI for Everyone
 
 > Практичний інтерактивний посібник для людей, які хочуть не просто прочитати про штучний інтелект, а одразу навчитися безпечно й корисно його застосовувати.
+
+Основна версія сайту — українська (`index.html`). Доступні мовні дзеркала через перемикач у шапці: англійська (`en.html`), російська (`ru.html`), іспанська (`es.html`) і німецька (`de.html`). Дзеркала використовують той самий курс і логіку, а переклад виконується через Google Translate; сам перемикач мов позначений як `notranslate`, щоб кнопки `UA EN RU ES DE` не спотворювались.
 
 ---
 
@@ -49,7 +51,7 @@
 **Найпростіший спосіб** — відкрити файл у браузері:
 
 ```bash
-open basicai_v3.html
+open index.html
 # або просто двічі клікніть на файл
 ```
 
@@ -62,14 +64,18 @@ python3 -m http.server 8080
 
 **Публікація на GitHub Pages:**
 
-1. Перейменуйте `basicai_v3.html` у `index.html`
-2. Завантажте у репозиторій
-3. Увімкніть GitHub Pages у Settings → Pages
+1. Завантажте `index.html`, мовні дзеркала (`en.html`, `ru.html`, `es.html`, `de.html`) та службові файли у репозиторій
+2. Увімкніть GitHub Pages у Settings → Pages
+3. Перевірте `https://<username>.github.io/<repo>/`
 
 ### Структура файлів
 
 ```
-basicai_v3.html        ← головний файл курсу (17 уроків, ~360 KB)
+index.html             ← головний український файл курсу (17 уроків, ~360 KB)
+en.html                ← англійське дзеркало
+ru.html                ← російське дзеркало
+es.html                ← іспанське дзеркало
+de.html                ← німецьке дзеркало
 manifest.webmanifest   ← PWA-маніфест
 sw.js                  ← service worker для офлайн-режиму
 icons/
@@ -96,6 +102,7 @@ icons/
 
 - Чистий HTML/CSS/JS — без фреймворків і залежностей
 - Весь контент генерується динамічно через JS при першому відкритті уроку
+- Мовні дзеркала підключають переклад через параметр `?lang=...` без дублювання логіки уроків
 - Прогрес позначається через `markDone()` — зберігається в пам'яті сесії
 - Делегування подій через один `document.addEventListener('click')` — без inline `onclick`
 - Підтримка мобільних пристроїв через медіа-запити
@@ -159,7 +166,7 @@ icons/
 **Простейший способ** — открыть файл в браузере:
 
 ```bash
-open basicai_v3.html
+open index.html
 # или просто дважды кликните на файл
 ```
 
@@ -172,14 +179,18 @@ python3 -m http.server 8080
 
 **Публикация на GitHub Pages:**
 
-1. Переименуйте `basicai_v3.html` в `index.html`
-2. Загрузите в репозиторий
-3. Включите GitHub Pages в Settings → Pages
+1. Загрузите `index.html`, языковые зеркала (`en.html`, `ru.html`, `es.html`, `de.html`) и служебные файлы в репозиторий
+2. Включите GitHub Pages в Settings → Pages
+3. Проверьте `https://<username>.github.io/<repo>/`
 
 ### Структура файлов
 
 ```
-basicai_v3.html        ← главный файл курса (17 уроков, ~360 KB)
+index.html             ← главный украинский файл курса (17 уроков, ~360 KB)
+en.html                ← английское зеркало
+ru.html                ← русское зеркало
+es.html                ← испанское зеркало
+de.html                ← немецкое зеркало
 manifest.webmanifest   ← PWA-манифест
 sw.js                  ← service worker для офлайн-режима
 icons/
@@ -206,6 +217,7 @@ icons/
 
 - Чистый HTML/CSS/JS — без фреймворков и зависимостей
 - Весь контент генерируется динамически через JS при первом открытии урока
+- Языковые зеркала подключают перевод через параметр `?lang=...` без дублирования логики уроков
 - Делегирование событий через один `document.addEventListener('click')` — без inline `onclick`
 - Поддержка мобильных устройств через медиазапросы
 
@@ -268,7 +280,7 @@ icons/
 **Simplest way** — open the file in a browser:
 
 ```bash
-open basicai_v3.html
+open index.html
 # or just double-click the file
 ```
 
@@ -281,14 +293,18 @@ python3 -m http.server 8080
 
 **Publishing to GitHub Pages:**
 
-1. Rename `basicai_v3.html` to `index.html`
-2. Push to your repository
-3. Enable GitHub Pages in Settings → Pages
+1. Push `index.html`, language mirrors (`en.html`, `ru.html`, `es.html`, `de.html`), and support files to your repository
+2. Enable GitHub Pages in Settings → Pages
+3. Check `https://<username>.github.io/<repo>/`
 
 ### File Structure
 
 ```
-basicai_v3.html        ← main course file (17 lessons, ~360 KB)
+index.html             ← main Ukrainian course file (17 lessons, ~360 KB)
+en.html                ← English mirror
+ru.html                ← Russian mirror
+es.html                ← Spanish mirror
+de.html                ← German mirror
 manifest.webmanifest   ← PWA manifest
 sw.js                  ← service worker for offline support
 icons/
@@ -315,6 +331,7 @@ Three questions for every new lesson:
 
 - Pure HTML/CSS/JS — no frameworks or external dependencies
 - All lesson content is built dynamically via JS on first open
+- Language mirrors use the `?lang=...` parameter and Google Translate without duplicating lesson logic
 - Single delegated `document.addEventListener('click')` handler — no inline `onclick` attributes
 - Mobile-responsive via CSS media queries
 - All 17 lessons, templates, scenarios, and feedback texts are embedded in one file

@@ -170,7 +170,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
 <body>
 <header class="site-header">
   <div class="site-logo">ШІ для <span>всіх</span> — посібник</div>
-  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7EC8A0;letter-spacing:.06em">BETA · 16 уроків</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7EC8A0;letter-spacing:.06em">BETA · 17 уроків</div>
 </header>
 <div class="layout">
   <nav class="sidebar">
@@ -194,6 +194,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
       <button class="nav-item" id="nav-l14"><span class="nav-num">14</span><span class="nav-title">ШІ і мова</span><span class="nav-check">✓</span></button>
       <button class="nav-item" id="nav-l15"><span class="nav-num">15</span><span class="nav-title">ШІ і здоров'я</span><span class="nav-check">✓</span></button>
       <button class="nav-item" id="nav-l16"><span class="nav-num">16</span><span class="nav-title">ШІ і гроші</span><span class="nav-check">✓</span></button>
+      <button class="nav-item" id="nav-l17"><span class="nav-num">17</span><span class="nav-title">Мої правила з ШІ</span><span class="nav-check">✓</span></button>
     </div>
     <div class="sidebar-divider"></div>
     <div class="sidebar-note">Оберіть свою аудиторію на початку кожного уроку — і контент адаптується під вас.</div>
@@ -219,6 +220,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
         <button class="module-card" id="mc14"><span class="mc-num">14</span><div class="mc-body"><div class="mc-title">ШІ і мова</div><div class="mc-sub">Переклад, вивчення, стиль — ШІ як мовний партнер для будь-якого рівня</div></div><span class="mc-arrow">→</span></button>
         <button class="module-card" id="mc15"><span class="mc-num">15</span><div class="mc-body"><div class="mc-title">ШІ і здоров'я</div><div class="mc-sub">Як безпечно питати про медицину — і де межа між корисною інформацією і ризиком</div></div><span class="mc-arrow">→</span></button>
         <button class="module-card" id="mc16"><span class="mc-num">16</span><div class="mc-body"><div class="mc-title">ШІ і гроші</div><div class="mc-sub">Бюджет, планування, фінансові питання — де ШІ допомагає, а де потрібен фахівець</div></div><span class="mc-arrow">→</span></button>
+        <button class="module-card" id="mc17"><span class="mc-num">17</span><div class="mc-body"><div class="mc-title">Мої правила роботи з ШІ</div><div class="mc-sub">Фінальний урок — формуєте власний підхід і забираєте його з собою</div></div><span class="mc-arrow">→</span></button>
       </div>
       <p class="home-footer">Кожен урок — 5–8 хвилин активного навчання.</p>
     </div>
@@ -239,6 +241,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
     <div class="lesson-panel" id="panel-l14"></div>
     <div class="lesson-panel" id="panel-l15"></div>
     <div class="lesson-panel" id="panel-l16"></div>
+    <div class="lesson-panel" id="panel-l17"></div>
   </main>
 </div>
 <script>
@@ -276,7 +279,7 @@ document.addEventListener('click',function(e){
   var t=e.target;
   console.log('CLICK',t.tagName,t.id,t.className);
   if(t.id==='nav-home'||t.closest('#nav-home')){showHome();return;}
-  for(var n=1;n<=16;n++){
+  for(var n=1;n<=17;n++){
     var nb=document.getElementById('nav-l'+n);
     if(nb&&(t===nb||nb.contains(t))){showLesson(n);return;}
     var mc=document.getElementById('mc'+n);
@@ -2898,6 +2901,208 @@ window.l16restart=function(){
   document.querySelectorAll('#panel-l16 .step').forEach(function(s){s.className='step';});
   var s0=document.getElementById('l16-s0');if(s0)s0.className='step vis';
   setProg(16,0,l16lbl);window.scrollTo(0,0);
+};
+
+/* ══ L17 — ФІНАЛЬНИЙ УРОК ══ */
+var l17cur=0;
+
+/* Statements for reflection — user marks agree/disagree/partially */
+var l17statements=[
+  {id:'s1',text:'Я розумію різницю між тим що ШІ вміє добре і де його треба перевіряти'},
+  {id:'s2',text:'Я знаю як написати запит щоб отримати корисну відповідь'},
+  {id:'s3',text:'Я не вводитиму паролі, номери документів і чужі персональні дані у ШІ'},
+  {id:'s4',text:'При важливих медичних, юридичних або фінансових питаннях я звертатимусь до фахівця — ШІ використовуватиму для підготовки'},
+  {id:'s5',text:'Я перевірятиму конкретні факти, дати і цифри у відповідях ШІ'},
+  {id:'s6',text:'Я використовуватиму діалог — уточнюватиму і продовжуватиму розмову замість того щоб починати з нуля'},
+  {id:'s7',text:'Я залишаюсь автором своїх рішень — ШІ допомагає думати але не думає замість мене'},
+];
+
+var l17userRules=[];
+
+window.buildL17=function(panel){
+  panel.appendChild(progWrap(17,4));
+
+  /* s0 — вступ без вибору аудиторії */
+  var s0=mkStep(17,0);
+  s0.appendChild(p('hook','Урок 17. Мої особисті правила роботи з ШІ'));
+  s0.appendChild(p('hook-sub','Це не урок де ми даємо нові знання. Це урок де ви формуєте власний підхід — і забираєте його з собою.'));
+
+  var intro=div('rule');
+  intro.style.cssText='border-left-color:var(--accent);background:var(--accent-bg);margin-bottom:1.5rem';
+  intro.innerHTML='<strong>\u0427\u043e\u043c\u0443 \u0446\u0435 \u0432\u0430\u0436\u043b\u0438\u0432\u043e<\/strong>\u0417\u043d\u0430\u043d\u043d\u044f \u0431\u0435\u0437 \u0432\u043b\u0430\u0441\u043d\u043e\u0457 \u043f\u043e\u0437\u0438\u0446\u0456\u0457 \u2014 \u043f\u0440\u043e\u0441\u0442\u043e \u0456\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0456\u044f. \u041f\u0440\u0430\u0432\u0438\u043b\u0430 \u044f\u043a\u0456 \u0432\u0438 \u0441\u0432\u0456\u0434\u043e\u043c\u043e \u043e\u0431\u0440\u0430\u043b\u0438 \u2014 \u0446\u0435 \u043f\u0440\u0430\u043a\u0442\u0438\u043a\u0430. \u041d\u0430 \u0446\u044c\u043e\u043c\u0443 \u0443\u0440\u043e\u0446\u0456 \u0432\u0438 \u043f\u0440\u043e\u0439\u0434\u0435\u0442\u0435 \u0447\u0435\u0440\u0435\u0437 \u0442\u0440\u0438 \u0435\u0442\u0430\u043f\u0438: \u043f\u0435\u0440\u0435\u0432\u0456\u0440\u0438\u0442\u0438 \u0449\u043e \u0437\u0430\u0441\u0432\u043e\u0457\u043b\u0438, \u0441\u0444\u043e\u0440\u043c\u0443\u0432\u0430\u0442\u0438 \u0432\u043b\u0430\u0441\u043d\u0456 \u043f\u0440\u0430\u0432\u0438\u043b\u0430 \u0456 \u0437\u0430\u0431\u0440\u0430\u0442\u0438 \u0446\u0435 \u0437 \u0441\u043e\u0431\u043e\u044e.';
+  s0.appendChild(intro);
+
+  var startBtn=mk('button','next-btn show','\u041f\u043e\u0447\u0430\u0442\u0438 \u2192');
+  startBtn.addEventListener('click',function(){l17go(1);});
+  s0.appendChild(startBtn);
+  panel.appendChild(s0);
+
+  for(var i=1;i<=3;i++){var s=mkStep(17,i);s.id='l17-s'+i;panel.appendChild(s);}
+  l17buildSteps();
+};
+
+window.l17buildSteps=function(){
+
+  /* s1 — перевірка засвоєного: 7 тверджень */
+  var s1=document.getElementById('l17-s1');s1.innerHTML='';
+  s1.appendChild(badge('\u0415\u0442\u0430\u043f 1 \u0437 3'));
+  s1.appendChild(p('s-title','\u041f\u0435\u0440\u0435\u0432\u0456\u0440\u0442\u0435 \u0441\u0435\u0431\u0435'));
+  s1.appendChild(p('s-sub','\u0414\u043b\u044f \u043a\u043e\u0436\u043d\u043e\u0433\u043e \u0442\u0432\u0435\u0440\u0434\u0436\u0435\u043d\u043d\u044f \u2014 \u043e\u0431\u0435\u0440\u0456\u0442\u044c \u0447\u0435\u0441\u043d\u0443 \u0432\u0456\u0434\u043f\u043e\u0432\u0456\u0434\u044c. \u041d\u0435\u043c\u0430\u0454 \u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u0438\u0445 \u0447\u0438 \u043d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u0438\u0445 \u0432\u0456\u0434\u043f\u043e\u0432\u0456\u0434\u0435\u0439.'));
+
+  var answered=0;var responses={};
+  l17statements.forEach(function(st){
+    var block=div('');block.style.cssText='margin-bottom:16px;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden';
+    var qDiv=div('scenario-q',st.text);
+    var optsDiv=div('scenario-opts');
+    ['\u0422\u0430\u043a','\u041d\u0435 \u0437\u043e\u0432\u0441\u0456\u043c','\u0429\u0435 \u0440\u043e\u0437\u0431\u0438\u0440\u0430\u044e\u0441\u044c'].forEach(function(lbl,j){
+      var b=mk('button','sc-btn',lbl);
+      b.addEventListener('click',function(){
+        if(responses[st.id]!==undefined)return;
+        responses[st.id]=j;
+        answered++;
+        optsDiv.querySelectorAll('.sc-btn').forEach(function(sb){sb.disabled=true;});
+        b.classList.add('good');
+        // show personalised feedback
+        var fbTexts=[
+          ['\u0421\u043f\u043b\u0430\u0442\u043e. \u0426\u0435 \u043e\u0434\u043d\u0430 \u0437 \u043a\u043b\u044e\u0447\u043e\u0432\u0438\u0445 \u043d\u0430\u0432\u0438\u0447\u043e\u043a \u0434\u043b\u044f \u0440\u043e\u0437\u0443\u043c\u043d\u043e\u0433\u043e \u0432\u0438\u043a\u043e\u0440\u0438\u0441\u0442\u0430\u043d\u043d\u044f \u0428\u0406.','\u041f\u043e\u0432\u0435\u0440\u043d\u0456\u0442\u044c\u0441\u044f \u0434\u043e \u0443\u0440\u043e\u043a\u0456\u0432 3 \u0456 4 \u2014 \u0442\u0430\u043c \u0446\u0435 \u0440\u043e\u0437\u0431\u0438\u0440\u0430\u0454\u0442\u044c\u0441\u044f \u0434\u0435\u0442\u0430\u043b\u044c\u043d\u043e.','\u0423\u0440\u043e\u043a 1 \u0434\u0430\u0441\u0442\u044c \u0447\u0456\u0442\u043a\u0435 \u0440\u043e\u0437\u0443\u043c\u0456\u043d\u043d\u044f.'],
+          ['\u0414\u043e\u0431\u0440\u0435. \u0423\u0440\u043e\u043a\u0438 4 \u0456 5 \u0434\u0430\u044e\u0442\u044c \u043a\u043e\u043d\u043a\u0440\u0435\u0442\u043d\u0456 \u0448\u0430\u0431\u043b\u043e\u043d\u0438.','\u041f\u043e\u0432\u0435\u0440\u043d\u0456\u0442\u044c\u0441\u044f \u0434\u043e \u0443\u0440\u043e\u043a\u0443 4 \u2014 \u0442\u0430\u043c \u0446\u044f \u043d\u0430\u0432\u0438\u0447\u043a\u0430 \u0440\u043e\u0437\u0431\u0438\u0440\u0430\u0454\u0442\u044c\u0441\u044f \u0434\u0435\u0442\u0430\u043b\u044c\u043d\u043e.','\u0423\u0440\u043e\u043a\u0438 4-5 \u0434\u0430\u0434\u0443\u0442\u044c \u043f\u0440\u0430\u043a\u0442\u0438\u0447\u043d\u0456 \u043f\u0440\u0438\u043a\u043b\u0430\u0434\u0438.'],
+          ['\u0414\u043e\u0431\u0440\u0435. \u0423\u0440\u043e\u043a 6 \u043f\u043e\u0432\u043d\u0456\u0441\u0442\u044e \u043f\u0440\u0438\u0441\u0432\u044f\u0447\u0435\u043d\u0438\u0439 \u0431\u0435\u0437\u043f\u0435\u0446\u0456.','\u041f\u043e\u0432\u0435\u0440\u043d\u0456\u0442\u044c\u0441\u044f \u0434\u043e \u0443\u0440\u043e\u043a\u0443 6 \u2014 \u0442\u0430\u043c \u0454 \u043f\u043e\u043a\u0440\u043e\u043a\u043e\u0432\u0430 \u0456\u043d\u0441\u0442\u0440\u0443\u043a\u0446\u0456\u044f.','\u0423\u0440\u043e\u043a 6 \u0434\u043e\u043f\u043e\u043c\u043e\u0436\u0435 \u0440\u043e\u0437\u0456\u0431\u0440\u0430\u0442\u0438\u0441\u044c.'],
+          ['\u0412\u0430\u0436\u043b\u0438\u0432\u0435 \u043f\u0440\u0430\u0432\u0438\u043b\u043e. \u0423\u0440\u043e\u043a\u0438 6, 15 \u0456 16 \u0440\u043e\u0437\u043a\u0440\u0438\u0432\u0430\u044e\u0442\u044c \u0446\u0435 \u0434\u0435\u0442\u0430\u043b\u044c\u043d\u043e.','\u041f\u043e\u0432\u0435\u0440\u043d\u0456\u0442\u044c\u0441\u044f \u0434\u043e \u0443\u0440\u043e\u043a\u0456\u0432 6 \u0456 15 \u2014 \u0442\u0430\u043c \u0446\u044f \u043c\u0435\u0436\u0430 \u0440\u043e\u0437\u0431\u0438\u0440\u0430\u0454\u0442\u044c\u0441\u044f.','\u0423\u0440\u043e\u043a 6 \u0434\u0430\u0441\u0442\u044c \u0447\u0456\u0442\u043a\u0435 \u0440\u043e\u0437\u0443\u043c\u0456\u043d\u043d\u044f.'],
+          ['\u0412\u0430\u0436\u043b\u0438\u0432\u0430 \u043d\u0430\u0432\u0438\u0447\u043a\u0430. \u0423\u0440\u043e\u043a 3 \u043f\u0440\u0438\u0441\u0432\u044f\u0447\u0435\u043d\u0438\u0439 \u0441\u0430\u043c\u0435 \u0446\u044c\u043e\u043c\u0443.','\u041f\u043e\u0432\u0435\u0440\u043d\u0456\u0442\u044c\u0441\u044f \u0434\u043e \u0443\u0440\u043e\u043a\u0443 3 \u2014 \u0442\u0430\u043c \u0446\u0435 \u0440\u043e\u0437\u0431\u0438\u0440\u0430\u0454\u0442\u044c\u0441\u044f \u0434\u0435\u0442\u0430\u043b\u044c\u043d\u043e.','\u0423\u0440\u043e\u043a 3 \u0434\u0430\u0441\u0442\u044c \u043f\u043e\u043f\u0440\u0430\u043a\u0442\u0438\u043a\u0443\u0432\u0430\u0442\u0438.'],
+          ['\u0412\u0430\u0436\u043b\u0438\u0432\u0430 \u043d\u0430\u0432\u0438\u0447\u043a\u0430. \u0423\u0440\u043e\u043a 10 \u043f\u043e\u0432\u043d\u0456\u0441\u0442\u044e \u043f\u0440\u043e \u0446\u0435.','\u041f\u043e\u0432\u0435\u0440\u043d\u0456\u0442\u044c\u0441\u044f \u0434\u043e \u0443\u0440\u043e\u043a\u0443 10 \u2014 \u0442\u0430\u043c \u0446\u0435 \u0440\u043e\u0437\u0431\u0438\u0440\u0430\u0454\u0442\u044c\u0441\u044f \u0434\u0435\u0442\u0430\u043b\u044c\u043d\u043e.','\u0423\u0440\u043e\u043a 10 \u0434\u043e\u043f\u043e\u043c\u043e\u0436\u0435 \u0440\u043e\u0437\u0456\u0431\u0440\u0430\u0442\u0438\u0441\u044c.'],
+          ['\u0426\u0435 \u043d\u0430\u0439\u0432\u0430\u0436\u043b\u0438\u0432\u0456\u0448\u0435. \u0428\u0406 \u2014 \u0456\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442 \u0434\u043b\u044f \u0434\u0443\u043c\u0430\u043d\u043d\u044f, \u0430 \u043d\u0435 \u0437\u0430\u043c\u0456\u043d\u043d\u0438\u043a \u0432\u0430\u0448\u043e\u0433\u043e \u0441\u0443\u0434\u0436\u0435\u043d\u043d\u044f.','\u0426\u0435 \u043d\u0430\u0439\u0432\u0430\u0436\u043b\u0438\u0432\u0456\u0448\u0435. \u0421\u0430\u043c\u0435 \u0446\u044f \u0440\u0456\u0437\u043d\u0438\u0446\u044f \u0437\u0430\u0445\u0438\u0449\u0430\u0454 \u0432\u0456\u0434 \u043d\u0430\u0434\u043c\u0456\u0440\u043d\u043e\u0457 \u0437\u0430\u043b\u0435\u0436\u043d\u043e\u0441\u0442\u0456.','\u0426\u0435 \u043d\u0430\u0439\u0432\u0430\u0436\u043b\u0438\u0432\u0456\u0448\u0435. \u0423\u0440\u043e\u043a\u0438 \u043f\u043e\u0441\u0442\u0443\u043f\u043e\u0432\u043e \u0431\u0443\u0434\u0443\u044e\u0442\u044c \u0446\u044e \u043d\u0430\u0432\u0438\u0447\u043a\u0443.'],
+        ];
+        var fbText=fbTexts[l17statements.indexOf(st)][j];
+        var fbEl=div('scenario-explain show '+(j===0?'good':'info'));
+        fbEl.textContent=fbText;
+        block.appendChild(fbEl);
+        if(answered>=l17statements.length){
+          document.getElementById('l17-nb1').classList.add('show');
+        }
+      });
+      optsDiv.appendChild(b);
+    });
+    block.appendChild(qDiv);block.appendChild(optsDiv);
+    s1.appendChild(block);
+  });
+  var nb1=nextBtn(17,2,'До моїх правил →');nb1.id='l17-nb1';
+  s1.appendChild(nb1);
+
+  /* s2 — формування власних правил */
+  var s2=document.getElementById('l17-s2');s2.innerHTML='';
+  s2.appendChild(badge('\u0415\u0442\u0430\u043f 2 \u0437 3'));
+  s2.appendChild(p('s-title','\u041c\u043e\u0457 \u043e\u0441\u043e\u0431\u0438\u0441\u0442\u0456 \u043f\u0440\u0430\u0432\u0438\u043b\u0430'));
+  s2.appendChild(p('s-sub','\u041e\u0431\u0435\u0440\u0456\u0442\u044c \u043f\u0440\u0430\u0432\u0438\u043b\u0430 \u044f\u043a\u0456 \u0432\u0430\u043c \u043d\u0430\u0439\u0431\u043b\u0438\u0436\u0447\u0456. \u041c\u043e\u0436\u043d\u0430 \u043e\u0431\u0440\u0430\u0442\u0438 \u0431\u0443\u0434\u044c-\u044f\u043a\u0443 \u043a\u0456\u043b\u044c\u043a\u0456\u0441\u0442\u044c.'));
+
+  var ruleOptions=[
+    {id:'r1',text:'\u042f \u0437\u0430\u0432\u0436\u0434\u0438 \u0432\u043a\u0430\u0437\u0443\u044e \u043a\u043e\u043d\u0442\u0435\u043a\u0441\u0442 \u0456 \u043c\u0435\u0442\u0443 \u0443 \u0437\u0430\u043f\u0438\u0442\u0456'},
+    {id:'r2',text:'\u042f \u043f\u0435\u0440\u0435\u0432\u0456\u0440\u044f\u044e \u043a\u043e\u043d\u043a\u0440\u0435\u0442\u043d\u0456 \u0444\u0430\u043a\u0442\u0438 \u0456 \u0446\u0438\u0444\u0440\u0438 \u0443 \u0432\u0456\u0434\u043f\u043e\u0432\u0456\u0434\u044f\u0445 \u0428\u0406'},
+    {id:'r3',text:'\u042f \u043d\u0435 \u0432\u0432\u043e\u0434\u0436\u0443 \u043f\u0430\u0440\u043e\u043b\u0456, \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0438 \u0456 \u0447\u0443\u0436\u0456 \u043f\u0435\u0440\u0441\u043e\u043d\u0430\u043b\u044c\u043d\u0456 \u0434\u0430\u043d\u0456'},
+    {id:'r4',text:'\u042f \u0432\u0438\u043a\u043e\u0440\u0438\u0441\u0442\u043e\u0432\u0443\u044e \u0434\u0456\u0430\u043b\u043e\u0433 \u2014 \u0443\u0442\u043e\u0447\u043d\u044e\u044e \u0456 \u043f\u0440\u043e\u0434\u043e\u0432\u0436\u0443\u044e \u0440\u043e\u0437\u043c\u043e\u0432\u0443 \u0437\u0430\u043c\u0456\u0441\u0442\u044c \u043d\u043e\u0432\u043e\u0433\u043e \u0437\u0430\u043f\u0438\u0442\u0443'},
+    {id:'r5',text:'\u042f \u0437\u0430\u043b\u0438\u0448\u0430\u044e\u0441\u044c \u0430\u0432\u0442\u043e\u0440\u043e\u043c \u0440\u0456\u0448\u0435\u043d\u044c \u2014 \u0428\u0406 \u0434\u043e\u043f\u043e\u043c\u0430\u0433\u0430\u0454 \u0434\u0443\u043c\u0430\u0442\u0438 \u0430\u043b\u0435 \u043d\u0435 \u0434\u0443\u043c\u0430\u0454 \u0437\u0430\u043c\u0456\u0441\u0442\u044c \u043c\u0435\u043d\u0435'},
+    {id:'r6',text:'\u041f\u0440\u0438 \u043c\u0435\u0434\u0438\u0447\u043d\u0438\u0445, \u044e\u0440\u0438\u0434\u0438\u0447\u043d\u0438\u0445 \u0456 \u0444\u0456\u043d\u0430\u043d\u0441\u043e\u0432\u0438\u0445 \u043f\u0438\u0442\u0430\u043d\u043d\u044f\u0445 \u0437\u0432\u0435\u0440\u0442\u0430\u0442\u0438\u043c\u0443\u0441\u044c \u0434\u043e \u0444\u0430\u0445\u0456\u0432\u0446\u044f'},
+    {id:'r7',text:'\u042f \u043f\u0440\u043e\u0448\u0443 \u0432\u0430\u0440\u0456\u0430\u043d\u0442\u0438 \u0456 \u043d\u0430\u043f\u0440\u044f\u043c\u043a\u0438 \u2014 \u043d\u0435 \u0433\u043e\u0442\u043e\u0432\u0438\u0439 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442'},
+    {id:'r8',text:'\u042f \u043f\u0435\u0440\u0435\u0432\u0456\u0440\u044f\u044e \u0456\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0456\u044e \u0437 \u043d\u0435\u043d\u0430\u0434\u0456\u0439\u043d\u0438\u0445 \u0434\u0436\u0435\u0440\u0435\u043b \u0447\u0435\u0440\u0435\u0437 \u043e\u0444\u0456\u0446\u0456\u0439\u043d\u0456 \u0441\u0430\u0439\u0442\u0438'},
+    {id:'r9',text:'\u042f \u0437\u0430\u043b\u0438\u0448\u0430\u044e\u0441\u044c \u0441\u0430\u043c \u0441\u043e\u0431\u043e\u044e \u0443 \u0442\u0432\u043e\u0440\u0447\u043e\u0441\u0442\u0456 \u2014 \u0428\u0406 \u0434\u0430\u0454 \u043c\u0430\u0442\u0435\u0440\u0456\u0430\u043b \u0434\u043b\u044f \u0440\u043e\u0431\u043e\u0442\u0438'},
+    {id:'r10',text:'\u042f \u043f\u0440\u043e\u0434\u043e\u0432\u0436\u0443\u044e \u0432\u0447\u0438\u0442\u0438\u0441\u044f \u2014 \u0428\u0406 \u0437\u043c\u0456\u043d\u044e\u0454\u0442\u044c\u0441\u044f \u0448\u0432\u0438\u0434\u043a\u043e \u0456 \u044f \u0445\u043e\u0447\u0443 \u0437\u0430\u043b\u0438\u0448\u0430\u0442\u0438\u0441\u044f \u0432 \u043a\u0443\u0440\u0441\u0456'},
+  ];
+
+  var selected={};
+  var rulesGrid=div('');rulesGrid.style.cssText='display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem';
+  ruleOptions.forEach(function(ro){
+    var b=mk('button','cb',ro.text);
+    b.addEventListener('click',function(){
+      if(selected[ro.id]){
+        delete selected[ro.id];
+        b.className='cb';
+      } else {
+        selected[ro.id]=ro.text;
+        b.className='cb correct';
+      }
+      var count=Object.keys(selected).length;
+      counterEl.textContent=count>0?'\u041e\u0431\u0440\u0430\u043d\u043e: '+count+' \u043f\u0440\u0430\u0432\u0438\u043b'+( count===1?'\u043e':count<5?'\u0430':'\u0456\u0432'):'';
+      nb2.classList.toggle('show',count>0);
+    });
+    rulesGrid.appendChild(b);
+  });
+  var counterEl=div('');counterEl.style.cssText='font-size:13px;color:var(--accent);font-family:"JetBrains Mono",monospace;margin-bottom:1rem';
+  s2.appendChild(rulesGrid);s2.appendChild(counterEl);
+  var nb2=nextBtn(17,3,'Зберегти мої правила →');
+  nb2.addEventListener('click',function(){
+    l17userRules=Object.values(selected);
+    l17buildFinal();l17go(3);
+  });
+  s2.appendChild(nb2);
+
+  /* s3 — фінальна пам'ятка */
+  var s3=document.getElementById('l17-s3');s3.innerHTML='';
+  // built dynamically in l17buildFinal
+};
+
+window.l17buildFinal=function(){
+  var s3=document.getElementById('l17-s3');s3.innerHTML='';
+  s3.appendChild(badge('\u041a\u0443\u0440\u0441 \u043f\u0440\u043e\u0439\u0434\u0435\u043d\u043e \u2713'));
+  s3.appendChild(p('s-title','\u0412\u0430\u0448\u0430 \u043e\u0441\u043e\u0431\u0438\u0441\u0442\u0430 \u043f\u0430\u043c\u02bc\u044f\u0442\u043a\u0430'));
+
+  // User's rules card
+  var rulesCard=div('summary');
+  rulesCard.appendChild(p('sum-title','\u041c\u043e\u0457 \u043f\u0440\u0430\u0432\u0438\u043b\u0430 \u0440\u043e\u0431\u043e\u0442\u0438 \u0437 \u0428\u0406:'));
+  var ul=mk('ul','sum-list');
+  if(l17userRules.length===0){
+    var li=mk('li','','\u0412\u0438 \u043d\u0456\u0447\u043e\u0433\u043e \u043d\u0435 \u043e\u0431\u0440\u0430\u043b\u0438 \u2014 \u0430\u043b\u0435 \u0432\u0438 \u0432\u0436\u0435 \u0437\u043d\u0430\u0454\u0442\u0435 \u0434\u043e\u0441\u0442\u0430\u0442\u043d\u044c\u043e \u0449\u043e\u0431 \u043f\u0440\u0430\u0446\u044e\u0432\u0430\u0442\u0438 \u0437 \u0428\u0406 \u0440\u043e\u0437\u0443\u043c\u043d\u043e.');
+    ul.appendChild(li);
+  } else {
+    l17userRules.forEach(function(r){ul.appendChild(mk('li','',r));});
+  }
+  rulesCard.appendChild(ul);
+  s3.appendChild(rulesCard);
+
+  // Copy button
+  var copyBtn=mk('button','next-btn show','\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u043f\u0430\u043c\u02bc\u044f\u0442\u043a\u0443');
+  copyBtn.style.marginBottom='1rem';
+  copyBtn.addEventListener('click',function(){
+    var text='\u041c\u043e\u0457 \u043f\u0440\u0430\u0432\u0438\u043b\u0430 \u0440\u043e\u0431\u043e\u0442\u0438 \u0437 \u0428\u0406:\n\n'+(l17userRules.length?l17userRules.map(function(r,i){return(i+1)+'. '+r;}).join('\n'):'\u041f\u0440\u0430\u0446\u044e\u0439\u0442\u0435 \u0437 \u0428\u0406 \u0440\u043e\u0437\u0443\u043c\u043d\u043e \u0456 \u0437 \u043a\u043e\u0440\u0438\u0441\u0442\u044e.')+'\n\n\u041f\u0440\u043e\u0439\u0434\u0435\u043d\u043e \u043a\u0443\u0440\u0441 "\u0428\u0406 \u0434\u043b\u044f \u0432\u0441\u0456\u0445" \u2014 17 \u0443\u0440\u043e\u043a\u0456\u0432.';
+    navigator.clipboard.writeText(text).then(function(){
+      copyBtn.textContent='\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u2713';
+      setTimeout(function(){copyBtn.textContent='\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u043f\u0430\u043c\u02bc\u044f\u0442\u043a\u0443';},2000);
+    }).catch(function(){copyBtn.textContent='(Ctrl+C)';});
+  });
+  s3.appendChild(copyBtn);
+
+  // Course summary
+  var bigRule=div('rule');
+  bigRule.style.cssText='border-left-color:var(--accent);background:var(--accent-bg);margin-bottom:1.5rem';
+  bigRule.innerHTML='<strong>\u0412\u0438 \u043f\u0440\u043e\u0439\u0448\u043b\u0438 \u0432\u0435\u0441\u044c \u043a\u0443\u0440\u0441<\/strong>\u0420\u043e\u0437\u0440\u0456\u0437\u043d\u044f\u0454\u0442\u0435 \u0428\u0406 \u0456 Google. \u041f\u0438\u0448\u0435\u0442\u0435 \u0435\u0444\u0435\u043a\u0442\u0438\u0432\u043d\u0456 \u0437\u0430\u043f\u0438\u0442\u0438. \u0412\u0435\u0434\u0435\u0442\u0435 \u0434\u0456\u0430\u043b\u043e\u0433. \u0420\u043e\u0437\u043f\u0456\u0437\u043d\u0430\u0454\u0442\u0435 \u0433\u0430\u043b\u044e\u0446\u0438\u043d\u0430\u0446\u0456\u0457 \u0456 \u0444\u0435\u0439\u043a\u0438. \u0417\u0430\u0445\u0438\u0449\u0430\u0454\u0442\u0435 \u0434\u0430\u043d\u0456. \u0417\u0430\u0441\u0442\u043e\u0441\u043e\u0432\u0443\u0454\u0442\u0435 \u0428\u0406 \u0432 \u043d\u0430\u0432\u0447\u0430\u043d\u043d\u0456, \u0440\u043e\u0431\u043e\u0442\u0456, \u0442\u0432\u043e\u0440\u0447\u043e\u0441\u0442\u0456, \u0437\u0434\u043e\u0440\u043e\u0432\u02bc\u0457, \u043c\u043e\u0432\u0456 \u0456 \u0444\u0456\u043d\u0430\u043d\u0441\u0430\u0445. \u0406 \u0437\u0430\u043b\u0438\u0448\u0430\u0454\u0442\u0435\u0441\u044c \u0441\u043e\u0431\u043e\u044e.';
+  s3.appendChild(bigRule);
+
+  var nextStepsDiv=div('');nextStepsDiv.style.marginBottom='1.5rem';
+  nextStepsDiv.appendChild(p('s-title','\u0429\u043e \u0440\u043e\u0431\u0438\u0442\u0438 \u0434\u0430\u043b\u0456'));
+  ['\u{1F501} \u041f\u043e\u0432\u0435\u0440\u043d\u0456\u0442\u044c\u0441\u044f \u0434\u043e \u0431\u0443\u0434\u044c-\u044f\u043a\u043e\u0433\u043e \u0443\u0440\u043e\u043a\u0443 \u0456 \u0437\u0440\u043e\u0431\u0456\u0442\u044c \u0431\u043b\u043e\u043a \u22171 \u2014 \u0441\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u043f\u0440\u044f\u043c\u043e \u0437\u0430\u0440\u0430\u0437','\u{1F4AC} \u041f\u043e\u044f\u0441\u043d\u0456\u0442\u044c \u043a\u043e\u043c\u0443\u0441\u044c \u043e\u0434\u043d\u0443 \u0440\u0456\u0447 \u043f\u0440\u043e \u0428\u0406 \u2014 \u043d\u0430\u0432\u0447\u0430\u043d\u043d\u044f \u0447\u0435\u0440\u0435\u0437 \u043f\u043e\u044f\u0441\u043d\u0435\u043d\u043d\u044f \u043d\u0430\u0439\u043c\u0456\u0446\u043d\u0456\u0448\u0435','\u{1F9EA} \u0421\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0456\u043d\u0448\u0438\u0439 \u0428\u0406-\u0456\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442 \u043d\u0456\u0436 \u0442\u043e\u0439 \u0449\u043e \u0437\u0432\u0438\u0447\u0430\u0439\u043d\u043e \u0432\u0438\u043a\u043e\u0440\u0438\u0441\u0442\u043e\u0432\u0443\u0454\u0442\u0435','\u{1F331} \u0428\u0406 \u0437\u043c\u0456\u043d\u044e\u0454\u0442\u044c\u0441\u044f \u0448\u0432\u0438\u0434\u043a\u043e \u2014 \u0432\u0430\u0448\u0456 \u043f\u0440\u0430\u0432\u0438\u043b\u0430 \u0437\u0430\u043b\u0438\u0448\u0430\u044e\u0442\u044c\u0441\u044f \u043d\u0430\u0434\u0456\u0439\u043d\u0438\u043c\u0438 \u043d\u0435\u0437\u0430\u043b\u0435\u0436\u043d\u043e \u0432\u0456\u0434 \u043c\u043e\u0434\u0435\u043b\u0456'
+  ].forEach(function(txt){
+    var li=div('');li.style.cssText='font-size:14px;color:var(--ink2);padding:8px 0;border-bottom:1px solid var(--line);line-height:1.55';
+    li.textContent=txt;nextStepsDiv.appendChild(li);
+  });
+  s3.appendChild(nextStepsDiv);
+
+  var br=div('');br.style.marginTop='1.5rem';
+  br.appendChild(nextLessonBtn('\u2190 \u041d\u0430 \u0433\u043e\u043b\u043e\u0432\u043d\u0443','home'));
+  br.appendChild(restartBtn(17));
+  s3.appendChild(br);
+  markDone(17);
+};
+
+window.l17go=function(n){
+  document.querySelectorAll('#panel-l17 .step').forEach(function(s){s.className='step';});
+  var s=document.getElementById('l17-s'+n);if(s)s.className='step vis';
+  l17cur=n;setProg(17,n,['Вступ','Перевірка себе','Мої правила','Пам\'ятка']);
+  window.scrollTo(0,0);
+};
+window.l17restart=function(){
+  l17cur=0;l17userRules=[];
+  document.querySelectorAll('#panel-l17 .step').forEach(function(s){s.className='step';});
+  var s0=document.getElementById('l17-s0');if(s0)s0.className='step vis';
+  setProg(17,0,['Вступ','Перевірка себе','Мої правила','Пам\'ятка']);
+  window.scrollTo(0,0);
 };
 })();
 </script>

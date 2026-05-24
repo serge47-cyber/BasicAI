@@ -273,6 +273,9 @@ console.log('IIFE running OK');
 var langParam=new URLSearchParams(window.location.search).get('lang');
 var activeLang=['en','ru','es','de'].indexOf(langParam)>-1?langParam:'uk';
 document.documentElement.lang=activeLang;
+if(activeLang!=='uk'&&location.search.indexOf('lang=')>-1&&history.replaceState){
+  history.replaceState(null,'',activeLang+'.html');
+}
 document.querySelectorAll('.lang-link').forEach(function(link){
   link.classList.toggle('active',link.getAttribute('data-lang')===activeLang);
 });

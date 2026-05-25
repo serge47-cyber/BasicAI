@@ -22,6 +22,7 @@
 - **Готові шаблони запитів** з кнопкою копіювання в кожному уроці
 - **Фінальний урок** — формування власних правил роботи з ШІ і персональна пам'ятка
 - **Статичний HTML-файл** — не потребує сервера, бази даних або реєстрації
+- **Мобільна навігація** — гамбургер-меню відкриває зміст курсу на малих екранах
 - **PWA-підтримка** — можна встановити на мобільний пристрій
 
 ### Зміст курсу
@@ -105,13 +106,12 @@ icons/
 - Мовні дзеркала підключають переклад через параметр `?lang=...` без дублювання логіки уроків
 - Прогрес позначається через `markDone()` — зберігається в пам'яті сесії
 - Делегування подій через один `document.addEventListener('click')` — без inline `onclick`
-- Підтримка мобільних пристроїв через медіа-запити
+- Підтримка мобільних пристроїв через медіа-запити та висувне меню
 
 ### Розвиток проєкту
 
 Заплановані наступні кроки:
 - Збереження прогресу в `localStorage`
-- Мобільна навігація (гамбургер-меню)
 - Експорт персональної пам'ятки у PDF
 - Оновлений `sw.js` з кешуванням нового файлу
 
@@ -137,6 +137,7 @@ icons/
 - **Готовые шаблоны запросов** с кнопкой копирования в каждом уроке
 - **Финальный урок** — формирование собственных правил работы с ИИ и личная памятка
 - **Статичный HTML-файл** — не требует сервера, базы данных или регистрации
+- **Мобильная навигация** — гамбургер-меню открывает содержание курса на малых экранах
 - **PWA-поддержка** — можно установить на мобильное устройство
 
 ### Содержание курса
@@ -219,13 +220,12 @@ icons/
 - Весь контент генерируется динамически через JS при первом открытии урока
 - Языковые зеркала подключают перевод через параметр `?lang=...` без дублирования логики уроков
 - Делегирование событий через один `document.addEventListener('click')` — без inline `onclick`
-- Поддержка мобильных устройств через медиазапросы
+- Поддержка мобильных устройств через медиазапросы и выдвижное меню
 
 ### Развитие проекта
 
 Запланированные следующие шаги:
 - Сохранение прогресса в `localStorage`
-- Мобильная навигация (гамбургер-меню)
 - Экспорт личной памятки в PDF
 - Обновлённый `sw.js` с кешированием нового файла
 
@@ -251,6 +251,7 @@ icons/
 - **Ready-to-use prompt templates** with a copy button in every lesson
 - **Final lesson** — build your own personal AI rules and take them with you
 - **Static HTML file** — no server, database, or registration required
+- **Mobile navigation** — a hamburger menu opens the course contents on small screens
 - **PWA support** — installable on mobile devices
 
 ### Course Contents
@@ -333,14 +334,13 @@ Three questions for every new lesson:
 - All lesson content is built dynamically via JS on first open
 - Language mirrors use the `?lang=...` parameter and Google Translate without duplicating lesson logic
 - Single delegated `document.addEventListener('click')` handler — no inline `onclick` attributes
-- Mobile-responsive via CSS media queries
+- Mobile-responsive via CSS media queries and a slide-out menu
 - All 17 lessons, templates, scenarios, and feedback texts are embedded in one file
 
 ### Roadmap
 
 Planned next steps:
 - Progress persistence via `localStorage`
-- Mobile navigation (hamburger menu)
 - Export personal rules as PDF
 - Updated `sw.js` caching strategy for the new file
 

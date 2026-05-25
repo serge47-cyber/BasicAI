@@ -18,6 +18,13 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
 .site-header{background:var(--ink);color:var(--bg);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:100}
 .site-logo{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;letter-spacing:.04em;color:var(--bg);opacity:.9}
 .site-logo span{color:#7EC8A0}
+.menu-toggle{display:none;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid rgba(247,244,239,.22);border-radius:var(--radius-sm);background:transparent;color:var(--bg);cursor:pointer}
+.menu-toggle span,.menu-toggle span::before,.menu-toggle span::after{display:block;width:16px;height:2px;border-radius:2px;background:currentColor;content:"";transition:transform .18s,opacity .18s}
+.menu-toggle span::before{transform:translateY(-6px)}
+.menu-toggle span::after{transform:translateY(4px)}
+.nav-open .menu-toggle span{transform:rotate(45deg)}
+.nav-open .menu-toggle span::before{opacity:0}
+.nav-open .menu-toggle span::after{transform:translateY(-2px) rotate(90deg)}
 .header-tools{display:flex;align-items:center;gap:16px}
 .lesson-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:#7EC8A0;letter-spacing:.06em}
 .lang-switcher{display:flex;align-items:center;gap:4px;padding:3px;border:1px solid rgba(247,244,239,.22);border-radius:999px}
@@ -29,6 +36,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
 body{top:0!important}
 #google_translate_element{position:absolute;left:-9999px;height:0;overflow:hidden}
 .layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 52px)}
+.mobile-scrim{display:none}
 .sidebar{background:var(--bg2);border-right:1px solid var(--line);padding:2rem 1.25rem;position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto}
 .sidebar-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:1.25rem}
 .lesson-nav{display:flex;flex-direction:column;gap:4px}
@@ -174,11 +182,12 @@ body{top:0!important}
 .try-now-check-label{font-size:13px;color:var(--ink2);line-height:1.5}
 .try-now.done{border-color:#B5DFC8;background:#E1F5EE}
 .try-now.done .try-now-label{color:#085041}
-@media(max-width:680px){.site-header{height:auto;min-height:52px;padding:.65rem 1rem;align-items:flex-start}.header-tools{flex-direction:column;align-items:flex-end;gap:7px}.lesson-count{font-size:10px}.layout{grid-template-columns:1fr}.sidebar{display:none}.main{padding:1.5rem 1rem 3rem}.audience-pick,.ability-grid,.compare{grid-template-columns:1fr}.hook{font-size:19px}}
+@media(max-width:680px){body.nav-open{overflow:hidden}.site-header{height:auto;min-height:52px;padding:.65rem 1rem;align-items:flex-start;gap:10px}.menu-toggle{display:inline-flex;flex:0 0 auto}.site-logo{flex:1;padding-top:7px}.header-tools{flex-direction:column;align-items:flex-end;gap:7px}.lesson-count{font-size:10px}.layout{grid-template-columns:1fr}.mobile-scrim{display:block;position:fixed;inset:0;background:rgba(28,26,23,.42);z-index:80;opacity:0;pointer-events:none;transition:opacity .18s}.nav-open .mobile-scrim{opacity:1;pointer-events:auto}.sidebar{display:block;position:fixed;z-index:90;top:0;left:0;width:min(84vw,320px);height:100vh;padding:5rem 1.25rem 2rem;box-shadow:18px 0 44px rgba(0,0,0,.22);transform:translateX(-102%);transition:transform .2s ease}.nav-open .sidebar{transform:translateX(0)}.main{padding:1.5rem 1rem 3rem}.audience-pick,.ability-grid,.compare{grid-template-columns:1fr}.hook{font-size:19px}}
 </style>
 </head>
 <body>
 <header class="site-header">
+  <button class="menu-toggle notranslate" translate="no" id="menu-toggle" type="button" aria-label="Відкрити меню" aria-expanded="false"><span></span></button>
   <div class="site-logo">ШІ для <span>всіх</span> — посібник</div>
   <div class="header-tools">
     <nav class="lang-switcher notranslate" translate="no" aria-label="Вибір мови">
@@ -192,6 +201,7 @@ body{top:0!important}
   </div>
 </header>
 <div id="google_translate_element" aria-hidden="true"></div>
+<div class="mobile-scrim" id="mobile-scrim"></div>
 <div class="layout">
   <nav class="sidebar">
     <div class="sidebar-label">Зміст курсу</div>
@@ -308,13 +318,21 @@ loadMirrorTranslation(activeLang);
 
 /* ── NAV ── */
 var done={};
+var menuToggle=document.getElementById('menu-toggle');
+function setMobileMenu(open){
+  document.body.classList.toggle('nav-open',open);
+  if(menuToggle)menuToggle.setAttribute('aria-expanded',open?'true':'false');
+}
+function closeMobileMenu(){setMobileMenu(false);}
 function showHome(){
+  closeMobileMenu();
   document.querySelectorAll('.lesson-panel').forEach(function(p){p.classList.remove('active');});
   document.getElementById('panel-home').classList.add('active');
   document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
   document.getElementById('nav-home').classList.add('active');
 }
 function showLesson(n){
+  closeMobileMenu();
   var panel=document.getElementById('panel-l'+n);
   if(!panel)return;
   if(!panel.getAttribute('data-built'))buildLesson(n);
@@ -335,6 +353,8 @@ function markDone(n){
 document.addEventListener('click',function(e){
   var t=e.target;
   console.log('CLICK',t.tagName,t.id,t.className);
+  if(t.closest('#menu-toggle')){setMobileMenu(!document.body.classList.contains('nav-open'));return;}
+  if(t.id==='mobile-scrim'){closeMobileMenu();return;}
   if(t.id==='nav-home'||t.closest('#nav-home')){showHome();return;}
   for(var n=1;n<=17;n++){
     var nb=document.getElementById('nav-l'+n);
@@ -344,6 +364,10 @@ document.addEventListener('click',function(e){
   }
   var nlb=t.closest('.next-lesson-btn');
   if(nlb){var dest=nlb.getAttribute('data-dest');if(dest==='home')showHome();else if(dest)showLesson(parseInt(dest));return;}
+});
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape')closeMobileMenu();
 });
 
 /* ── HELPERS ── */

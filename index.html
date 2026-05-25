@@ -316,6 +316,18 @@ function loadMirrorTranslation(lang){
 
 loadMirrorTranslation(activeLang);
 
+var translateRefreshTimer=0;
+function refreshMirrorTranslation(){
+  if(activeLang==='uk')return;
+  clearTimeout(translateRefreshTimer);
+  translateRefreshTimer=setTimeout(function(){
+    var combo=document.querySelector('.goog-te-combo');
+    if(!combo)return;
+    combo.value=activeLang;
+    combo.dispatchEvent(new Event('change'));
+  },160);
+}
+
 /* ── NAV ── */
 var done={};
 var menuToggle=document.getElementById('menu-toggle');
@@ -330,6 +342,7 @@ function showHome(){
   document.getElementById('panel-home').classList.add('active');
   document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
   document.getElementById('nav-home').classList.add('active');
+  refreshMirrorTranslation();
 }
 function showLesson(n){
   closeMobileMenu();
@@ -341,6 +354,7 @@ function showLesson(n){
   document.querySelectorAll('.nav-item').forEach(function(ni){ni.classList.remove('active');});
   var nb=document.getElementById('nav-l'+n);
   if(nb)nb.classList.add('active');
+  refreshMirrorTranslation();
   window.scrollTo(0,0);
 }
 function markDone(n){
@@ -391,6 +405,7 @@ function setProg(ln,n,labels){
   if(lbl&&labels)lbl.textContent=(labels[n]||'')+' — крок '+(n+1)+' з '+labels.length;
   var total=labels?labels.length:6;
   for(var i=0;i<total;i++){var d=document.getElementById('l'+ln+'-d'+i);if(d)d.className='pd'+(i<n?' done':i===n?' on':'');}
+  refreshMirrorTranslation();
 }
 function mkStep(ln,n){var s=div(n===0?'step vis':'step');s.id='l'+ln+'-s'+n;return s;}
 

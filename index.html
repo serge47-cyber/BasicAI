@@ -36,6 +36,10 @@ body{background:var(--bg);color:var(--ink);font-family:'Literata',Georgia,serif;
 .nav-open .menu-toggle span::after{transform:translateY(-2px) rotate(90deg)}
 .header-tools{display:flex;align-items:center;gap:16px}
 .lesson-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:#7EC8A0;letter-spacing:.06em}
+.header-progress{display:flex;align-items:center;gap:8px;min-width:150px}
+.header-progress-text{font-family:'JetBrains Mono',monospace;font-size:10px;color:#7EC8A0;white-space:nowrap}
+.header-progress-bar{width:64px;height:4px;border-radius:999px;background:rgba(247,244,239,.22);overflow:hidden}
+.header-progress-fill{height:100%;width:0;background:#7EC8A0;border-radius:999px;transition:width .25s ease}
 .lang-switcher{display:flex;align-items:center;gap:4px;padding:3px;border:1px solid rgba(247,244,239,.22);border-radius:999px}
 .lang-link{font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1;color:var(--bg);text-decoration:none;padding:6px 8px;border-radius:999px;opacity:.74;transition:background .15s,opacity .15s}
 .lang-link:hover,.lang-link.active{background:rgba(126,200,160,.16);opacity:1}
@@ -199,7 +203,7 @@ body{top:0!important}
 .try-now.done .try-now-label{color:#085041}
 .print-memo{display:none}
 .print-btn{margin-left:10px}
-@media(max-width:680px){body.nav-open{overflow:hidden}.site-header{height:auto;min-height:52px;padding:.65rem 1rem;align-items:flex-start;gap:10px}.menu-toggle{display:inline-flex;flex:0 0 auto}.site-logo{flex:1;padding-top:7px}.header-tools{flex-direction:column;align-items:flex-end;gap:7px}.lesson-count{font-size:10px}.layout{grid-template-columns:1fr}.mobile-scrim{display:block;position:fixed;inset:0;background:rgba(28,26,23,.42);z-index:80;opacity:0;pointer-events:none;transition:opacity .18s}.nav-open .mobile-scrim{opacity:1;pointer-events:auto}.sidebar{display:block;position:fixed;z-index:90;top:0;left:0;width:min(84vw,320px);height:100vh;padding:5rem 1.25rem 2rem;box-shadow:18px 0 44px rgba(0,0,0,.22);transform:translateX(-102%);transition:transform .2s ease}.nav-open .sidebar{transform:translateX(0)}.main{padding:1.5rem 1rem 3rem}.audience-pick,.ability-grid,.compare{grid-template-columns:1fr}.hook{font-size:19px}}
+@media(max-width:680px){body.nav-open{overflow:hidden}.site-header{height:auto;min-height:52px;padding:.65rem 1rem;align-items:flex-start;gap:10px}.menu-toggle{display:inline-flex;flex:0 0 auto}.site-logo{flex:1;padding-top:7px}.header-tools{flex-direction:column;align-items:flex-end;gap:7px}.lesson-count{font-size:10px}.header-progress{min-width:0}.header-progress-bar{width:58px}.layout{grid-template-columns:1fr}.mobile-scrim{display:block;position:fixed;inset:0;background:rgba(28,26,23,.42);z-index:80;opacity:0;pointer-events:none;transition:opacity .18s}.nav-open .mobile-scrim{opacity:1;pointer-events:auto}.sidebar{display:block;position:fixed;z-index:90;top:0;left:0;width:min(84vw,320px);height:100vh;padding:5rem 1.25rem 2rem;box-shadow:18px 0 44px rgba(0,0,0,.22);transform:translateX(-102%);transition:transform .2s ease}.nav-open .sidebar{transform:translateX(0)}.main{padding:1.5rem 1rem 3rem}.audience-pick,.ability-grid,.compare{grid-template-columns:1fr}.hook{font-size:19px}}
 @media print{body{background:#fff;color:#111;font-size:13pt;line-height:1.5}.site-header,.sidebar,.mobile-scrim,.prog-wrap,.next-btn,.next-lesson-btn,.restart-btn,.copy-btn,.print-btn,.badge,.rule,.summary:not(.print-memo),.lesson-panel:not(#panel-l17),#panel-l17 .step:not(#l17-s3),#google_translate_element{display:none!important}.layout,.main,.lesson-panel.active,#panel-l17,#l17-s3{display:block!important;min-height:0;padding:0;max-width:none}.print-memo{display:block!important;border:none;background:#fff;padding:0}.print-memo .sum-title{font-size:18pt;color:#111;margin-bottom:12pt}.print-memo .sum-list li{break-inside:avoid;color:#111;margin-bottom:8pt}.print-memo .sum-list li::before{color:#111}@page{margin:18mm}}
 </style>
 </head>
@@ -215,6 +219,10 @@ body{top:0!important}
       <a class="lang-link notranslate" translate="no" data-lang="es" href="es.html">ES</a>
       <a class="lang-link notranslate" translate="no" data-lang="de" href="de.html">DE</a>
     </nav>
+    <div class="header-progress" aria-label="Прогрес курсу">
+      <span class="header-progress-text" id="header-progress-text">0/17</span>
+      <span class="header-progress-bar" aria-hidden="true"><span class="header-progress-fill" id="header-progress-fill"></span></span>
+    </div>
     <div class="lesson-count">BETA · 17 уроків</div>
   </div>
 </header>
@@ -378,8 +386,12 @@ function updateHomeProgress(){
   var completed=Object.keys(done).length;
   var count=document.getElementById('home-progress-count');
   var fill=document.getElementById('home-progress-fill');
+  var headerText=document.getElementById('header-progress-text');
+  var headerFill=document.getElementById('header-progress-fill');
   if(count)count.textContent='Пройдено '+completed+' з 17 уроків';
   if(fill)fill.style.width=Math.round(completed/17*100)+'%';
+  if(headerText)headerText.textContent=completed+'/17';
+  if(headerFill)headerFill.style.width=Math.round(completed/17*100)+'%';
 }
 function restoreProgress(){
   try{

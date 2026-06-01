@@ -21,6 +21,7 @@
 - **Блок "Спробуйте прямо зараз"** після кожного уроку — конкретне завдання на 5 хвилин
 - **Готові шаблони запитів** з кнопкою копіювання в кожному уроці
 - **Фінальний урок** — формування власних правил роботи з ШІ і персональна пам'ятка
+- **Збереження прогресу** — пройдені уроки та останній відкритий урок зберігаються в `localStorage`
 - **Статичний HTML-файл** — не потребує сервера, бази даних або реєстрації
 - **Мобільна навігація** — гамбургер-меню відкриває зміст курсу на малих екранах
 - **PWA-підтримка** — можна встановити на мобільний пристрій
@@ -104,14 +105,14 @@ icons/
 - Чистий HTML/CSS/JS — без фреймворків і залежностей
 - Весь контент генерується динамічно через JS при першому відкритті уроку
 - Мовні дзеркала підключають переклад через параметр `?lang=...` без дублювання логіки уроків
-- Прогрес позначається через `markDone()` — зберігається в пам'яті сесії
+- Прогрес позначається через `markDone()`
+- Пройдені уроки та останній відкритий урок зберігаються в `localStorage`
 - Делегування подій через один `document.addEventListener('click')` — без inline `onclick`
 - Підтримка мобільних пристроїв через медіа-запити та висувне меню
 
 ### Розвиток проєкту
 
 Заплановані наступні кроки:
-- Збереження прогресу в `localStorage`
 - Експорт персональної пам'ятки у PDF
 - Оновлений `sw.js` з кешуванням нового файлу
 
@@ -136,6 +137,7 @@ icons/
 - **Блок «Попробуйте прямо сейчас»** после каждого урока — конкретное задание на 5 минут
 - **Готовые шаблоны запросов** с кнопкой копирования в каждом уроке
 - **Финальный урок** — формирование собственных правил работы с ИИ и личная памятка
+- **Сохранение прогресса** — пройденные уроки и последний открытый урок сохраняются в `localStorage`
 - **Статичный HTML-файл** — не требует сервера, базы данных или регистрации
 - **Мобильная навигация** — гамбургер-меню открывает содержание курса на малых экранах
 - **PWA-поддержка** — можно установить на мобильное устройство
@@ -219,13 +221,13 @@ icons/
 - Чистый HTML/CSS/JS — без фреймворков и зависимостей
 - Весь контент генерируется динамически через JS при первом открытии урока
 - Языковые зеркала подключают перевод через параметр `?lang=...` без дублирования логики уроков
+- Пройденные уроки и последний открытый урок сохраняются в `localStorage`
 - Делегирование событий через один `document.addEventListener('click')` — без inline `onclick`
 - Поддержка мобильных устройств через медиазапросы и выдвижное меню
 
 ### Развитие проекта
 
 Запланированные следующие шаги:
-- Сохранение прогресса в `localStorage`
 - Экспорт личной памятки в PDF
 - Обновлённый `sw.js` с кешированием нового файла
 
@@ -250,6 +252,7 @@ icons/
 - **"Try It Now" block** after every lesson — a specific 5-minute task
 - **Ready-to-use prompt templates** with a copy button in every lesson
 - **Final lesson** — build your own personal AI rules and take them with you
+- **Progress persistence** — completed lessons and the last opened lesson are saved in `localStorage`
 - **Static HTML file** — no server, database, or registration required
 - **Mobile navigation** — a hamburger menu opens the course contents on small screens
 - **PWA support** — installable on mobile devices
@@ -333,6 +336,7 @@ Three questions for every new lesson:
 - Pure HTML/CSS/JS — no frameworks or external dependencies
 - All lesson content is built dynamically via JS on first open
 - Language mirrors use the `?lang=...` parameter and Google Translate without duplicating lesson logic
+- Completed lessons and the last opened lesson are stored in `localStorage`
 - Single delegated `document.addEventListener('click')` handler — no inline `onclick` attributes
 - Mobile-responsive via CSS media queries and a slide-out menu
 - All 17 lessons, templates, scenarios, and feedback texts are embedded in one file
@@ -340,7 +344,6 @@ Three questions for every new lesson:
 ### Roadmap
 
 Planned next steps:
-- Progress persistence via `localStorage`
 - Export personal rules as PDF
 - Updated `sw.js` caching strategy for the new file
 

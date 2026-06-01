@@ -220,7 +220,7 @@ body{top:0!important}
       <a class="lang-link notranslate" translate="no" data-lang="de" href="de.html">DE</a>
     </nav>
     <div class="header-progress" aria-label="Прогрес курсу">
-      <span class="header-progress-text" id="header-progress-text">0/17</span>
+      <span class="header-progress-text" id="header-progress-text">Курс: 0/17</span>
       <span class="header-progress-bar" aria-hidden="true"><span class="header-progress-fill" id="header-progress-fill"></span></span>
     </div>
     <div class="lesson-count">BETA · 17 уроків</div>
@@ -390,7 +390,7 @@ function updateHomeProgress(){
   var headerFill=document.getElementById('header-progress-fill');
   if(count)count.textContent='Пройдено '+completed+' з 17 уроків';
   if(fill)fill.style.width=Math.round(completed/17*100)+'%';
-  if(headerText)headerText.textContent=completed+'/17';
+  if(headerText)headerText.textContent='Курс: '+completed+'/17';
   if(headerFill)headerFill.style.width=Math.round(completed/17*100)+'%';
 }
 function restoreProgress(){

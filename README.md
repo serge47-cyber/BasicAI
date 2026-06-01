@@ -20,11 +20,13 @@
   - 🌿 **Я практик** — для тих, хто хоче конкретних результатів без зайвої теорії
 - **Блок "Спробуйте прямо зараз"** після кожного уроку — конкретне завдання на 5 хвилин
 - **Готові шаблони запитів** з кнопкою копіювання в кожному уроці
-- **Фінальний урок** — формування власних правил роботи з ШІ і персональна пам'ятка
+- **Фінальний урок** — формування власних правил роботи з ШІ, персональна пам'ятка і друк обраних правил
+- **Лічильник прогресу** — на головній показує, скільки уроків пройдено з 17
 - **Збереження прогресу** — пройдені уроки та останній відкритий урок зберігаються в `localStorage`
 - **Статичний HTML-файл** — не потребує сервера, бази даних або реєстрації
 - **Мобільна навігація** — гамбургер-меню відкриває зміст курсу на малих екранах
 - **PWA-підтримка** — можна встановити на мобільний пристрій
+- **Мета-теги для соцмереж** — Open Graph і Twitter Card для красивого preview
 
 ### Зміст курсу
 
@@ -82,6 +84,7 @@ manifest.webmanifest   ← PWA-маніфест
 sw.js                  ← service worker для офлайн-режиму
 icons/
   icon.svg             ← іконка додатку
+  og-image.png         ← зображення для Open Graph / Twitter Card
   maskable.svg         ← іконка для Android
 ```
 
@@ -114,7 +117,6 @@ icons/
 
 Заплановані наступні кроки:
 - Експорт персональної пам'ятки у PDF
-- Оновлений `sw.js` з кешуванням нового файлу
 
 ### Ліцензія та використання
 
@@ -136,11 +138,13 @@ icons/
   - 🌿 **Я практик** — для тех, кто хочет конкретных результатов без лишней теории
 - **Блок «Попробуйте прямо сейчас»** после каждого урока — конкретное задание на 5 минут
 - **Готовые шаблоны запросов** с кнопкой копирования в каждом уроке
-- **Финальный урок** — формирование собственных правил работы с ИИ и личная памятка
+- **Финальный урок** — формирование собственных правил работы с ИИ, личная памятка и печать выбранных правил
+- **Счётчик прогресса** — на главной показывает, сколько уроков пройдено из 17
 - **Сохранение прогресса** — пройденные уроки и последний открытый урок сохраняются в `localStorage`
 - **Статичный HTML-файл** — не требует сервера, базы данных или регистрации
 - **Мобильная навигация** — гамбургер-меню открывает содержание курса на малых экранах
 - **PWA-поддержка** — можно установить на мобильное устройство
+- **Мета-теги для соцсетей** — Open Graph и Twitter Card для красивого preview
 
 ### Содержание курса
 
@@ -198,6 +202,7 @@ manifest.webmanifest   ← PWA-манифест
 sw.js                  ← service worker для офлайн-режима
 icons/
   icon.svg             ← иконка приложения
+  og-image.png         ← изображение для Open Graph / Twitter Card
   maskable.svg         ← иконка для Android
 ```
 
@@ -229,7 +234,6 @@ icons/
 
 Запланированные следующие шаги:
 - Экспорт личной памятки в PDF
-- Обновлённый `sw.js` с кешированием нового файла
 
 ### Лицензия и использование
 
@@ -251,11 +255,13 @@ icons/
   - 🌿 **Practitioner** — for those who want concrete results without extra theory
 - **"Try It Now" block** after every lesson — a specific 5-minute task
 - **Ready-to-use prompt templates** with a copy button in every lesson
-- **Final lesson** — build your own personal AI rules and take them with you
+- **Final lesson** — build your own personal AI rules, save the memo, and print selected rules
+- **Progress counter** — the home page shows completed lessons out of 17
 - **Progress persistence** — completed lessons and the last opened lesson are saved in `localStorage`
 - **Static HTML file** — no server, database, or registration required
 - **Mobile navigation** — a hamburger menu opens the course contents on small screens
 - **PWA support** — installable on mobile devices
+- **Social metadata** — Open Graph and Twitter Card tags for better link previews
 
 ### Course Contents
 
@@ -313,6 +319,7 @@ manifest.webmanifest   ← PWA manifest
 sw.js                  ← service worker for offline support
 icons/
   icon.svg             ← app icon
+  og-image.png         ← Open Graph / Twitter Card image
   maskable.svg         ← Android adaptive icon
 ```
 
@@ -345,7 +352,6 @@ Three questions for every new lesson:
 
 Planned next steps:
 - Export personal rules as PDF
-- Updated `sw.js` caching strategy for the new file
 
 ### License and Usage
 

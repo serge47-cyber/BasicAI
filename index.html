@@ -3,9 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="ШІ для всіх — практичний інтерактивний посібник із 11 уроками, прикладами та вибором стилю навчання.">
+<meta name="description" content="ШІ для всіх — практичний інтерактивний посібник із 17 уроками, прикладами з життя та безпечним шляхом навчання.">
 <meta name="theme-color" content="#1C1A17">
 <title>ШІ для всіх — інтерактивний посібник</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="ШІ для всіх — інтерактивний посібник">
+<meta property="og:description" content="Практичний курс зі штучного інтелекту: 17 інтерактивних уроків, приклади з життя, безпека, промпти і власні правила роботи з ШІ.">
+<meta property="og:url" content="https://serge47-cyber.github.io/BasicAI/">
+<meta property="og:image" content="https://serge47-cyber.github.io/BasicAI/icons/og-image.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ШІ для всіх — інтерактивний посібник">
+<meta name="twitter:description" content="17 інтерактивних уроків про безпечне й корисне використання ШІ у повсякденному житті.">
+<meta name="twitter:image" content="https://serge47-cyber.github.io/BasicAI/icons/og-image.png">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -160,6 +169,12 @@ body{top:0!important}
 .restart-btn:hover{color:var(--ink2);text-decoration:underline}
 .home-title{font-size:28px;font-weight:600;color:var(--ink);line-height:1.3;margin-bottom:.75rem}
 .home-sub{font-size:15px;color:var(--ink2);line-height:1.7;margin-bottom:2rem;max-width:480px}
+.home-progress{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;margin-bottom:1.25rem;max-width:520px}
+.home-progress-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:9px}
+.home-progress-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.home-progress-count{font-size:13px;color:var(--ink2)}
+.home-progress-bar{height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+.home-progress-fill{height:100%;width:0;background:var(--accent);border-radius:999px;transition:width .25s ease}
 .module-list{display:flex;flex-direction:column;gap:10px;margin-bottom:2rem}
 .module-card{display:flex;align-items:flex-start;gap:14px;background:var(--bg);border:1px solid var(--line2);border-radius:var(--radius);padding:16px 18px;cursor:pointer;transition:background .15s,border-color .15s,box-shadow .15s;text-align:left;width:100%}
 .module-card:hover{background:var(--bg2);border-color:var(--ink3);box-shadow:0 2px 12px rgba(0,0,0,.07)}
@@ -182,7 +197,10 @@ body{top:0!important}
 .try-now-check-label{font-size:13px;color:var(--ink2);line-height:1.5}
 .try-now.done{border-color:#B5DFC8;background:#E1F5EE}
 .try-now.done .try-now-label{color:#085041}
+.print-memo{display:none}
+.print-btn{margin-left:10px}
 @media(max-width:680px){body.nav-open{overflow:hidden}.site-header{height:auto;min-height:52px;padding:.65rem 1rem;align-items:flex-start;gap:10px}.menu-toggle{display:inline-flex;flex:0 0 auto}.site-logo{flex:1;padding-top:7px}.header-tools{flex-direction:column;align-items:flex-end;gap:7px}.lesson-count{font-size:10px}.layout{grid-template-columns:1fr}.mobile-scrim{display:block;position:fixed;inset:0;background:rgba(28,26,23,.42);z-index:80;opacity:0;pointer-events:none;transition:opacity .18s}.nav-open .mobile-scrim{opacity:1;pointer-events:auto}.sidebar{display:block;position:fixed;z-index:90;top:0;left:0;width:min(84vw,320px);height:100vh;padding:5rem 1.25rem 2rem;box-shadow:18px 0 44px rgba(0,0,0,.22);transform:translateX(-102%);transition:transform .2s ease}.nav-open .sidebar{transform:translateX(0)}.main{padding:1.5rem 1rem 3rem}.audience-pick,.ability-grid,.compare{grid-template-columns:1fr}.hook{font-size:19px}}
+@media print{body{background:#fff;color:#111;font-size:13pt;line-height:1.5}.site-header,.sidebar,.mobile-scrim,.prog-wrap,.next-btn,.next-lesson-btn,.restart-btn,.copy-btn,.print-btn,.badge,.rule,.summary:not(.print-memo),.lesson-panel:not(#panel-l17),#panel-l17 .step:not(#l17-s3),#google_translate_element{display:none!important}.layout,.main,.lesson-panel.active,#panel-l17,#l17-s3{display:block!important;min-height:0;padding:0;max-width:none}.print-memo{display:block!important;border:none;background:#fff;padding:0}.print-memo .sum-title{font-size:18pt;color:#111;margin-bottom:12pt}.print-memo .sum-list li{break-inside:avoid;color:#111;margin-bottom:8pt}.print-memo .sum-list li::before{color:#111}@page{margin:18mm}}
 </style>
 </head>
 <body>
@@ -233,6 +251,13 @@ body{top:0!important}
     <div class="lesson-panel active" id="panel-home">
       <h1 class="home-title">Посібник зі штучного інтелекту для тих, хто хоче розібратися</h1>
       <p class="home-sub">Не технічний курс і не рекламний буклет. Чесні інтерактивні уроки — з прикладами з реального життя і без зайвого жаргону.</p>
+      <div class="home-progress" id="home-progress">
+        <div class="home-progress-top">
+          <div class="home-progress-label">Ваш прогрес</div>
+          <div class="home-progress-count" id="home-progress-count">Пройдено 0 з 17 уроків</div>
+        </div>
+        <div class="home-progress-bar" aria-hidden="true"><div class="home-progress-fill" id="home-progress-fill"></div></div>
+      </div>
       <div class="module-list">
         <button class="module-card" id="mc1"><span class="mc-num">01</span><div class="mc-body"><div class="mc-title">ШІ і Google — в чому різниця?</div><div class="mc-sub">Перший крок: зрозуміти, що таке ШІ і чим він відрізняється від звичного пошуку</div></div><span class="mc-arrow">→</span></button>
         <button class="module-card" id="mc2"><span class="mc-num">02</span><div class="mc-body"><div class="mc-title">Що ШІ вміє і чого не вміє</div><div class="mc-sub">Чесна карта можливостей: де ШІ справді корисний, а де краще не ризикувати</div></div><span class="mc-arrow">→</span></button>
@@ -349,11 +374,19 @@ function setActiveNav(id){
 function saveDone(){
   try{localStorage.setItem(doneKey,JSON.stringify(Object.keys(done)));}catch(e){}
 }
+function updateHomeProgress(){
+  var completed=Object.keys(done).length;
+  var count=document.getElementById('home-progress-count');
+  var fill=document.getElementById('home-progress-fill');
+  if(count)count.textContent='Пройдено '+completed+' з 17 уроків';
+  if(fill)fill.style.width=Math.round(completed/17*100)+'%';
+}
 function restoreProgress(){
   try{
     (JSON.parse(localStorage.getItem(doneKey)||'[]')||[]).forEach(function(n){
       n=parseInt(n,10);if(n)markDone(n);
     });
+    updateHomeProgress();
     var active=parseInt(localStorage.getItem(activeLessonKey)||'',10);
     if(active>=1&&active<=17)showLesson(active);else syncActiveNav();
   }catch(e){syncActiveNav();}
@@ -369,6 +402,7 @@ function showHome(){
   document.getElementById('panel-home').classList.add('active');
   try{localStorage.removeItem(activeLessonKey);}catch(e){}
   setActiveNav('home');
+  updateHomeProgress();
   refreshMirrorTranslation();
 }
 function showLesson(n){
@@ -388,6 +422,7 @@ function markDone(n){
   var nb=document.getElementById('nav-l'+n);if(nb)nb.classList.add('done');
   var mc=document.getElementById('mc'+n);if(mc)mc.classList.add('done-card');
   saveDone();
+  updateHomeProgress();
 }
 
 function syncActiveNav(){
@@ -3202,8 +3237,15 @@ window.l17buildFinal=function(){
   rulesCard.appendChild(ul);
   s3.appendChild(rulesCard);
 
+  var printMemo=div('summary print-memo');
+  printMemo.appendChild(p('sum-title','Мої правила роботи з ШІ'));
+  var printList=mk('ul','sum-list');
+  (l17userRules.length?l17userRules:['Працюйте з ШІ розумно і з користю.']).forEach(function(r){printList.appendChild(mk('li','',r));});
+  printMemo.appendChild(printList);
+  s3.appendChild(printMemo);
+
   // Copy button
-  var copyBtn=mk('button','next-btn show','\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u043f\u0430\u043c\u02bc\u044f\u0442\u043a\u0443');
+  var copyBtn=mk('button','next-btn show copy-btn','\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u043f\u0430\u043c\u02bc\u044f\u0442\u043a\u0443');
   copyBtn.style.marginBottom='1rem';
   copyBtn.addEventListener('click',function(){
     var text='\u041c\u043e\u0457 \u043f\u0440\u0430\u0432\u0438\u043b\u0430 \u0440\u043e\u0431\u043e\u0442\u0438 \u0437 \u0428\u0406:\n\n'+(l17userRules.length?l17userRules.map(function(r,i){return(i+1)+'. '+r;}).join('\n'):'\u041f\u0440\u0430\u0446\u044e\u0439\u0442\u0435 \u0437 \u0428\u0406 \u0440\u043e\u0437\u0443\u043c\u043d\u043e \u0456 \u0437 \u043a\u043e\u0440\u0438\u0441\u0442\u044e.')+'\n\n\u041f\u0440\u043e\u0439\u0434\u0435\u043d\u043e \u043a\u0443\u0440\u0441 "\u0428\u0406 \u0434\u043b\u044f \u0432\u0441\u0456\u0445" \u2014 17 \u0443\u0440\u043e\u043a\u0456\u0432.';
@@ -3213,6 +3255,10 @@ window.l17buildFinal=function(){
     }).catch(function(){copyBtn.textContent='(Ctrl+C)';});
   });
   s3.appendChild(copyBtn);
+  var printBtn=mk('button','next-btn show print-btn','Роздрукувати');
+  printBtn.style.marginBottom='1rem';
+  printBtn.addEventListener('click',function(){window.print();});
+  s3.appendChild(printBtn);
 
   // Course summary
   var bigRule=div('rule');

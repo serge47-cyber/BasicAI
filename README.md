@@ -22,6 +22,7 @@
 - **Готові шаблони запитів** з кнопкою копіювання в кожному уроці
 - **Фінальний урок** — формування власних правил роботи з ШІ, персональна пам'ятка і друк обраних правил
 - **Лічильник прогресу** — на головній показує, скільки уроків пройдено з 17
+- **Експрес-маршрут** — 5 ключових уроків / 30 хвилин для першого практичного результату
 - **Збереження прогресу** — пройдені уроки та останній відкритий урок зберігаються в `localStorage`
 - **Статичний HTML-файл** — не потребує сервера, бази даних або реєстрації
 - **Мобільна навігація** — гамбургер-меню відкриває зміст курсу на малих екранах
@@ -29,6 +30,8 @@
 - **Мета-теги для соцмереж** — Open Graph і Twitter Card для красивого preview
 
 ### Зміст курсу
+
+Експрес-маршрут виділяє 5 ключових уроків: `01`, `02`, `04`, `06`, `10`. Решта уроків залишаються доступними як додаткові.
 
 | № | Тема |
 |---|------|
@@ -140,6 +143,7 @@ icons/
 - **Готовые шаблоны запросов** с кнопкой копирования в каждом уроке
 - **Финальный урок** — формирование собственных правил работы с ИИ, личная памятка и печать выбранных правил
 - **Счётчик прогресса** — на главной показывает, сколько уроков пройдено из 17
+- **Экспресс-маршрут** — 5 ключевых уроков / 30 минут для первого практического результата
 - **Сохранение прогресса** — пройденные уроки и последний открытый урок сохраняются в `localStorage`
 - **Статичный HTML-файл** — не требует сервера, базы данных или регистрации
 - **Мобильная навигация** — гамбургер-меню открывает содержание курса на малых экранах
@@ -147,6 +151,8 @@ icons/
 - **Мета-теги для соцсетей** — Open Graph и Twitter Card для красивого preview
 
 ### Содержание курса
+
+Экспресс-маршрут выделяет 5 ключевых уроков: `01`, `02`, `04`, `06`, `10`. Остальные уроки остаются доступными как дополнительные.
 
 | № | Тема |
 |---|------|
@@ -257,6 +263,7 @@ icons/
 - **Ready-to-use prompt templates** with a copy button in every lesson
 - **Final lesson** — build your own personal AI rules, save the memo, and print selected rules
 - **Progress counter** — the home page shows completed lessons out of 17
+- **Express route** — 5 key lessons / 30 minutes for a first practical result
 - **Progress persistence** — completed lessons and the last opened lesson are saved in `localStorage`
 - **Static HTML file** — no server, database, or registration required
 - **Mobile navigation** — a hamburger menu opens the course contents on small screens
@@ -264,6 +271,8 @@ icons/
 - **Social metadata** — Open Graph and Twitter Card tags for better link previews
 
 ### Course Contents
+
+The express route highlights 5 key lessons: `01`, `02`, `04`, `06`, `10`. The remaining lessons stay available as optional additions.
 
 | # | Topic |
 |---|-------|

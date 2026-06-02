@@ -179,10 +179,25 @@ body{top:0!important}
 .home-progress-count{font-size:13px;color:var(--ink2)}
 .home-progress-bar{height:6px;border-radius:999px;background:var(--line);overflow:hidden}
 .home-progress-fill{height:100%;width:0;background:var(--accent);border-radius:999px;transition:width .25s ease}
+.route-panel{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:1rem;margin:0 0 1.25rem;max-width:520px}
+.route-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:.7rem}
+.route-switch{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:.75rem}
+.route-btn{border:1px solid var(--line2);border-radius:var(--radius-sm);background:var(--bg);color:var(--ink2);font-family:'Literata',serif;font-size:13px;line-height:1.35;padding:10px 12px;cursor:pointer;text-align:left;transition:background .15s,border-color .15s,color .15s}
+.route-btn strong{display:block;color:var(--ink);font-size:14px;font-weight:500}
+.route-btn.active{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.route-btn.active strong{color:var(--bg)}
+.route-btn:not(.active):hover{background:var(--bg3);border-color:var(--ink3)}
+.route-note{font-size:13px;color:var(--ink2);line-height:1.55;margin-bottom:.35rem}
+.route-progress{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
 .module-list{display:flex;flex-direction:column;gap:10px;margin-bottom:2rem}
 .module-card{display:flex;align-items:flex-start;gap:14px;background:var(--bg);border:1px solid var(--line2);border-radius:var(--radius);padding:16px 18px;cursor:pointer;transition:background .15s,border-color .15s,box-shadow .15s;text-align:left;width:100%}
 .module-card:hover{background:var(--bg2);border-color:var(--ink3);box-shadow:0 2px 12px rgba(0,0,0,.07)}
 .module-card.done-card{border-color:#B5DFC8;background:var(--accent-bg)}
+.module-card.quick-focus{border-color:var(--gold);box-shadow:inset 3px 0 0 var(--gold)}
+.module-card.quick-muted{opacity:.54}
+.module-card.quick-muted:hover{opacity:.86}
+.nav-item.quick-focus .nav-num{color:var(--gold)}
+.nav-item.quick-muted:not(.active){opacity:.48}
 .mc-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--ink3);min-width:22px;padding-top:2px}
 .module-card.done-card .mc-num{color:var(--accent)}
 .mc-body{flex:1}
@@ -203,7 +218,7 @@ body{top:0!important}
 .try-now.done .try-now-label{color:#085041}
 .print-memo{display:none}
 .print-btn{margin-left:10px}
-@media(max-width:680px){body.nav-open{overflow:hidden}.site-header{height:auto;min-height:52px;padding:.65rem 1rem;align-items:flex-start;gap:10px}.menu-toggle{display:inline-flex;flex:0 0 auto}.site-logo{flex:1;padding-top:7px}.header-tools{flex-direction:column;align-items:flex-end;gap:7px}.lesson-count{font-size:10px}.header-progress{min-width:0}.header-progress-bar{width:58px}.layout{grid-template-columns:1fr}.mobile-scrim{display:block;position:fixed;inset:0;background:rgba(28,26,23,.42);z-index:80;opacity:0;pointer-events:none;transition:opacity .18s}.nav-open .mobile-scrim{opacity:1;pointer-events:auto}.sidebar{display:block;position:fixed;z-index:90;top:0;left:0;width:min(84vw,320px);height:100vh;padding:5rem 1.25rem 2rem;box-shadow:18px 0 44px rgba(0,0,0,.22);transform:translateX(-102%);transition:transform .2s ease}.nav-open .sidebar{transform:translateX(0)}.main{padding:1.5rem 1rem 3rem}.audience-pick,.ability-grid,.compare{grid-template-columns:1fr}.hook{font-size:19px}}
+@media(max-width:680px){body.nav-open{overflow:hidden}.site-header{height:auto;min-height:52px;padding:.65rem 1rem;align-items:flex-start;gap:10px}.menu-toggle{display:inline-flex;flex:0 0 auto}.site-logo{flex:1;padding-top:7px}.header-tools{flex-direction:column;align-items:flex-end;gap:7px}.lesson-count{font-size:10px}.header-progress{min-width:0}.header-progress-bar{width:58px}.route-switch{grid-template-columns:1fr}.layout{grid-template-columns:1fr}.mobile-scrim{display:block;position:fixed;inset:0;background:rgba(28,26,23,.42);z-index:80;opacity:0;pointer-events:none;transition:opacity .18s}.nav-open .mobile-scrim{opacity:1;pointer-events:auto}.sidebar{display:block;position:fixed;z-index:90;top:0;left:0;width:min(84vw,320px);height:100vh;padding:5rem 1.25rem 2rem;box-shadow:18px 0 44px rgba(0,0,0,.22);transform:translateX(-102%);transition:transform .2s ease}.nav-open .sidebar{transform:translateX(0)}.main{padding:1.5rem 1rem 3rem}.audience-pick,.ability-grid,.compare{grid-template-columns:1fr}.hook{font-size:19px}}
 @media print{body{background:#fff;color:#111;font-size:13pt;line-height:1.5}.site-header,.sidebar,.mobile-scrim,.prog-wrap,.next-btn,.next-lesson-btn,.restart-btn,.copy-btn,.print-btn,.badge,.rule,.summary:not(.print-memo),.lesson-panel:not(#panel-l17),#panel-l17 .step:not(#l17-s3),#google_translate_element{display:none!important}.layout,.main,.lesson-panel.active,#panel-l17,#l17-s3{display:block!important;min-height:0;padding:0;max-width:none}.print-memo{display:block!important;border:none;background:#fff;padding:0}.print-memo .sum-title{font-size:18pt;color:#111;margin-bottom:12pt}.print-memo .sum-list li{break-inside:avoid;color:#111;margin-bottom:8pt}.print-memo .sum-list li::before{color:#111}@page{margin:18mm}}
 </style>
 </head>
@@ -259,6 +274,15 @@ body{top:0!important}
     <div class="lesson-panel active" id="panel-home">
       <h1 class="home-title">Посібник зі штучного інтелекту для тих, хто хоче розібратися</h1>
       <p class="home-sub">Не технічний курс і не рекламний буклет. Чесні інтерактивні уроки — з прикладами з реального життя і без зайвого жаргону.</p>
+      <div class="route-panel">
+        <div class="route-label">Маршрут навчання</div>
+        <div class="route-switch" role="group" aria-label="Маршрут навчання">
+          <button class="route-btn active" type="button" data-route="full" aria-pressed="true"><strong>Повний курс</strong>17 уроків без пропусків</button>
+          <button class="route-btn" type="button" data-route="quick" aria-pressed="false"><strong>Експрес</strong>5 уроків / 30 хв</button>
+        </div>
+        <div class="route-note" id="route-note">Повний маршрут для спокійного й послідовного навчання.</div>
+        <div class="route-progress" id="route-progress">Експрес-маршрут: 0 з 5 ключових уроків</div>
+      </div>
       <div class="home-progress" id="home-progress">
         <div class="home-progress-top">
           <div class="home-progress-label">Ваш прогрес</div>
@@ -365,6 +389,9 @@ function refreshMirrorTranslation(){
 var done={};
 var doneKey='basicai-done-v1';
 var activeLessonKey='basicai-active-lesson-v1';
+var routeModeKey='basicai-route-mode-v1';
+var quickLessons=[1,2,4,6,10];
+var routeMode='full';
 var menuToggle=document.getElementById('menu-toggle');
 function scrollToTop(){
   requestAnimationFrame(function(){
@@ -382,26 +409,57 @@ function setActiveNav(id){
 function saveDone(){
   try{localStorage.setItem(doneKey,JSON.stringify(Object.keys(done)));}catch(e){}
 }
+function isQuickLesson(n){return quickLessons.indexOf(parseInt(n,10))>-1;}
+function setRouteMode(mode){
+  routeMode=mode==='quick'?'quick':'full';
+  try{localStorage.setItem(routeModeKey,routeMode);}catch(e){}
+  applyRouteMode();
+  updateHomeProgress();
+  refreshMirrorTranslation();
+}
+function applyRouteMode(){
+  document.querySelectorAll('.route-btn').forEach(function(btn){
+    var active=btn.getAttribute('data-route')===routeMode;
+    btn.classList.toggle('active',active);
+    btn.setAttribute('aria-pressed',active?'true':'false');
+  });
+  var note=document.getElementById('route-note');
+  if(note)note.textContent=routeMode==='quick'
+    ?'5 ключових уроків для першого практичного результату. Інші уроки залишаються доступними як додаткові.'
+    :'Повний маршрут для спокійного й послідовного навчання.';
+  for(var i=1;i<=17;i++){
+    var focus=routeMode==='quick'&&isQuickLesson(i);
+    var muted=routeMode==='quick'&&!focus;
+    var mc=document.getElementById('mc'+i), nav=document.getElementById('nav-l'+i);
+    if(mc){mc.classList.toggle('quick-focus',focus);mc.classList.toggle('quick-muted',muted);}
+    if(nav){nav.classList.toggle('quick-focus',focus);nav.classList.toggle('quick-muted',muted);}
+  }
+}
 function updateHomeProgress(){
   var completed=Object.keys(done).length;
+  var quickCompleted=quickLessons.filter(function(n){return done[n];}).length;
   var count=document.getElementById('home-progress-count');
   var fill=document.getElementById('home-progress-fill');
   var headerText=document.getElementById('header-progress-text');
   var headerFill=document.getElementById('header-progress-fill');
+  var routeProgress=document.getElementById('route-progress');
   if(count)count.textContent='Пройдено '+completed+' з 17 уроків';
   if(fill)fill.style.width=Math.round(completed/17*100)+'%';
   if(headerText)headerText.textContent='Курс: '+completed+'/17';
   if(headerFill)headerFill.style.width=Math.round(completed/17*100)+'%';
+  if(routeProgress)routeProgress.textContent='Експрес-маршрут: '+quickCompleted+' з 5 ключових уроків';
 }
 function restoreProgress(){
   try{
+    routeMode=localStorage.getItem(routeModeKey)==='quick'?'quick':'full';
     (JSON.parse(localStorage.getItem(doneKey)||'[]')||[]).forEach(function(n){
       n=parseInt(n,10);if(n)markDone(n);
     });
+    applyRouteMode();
     updateHomeProgress();
     var active=parseInt(localStorage.getItem(activeLessonKey)||'',10);
     if(active>=1&&active<=17)showLesson(active);else syncActiveNav();
-  }catch(e){syncActiveNav();}
+  }catch(e){applyRouteMode();updateHomeProgress();syncActiveNav();}
 }
 function setMobileMenu(open){
   document.body.classList.toggle('nav-open',open);
@@ -464,6 +522,8 @@ document.addEventListener('click',function(e){
   var t=e.target;
   console.log('CLICK',t.tagName,t.id,t.className);
   if(t.closest('#menu-toggle')){setMobileMenu(!document.body.classList.contains('nav-open'));return;}
+  var routeBtn=t.closest('.route-btn');
+  if(routeBtn){setRouteMode(routeBtn.getAttribute('data-route'));return;}
   if(t.id==='mobile-scrim'){closeMobileMenu();return;}
   if(t.id==='nav-home'||t.closest('#nav-home')){showHome();return;}
   for(var n=1;n<=17;n++){

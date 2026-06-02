@@ -410,6 +410,28 @@ function saveDone(){
   try{localStorage.setItem(doneKey,JSON.stringify(Object.keys(done)));}catch(e){}
 }
 function isQuickLesson(n){return quickLessons.indexOf(parseInt(n,10))>-1;}
+function getRouteDest(dest){
+  if(routeMode!=='quick'||dest==='home')return dest;
+  var n=parseInt(dest,10);
+  if(!n)return dest;
+  for(var i=0;i<quickLessons.length;i++){
+    if(quickLessons[i]>=n)return String(quickLessons[i]);
+  }
+  return 'home';
+}
+function updateRouteNextButtons(){
+  document.querySelectorAll('.next-lesson-btn').forEach(function(btn){
+    var baseDest=btn.getAttribute('data-base-dest')||btn.getAttribute('data-dest');
+    var baseText=btn.getAttribute('data-base-text')||btn.textContent;
+    var dest=getRouteDest(baseDest);
+    btn.setAttribute('data-dest',dest);
+    if(routeMode==='quick'&&baseDest!=='home'){
+      btn.textContent=dest==='home'?'Експрес завершено →':'Урок '+dest+' →';
+    } else {
+      btn.textContent=baseText;
+    }
+  });
+}
 function setRouteMode(mode){
   routeMode=mode==='quick'?'quick':'full';
   try{localStorage.setItem(routeModeKey,routeMode);}catch(e){}
@@ -434,6 +456,7 @@ function applyRouteMode(){
     if(mc){mc.classList.toggle('quick-focus',focus);mc.classList.toggle('quick-muted',muted);}
     if(nav){nav.classList.toggle('quick-focus',focus);nav.classList.toggle('quick-muted',muted);}
   }
+  updateRouteNextButtons();
 }
 function updateHomeProgress(){
   var completed=Object.keys(done).length;
@@ -480,6 +503,7 @@ function showLesson(n){
   var panel=document.getElementById('panel-l'+n);
   if(!panel)return;
   if(!panel.getAttribute('data-built'))buildLesson(n);
+  updateRouteNextButtons();
   document.querySelectorAll('.lesson-panel').forEach(function(p){p.classList.remove('active');});
   panel.classList.add('active');
   try{localStorage.setItem(activeLessonKey,String(n));}catch(e){}
@@ -585,7 +609,11 @@ function nextBtn(ln,toStep,text,show){
   return b;
 }
 function nextLessonBtn(text,dest){
-  var b=mk('button','next-lesson-btn',text);b.setAttribute('data-dest',dest);return b;
+  var b=mk('button','next-lesson-btn',text);
+  b.setAttribute('data-dest',dest);
+  b.setAttribute('data-base-dest',dest);
+  b.setAttribute('data-base-text',text);
+  return b;
 }
 function restartBtn(ln){
   var b=mk('button','restart-btn','Почати знову');

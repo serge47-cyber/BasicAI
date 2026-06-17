@@ -189,14 +189,6 @@ body{top:0!important}
 .route-btn:not(.active):hover{background:var(--bg3);border-color:var(--ink3)}
 .route-note{font-size:13px;color:var(--ink2);line-height:1.55;margin-bottom:.35rem}
 .route-progress{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
-.path-onboarding{position:fixed;inset:0;background:rgba(28,26,23,.72);z-index:200;display:flex;align-items:center;justify-content:center}
-.path-onboarding.hidden{display:none}
-.path-onboarding-box{background:var(--bg);border-radius:var(--radius);padding:2rem;max-width:420px;width:90%;box-shadow:0 8px 40px rgba(0,0,0,.18)}
-.path-onboarding-title{font-size:20px;font-weight:600;color:var(--ink);margin-bottom:.5rem}
-.path-onboarding-sub{font-size:14px;color:var(--ink2);line-height:1.6;margin-bottom:1.5rem}
-.path-indicator{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;margin-top:.5rem}
-.path-indicator span{color:var(--accent);font-weight:600}
-
 .module-list{display:flex;flex-direction:column;gap:10px;margin-bottom:2rem}
 .module-card{display:flex;align-items:flex-start;gap:14px;background:var(--bg);border:1px solid var(--line2);border-radius:var(--radius);padding:16px 18px;cursor:pointer;transition:background .15s,border-color .15s,box-shadow .15s;text-align:left;width:100%}
 .module-card:hover{background:var(--bg2);border-color:var(--ink3);box-shadow:0 2px 12px rgba(0,0,0,.07)}
@@ -291,8 +283,6 @@ body{top:0!important}
         <div class="route-note" id="route-note">Повний маршрут для спокійного й послідовного навчання.</div>
         <div class="route-progress" id="route-progress">Експрес-маршрут: 0 з 5 ключових уроків</div>
       </div>
-      <div class="path-indicator">ВАШ ШЛЯХ: <span id="path-indicator-label"></span> &nbsp;·&nbsp; <button class="restart-btn" type="button" id="change-path-btn">Змінити</button></div>
-
       <div class="home-progress" id="home-progress">
         <div class="home-progress-top">
           <div class="home-progress-label">Ваш прогрес</div>
@@ -402,38 +392,6 @@ var activeLessonKey='basicai-active-lesson-v1';
 var routeModeKey='basicai-route-mode-v1';
 var quickLessons=[1,2,4,6,10];
 var routeMode='full';
-  // === GLOBAL USER PATH ===
-var userPathKey='basicai-user-path-v1';
-var userPath=localStorage.getItem(userPathKey)||'';
-
-function setUserPath(aud){
-  userPath=aud;
-  try{localStorage.setItem(userPathKey,aud);}catch(e){}
-  document.getElementById('path-onboarding').classList.add('hidden');
-  updatePathIndicator();
-  // apply to any already-built lessons
-  for(var n=1;n<=16;n++){
-    var panel=document.getElementById('panel-l'+n);
-    if(panel&&panel.getAttribute('data-built')){
-      var laud=window['l'+n+'aud'];
-      if(!laud||laud!==aud){window['l'+n+'pick'](aud);}
-    }
-  }
-}
-
-function updatePathIndicator(){
-  var el=document.getElementById('path-indicator-label');
-  if(!el)return;
-  el.textContent=userPath==='explorer'?'🔬 Дослідник':'⚡ Практик';
-}
-
-function showPathOnboarding(){
-  document.getElementById('path-onboarding').classList.remove('hidden');
-}
-
-document.getElementById('onb-explorer').addEventListener('click',function(){setUserPath('explorer');});
-document.getElementById('onb-practitioner').addEventListener('click',function(){setUserPath('practitioner');});
-
 var menuToggle=document.getElementById('menu-toggle');
 function scrollToTop(){
   requestAnimationFrame(function(){
@@ -524,10 +482,7 @@ function restoreProgress(){
     updateHomeProgress();
     var active=parseInt(localStorage.getItem(activeLessonKey)||'',10);
     if(active>=1&&active<=17)showLesson(active);else syncActiveNav();
-  }catch(e){applyRouteMode();updateHomeProgress();syncActiveNav();}// Show onboarding if path not chosen yet
-if(!userPath){showPathOnboarding();}else{updatePathIndicator();}
-document.getElementById('change-path-btn').addEventListener('click',showPathOnboarding);
-
+  }catch(e){applyRouteMode();updateHomeProgress();syncActiveNav();}
 }
 function setMobileMenu(open){
   document.body.classList.toggle('nav-open',open);
@@ -635,11 +590,8 @@ function setProg(ln,n,labels){
 function mkStep(ln,n){var s=div(n===0?'step vis':'step');s.id='l'+ln+'-s'+n;return s;}
 
 function audPickBlock(ln,data){
-  // auto-pick from global userPath, no UI shown
-  if(userPath){setTimeout(function(){window['l'+ln+'pick'](userPath);},0);}
-  return div(''); // empty placeholder
-}
-
+  var wrap=div('audience-pick');
+  ['explorer','practitioner'].forEach(function(aud){
     var c=data[aud];
     var b=mk('button','aud-btn');
     var ic=div('aud-icon');ic.textContent=c.icon;
@@ -1858,9 +1810,18 @@ window.buildL10=function(panel){
   var s0=mkStep(10,0);
   s0.appendChild(p('hook','Урок 10. Як вести діалог з ШІ'));
   s0.appendChild(p('hook-sub','Уточнення, продовження, багатокрокові задачі — як вести розмову, а не просто питати.'));
-  if(userPath){setTimeout(function(){window['l'+10+'pick'](userPath);},0);}
-// ap removed — no UI
-
+  var ap=div('audience-pick');
+  ['explorer','practitioner'].forEach(function(aud){
+    var c=L10[aud];
+    var b=mk('button','aud-btn');
+    var ic=div('aud-icon');ic.textContent=c.icon;
+    b.appendChild(ic);
+    b.appendChild(div('aud-title',c.title));
+    b.appendChild(div('aud-sub',c.sub));
+    b.addEventListener('click',function(){l10pick(aud);});
+    ap.appendChild(b);
+  });
+  s0.appendChild(ap);
   panel.appendChild(s0);
   for(var i=1;i<=4;i++){var s=mkStep(10,i);s.id='l10-s'+i;panel.appendChild(s);}
 };
@@ -2050,9 +2011,16 @@ window.buildL11=function(panel){
   var s0=mkStep(11,0);
   s0.appendChild(p('hook','Урок 11. Мій перший AI-сценарій'));
   s0.appendChild(p('hook-sub','Обираєте реальну задачу — і вирішуєте її від початку до кінця разом з ШІ.'));
-  if(userPath){setTimeout(function(){window['l'+11+'pick'](userPath);},0);}
-// ap removed — no UI
-panel.appendChild(s0);
+  var ap=div('audience-pick');
+  ['explorer','practitioner'].forEach(function(aud){
+    var c=L11[aud];
+    var b=mk('button','aud-btn');
+    var ic=div('aud-icon');ic.textContent=c.icon;
+    b.appendChild(ic);b.appendChild(div('aud-title',c.title));b.appendChild(div('aud-sub',c.sub));
+    b.addEventListener('click',function(){l11pick(aud);});
+    ap.appendChild(b);
+  });
+  s0.appendChild(ap);panel.appendChild(s0);
   for(var i=1;i<=4;i++){var s=mkStep(11,i);s.id='l11-s'+i;panel.appendChild(s);}
 };
 
@@ -2292,9 +2260,16 @@ window.buildL12=function(panel){
   var s0=mkStep(12,0);
   s0.appendChild(p('hook','Урок 12. ШІ і творчість'));
   s0.appendChild(p('hook-sub','Писати, вигадувати, придумувати — як зробити ШІ партнером у творчому процесі, а не замінником.'));
-  if(userPath){setTimeout(function(){window['l'+12+'pick'](userPath);},0);}
-// ap removed — no UI
-panel.appendChild(s0);
+  var ap=div('audience-pick');
+  ['explorer','practitioner'].forEach(function(aud){
+    var c=L12[aud];
+    var b=mk('button','aud-btn');
+    var ic=div('aud-icon');ic.textContent=c.icon;
+    b.appendChild(ic);b.appendChild(div('aud-title',c.title));b.appendChild(div('aud-sub',c.sub));
+    b.addEventListener('click',function(){l12pick(aud);});
+    ap.appendChild(b);
+  });
+  s0.appendChild(ap);panel.appendChild(s0);
   for(var i=1;i<=4;i++){var s=mkStep(12,i);s.id='l12-s'+i;panel.appendChild(s);}
 };
 
@@ -2493,9 +2468,16 @@ window.buildL13=function(panel){
   var s0=mkStep(13,0);
   s0.appendChild(p('hook','Урок 13. ШІ на роботі'));
   s0.appendChild(p('hook-sub','Звіти, листи, аналіз, презентації — як ШІ економить години робочого часу, не замінюючи вашої експертизи.'));
-  if(userPath){setTimeout(function(){window['l'+13+'pick'](userPath);},0);}
-// ap removed — no UI
-panel.appendChild(s0);
+  var ap=div('audience-pick');
+  ['explorer','practitioner'].forEach(function(aud){
+    var c=L13[aud];
+    var b=mk('button','aud-btn');
+    var ic=div('aud-icon');ic.textContent=c.icon;
+    b.appendChild(ic);b.appendChild(div('aud-title',c.title));b.appendChild(div('aud-sub',c.sub));
+    b.addEventListener('click',function(){l13pick(aud);});
+    ap.appendChild(b);
+  });
+  s0.appendChild(ap);panel.appendChild(s0);
   for(var i=1;i<=4;i++){var s=mkStep(13,i);s.id='l13-s'+i;panel.appendChild(s);}
 };
 
@@ -2695,9 +2677,16 @@ window.buildL14=function(panel){
   var s0=mkStep(14,0);
   s0.appendChild(p('hook','Урок 14. ШІ і мова'));
   s0.appendChild(p('hook-sub','Переклад, вивчення, стиль — ШІ як мовний партнер, який розуміє контекст, а не просто підбирає слова.'));
-  if(userPath){setTimeout(function(){window['l'+14+'pick'](userPath);},0);}
-// ap removed — no UI
-panel.appendChild(s0);
+  var ap=div('audience-pick');
+  ['explorer','practitioner'].forEach(function(aud){
+    var c=L14[aud];
+    var b=mk('button','aud-btn');
+    var ic=div('aud-icon');ic.textContent=c.icon;
+    b.appendChild(ic);b.appendChild(div('aud-title',c.title));b.appendChild(div('aud-sub',c.sub));
+    b.addEventListener('click',function(){l14pick(aud);});
+    ap.appendChild(b);
+  });
+  s0.appendChild(ap);panel.appendChild(s0);
   for(var i=1;i<=4;i++){var s=mkStep(14,i);s.id='l14-s'+i;panel.appendChild(s);}
 };
 
@@ -2881,9 +2870,16 @@ window.buildL15=function(panel){
   var s0=mkStep(15,0);
   s0.appendChild(p('hook','Урок 15. ШІ і здоров\'я'));
   s0.appendChild(p('hook-sub','Як безпечно питати про медицину — і де межа між корисною інформацією і ризиком.'));
-  if(userPath){setTimeout(function(){window['l'+15+'pick'](userPath);},0);}
-// ap removed — no UI
-panel.appendChild(s0);
+  var ap=div('audience-pick');
+  ['explorer','practitioner'].forEach(function(aud){
+    var c=L15[aud];
+    var b=mk('button','aud-btn');
+    var ic=div('aud-icon');ic.textContent=c.icon;
+    b.appendChild(ic);b.appendChild(div('aud-title',c.title));b.appendChild(div('aud-sub',c.sub));
+    b.addEventListener('click',function(){l15pick(aud);});
+    ap.appendChild(b);
+  });
+  s0.appendChild(ap);panel.appendChild(s0);
   for(var i=1;i<=3;i++){var s=mkStep(15,i);s.id='l15-s'+i;panel.appendChild(s);}
 };
 
@@ -3066,9 +3062,16 @@ window.buildL16=function(panel){
   var s0=mkStep(16,0);
   s0.appendChild(p('hook','Урок 16. ШІ і гроші'));
   s0.appendChild(p('hook-sub','Бюджет, планування, фінансові питання — де ШІ допомагає заощадити час і гроші, а де потрібен фахівець.'));
-  if(userPath){setTimeout(function(){window['l'+16+'pick'](userPath);},0);}
-// ap removed — no UI
-panel.appendChild(s0);
+  var ap=div('audience-pick');
+  ['explorer','practitioner'].forEach(function(aud){
+    var c=L16[aud];
+    var b=mk('button','aud-btn');
+    var ic=div('aud-icon');ic.textContent=c.icon;
+    b.appendChild(ic);b.appendChild(div('aud-title',c.title));b.appendChild(div('aud-sub',c.sub));
+    b.addEventListener('click',function(){l16pick(aud);});
+    ap.appendChild(b);
+  });
+  s0.appendChild(ap);panel.appendChild(s0);
   for(var i=1;i<=4;i++){var s=mkStep(16,i);s.id='l16-s'+i;panel.appendChild(s);}
 };
 
@@ -3395,24 +3398,5 @@ window.l17restart=function(){
 restoreProgress();
 })();
 </script>
-<div class="path-onboarding hidden" id="path-onboarding">
-  <div class="path-onboarding-box">
-    <div class="path-onboarding-title">Оберіть свій шлях</div>
-    <div class="path-onboarding-sub">Це налаштує всі 17 уроків під вас. Ви зможете змінити вибір у будь-який момент на головній сторінці.</div>
-    <div class="audience-pick">
-      <button class="aud-btn" id="onb-explorer" type="button">
-        <span class="aud-icon">🔬</span>
-        <div class="aud-title">Дослідник</div>
-        <div class="aud-sub">Хочу зрозуміти як це працює</div>
-      </button>
-      <button class="aud-btn" id="onb-practitioner" type="button">
-        <span class="aud-icon">⚡</span>
-        <div class="aud-title">Практик</div>
-        <div class="aud-sub">Хочу одразу застосовувати</div>
-      </button>
-    </div>
-  </div>
-</div>
-
 </body>
 </html>
